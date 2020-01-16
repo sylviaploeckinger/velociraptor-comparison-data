@@ -22,7 +22,7 @@ processed = ObservationalData()
 raw = np.loadtxt(input_filename, delimiter=delimiter)
 
 comment = f"Note stellar mass here is Msun/h^2. Converted. Poisson errors. h-corrected for SWIFT using cosmology: {cosmology.name}."
-citation = "Li and White 2009"
+citation = "Li and White (2009)"
 bibcode = "2009MNRAS.398.2177L"
 name = "GSMF from SDSS DR7"
 plot_as = "points"

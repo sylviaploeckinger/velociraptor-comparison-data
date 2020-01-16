@@ -25,7 +25,7 @@ raw = np.loadtxt(input_filename, delimiter=delimiter)
 comment = (
     f"Assuming Chabrier IMF. h-corrected for SWIFT using cosmology: {cosmology.name}."
 )
-citation = "Crain et al. 2009 (GIMIC)"
+citation = "Crain et al. (2009) (GIMIC)"
 bibcode = "2009MNRAS.399.1773C"
 name = "GSMF from GIMIC"
 plot_as = "line"
