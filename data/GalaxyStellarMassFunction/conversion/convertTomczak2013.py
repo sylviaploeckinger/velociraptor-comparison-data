@@ -6,14 +6,15 @@ import os
 import re
 import sys
 
+
 def handle_bad_values(parts):
     n_parts = len(parts)
     to_remove = []
     for i in range(n_parts):
-        if parts[i] == '-99':
-            parts[i] = '-99 0 0'
-            to_remove.extend([i+1, i+2])
-        elif parts[i] == '':
+        if parts[i] == "-99":
+            parts[i] = "NaN 0 0"
+            to_remove.extend([i + 1, i + 2])
+        elif parts[i] == "":
             to_remove.append(i)
     for idx in reversed(to_remove):
         del parts[idx]
@@ -21,15 +22,15 @@ def handle_bad_values(parts):
 
 
 def load_file_and_split_by_z(file):
-    with open(file, 'r') as f:
+    with open(file, "r") as f:
         lines = f.readlines()
     # count lines that start with comment (#) or are blank
-    n_header_lines = sum(re.match('#.+|^\s*$', l) is not None for l in lines)
+    n_header_lines = sum(re.match("#.+|^\s*$", l) is not None for l in lines)
 
     z_ranges = lines[4]
-    z_ranges = re.split('#?\s{2,}', z_ranges)[1:]
+    z_ranges = re.split("#?\s{2,}", z_ranges)[1:]
     z_bins_arr = np.asarray([float(z_rge.split()[0]) for z_rge in z_ranges])
-    
+
     n_redshift_bins = len(z_bins_arr)
     n_stellar_mass_bins = len(lines) - n_header_lines
     gsmf_arr = np.zeros((n_redshift_bins, n_stellar_mass_bins, 3))
@@ -37,10 +38,10 @@ def load_file_and_split_by_z(file):
     mass_bins_arr = np.zeros(n_stellar_mass_bins)
 
     for ism, l in enumerate(lines[n_header_lines:]):
-        parts = re.split('#?\s{2,}', l)
+        parts = re.split("#?\s{2,}", l)
         mass_bins_arr[ism] = float(parts[0])
-        
-        if any(p == '-99' or p == '' for p in parts):
+
+        if any(p == "-99" or p == "" for p in parts):
             # this indicates "bad value" and the errors will be given as "0"
             # we will incorrectly register these as new parts because they are separated by more than three spaces
             # so deal with them first
@@ -49,7 +50,7 @@ def load_file_and_split_by_z(file):
         for iz, part in enumerate(parts[1:]):
             phi, errp, errn = map(float, part.split())
             gsmf_arr[iz, ism] = phi, errp, errn
-    
+
     return z_bins_arr, mass_bins_arr, gsmf_arr
 
 
@@ -58,9 +59,7 @@ def process_for_redshift(z, mstar_bins, gsmf_at_z):
 
     processed = ObservationalData()
 
-    comment = (
-        f"Assuming Chabrier IMF, quoted redshift is lower bound of range. h-corrected for SWIFT using Cosmology: {cosmology.name}."
-)
+    comment = f"Assuming Chabrier IMF, quoted redshift is lower bound of range. h-corrected for SWIFT using Cosmology: {cosmology.name}."
     citation = "Tomczak et al (2013)"
     bibcode = " 2014ApJ...783...85T"
     name = "GSMF from ZFOURGE/CANDELS"
@@ -68,13 +67,21 @@ def process_for_redshift(z, mstar_bins, gsmf_at_z):
     redshift = z
     h = cosmology.h
 
-    M = 10**mstar_bins * unyt.Solar_Mass / h
-    Phi = 10**gsmf_at_z[:,0] * h**3 * unyt.Mpc**(-3)
+    M = 10 ** mstar_bins * unyt.Solar_Mass / h
+    Phi = 10 ** gsmf_at_z[:, 0] * h ** 3 * unyt.Mpc ** (-3)
     # y_scatter should be a 1xN or 2xN array describing offsets from
     # the median point 'y'
-    Phi_err = (10**gsmf_at_z[:,2:0:-1] * h**3 * unyt.Mpc**(-3)).T
+    # Errors are log error dz = 1/ln(10) dy/y
+    # We want dy = y ln(10) dz
+    Phi_err = (
+        (10 ** gsmf_at_z[:, 0][:, None] * np.log(10) * gsmf_at_z[:, [2, 1]]).T
+        * h ** 3
+        * unyt.Mpc ** (-3)
+    )
 
-    processed.associate_x(M, scatter=None, comoving=True, description="Galaxy Stellar Mass")
+    processed.associate_x(
+        M, scatter=None, comoving=True, description="Galaxy Stellar Mass"
+    )
     processed.associate_y(Phi, scatter=Phi_err, comoving=True, description="Phi (GSMF)")
     processed.associate_citation(citation, bibcode)
     processed.associate_name(name)
@@ -90,8 +97,8 @@ def stringify_z(z):
     """Eagle-style text formatting of redshift label"""
     whole = int(z)
     frac = int(1000 * (z - whole))
-    return f'{whole:03d}p{frac:03d}'
-    
+    return f"{whole:03d}p{frac:03d}"
+
 
 # Exec the master cosmology file passed as first argument
 # These lines are _required_ and you are required to use
@@ -100,7 +107,7 @@ def stringify_z(z):
 with open(sys.argv[1], "r") as handle:
     exec(handle.read())
 
-input_filename = "../raw/Tomczak2013.txt"
+input_filename = os.path.join(os.path.dirname(__file__), "../raw/Tomczak2013.txt")
 
 output_filename = "Tomczak2013_z{}.hdf5"
 output_directory = "../"
