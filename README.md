@@ -97,3 +97,7 @@ This ensures that it is picked up by the automatic conversion script.
 
 Before creating a pull request, please ensure that you run
 the format_all.sh script.
+
+You can preview your data file by using the included
+`plot_individual_dataset.py` script, and passing the `.hdf5` file
+as the first argument.
