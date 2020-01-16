@@ -91,7 +91,7 @@ There are several examples within the repository already.
 
 You should then organise things as follows:
 + Raw data: `data/PlotName/raw/AuthorYear.txt`
-+ Conversion script: `data/PlotName/conversion/convert_AuthorYear.py`
++ Conversion script: `data/PlotName/conversion/convertAuthorYear.py`
 
 This ensures that it is picked up by the automatic conversion script.
 
