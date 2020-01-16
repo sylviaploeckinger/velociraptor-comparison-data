@@ -31,7 +31,6 @@ h = cosmology.h
 
 log_M = raw.T[0]
 M = 10 ** (log_M) * unyt.Solar_Mass
-# TODO: X errors
 Phi = raw.T[2] * unyt.Mpc ** (-3)
 Phi_scatter = raw.T[3] * unyt.Mpc ** (-3)
 
