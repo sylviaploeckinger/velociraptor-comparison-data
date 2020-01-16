@@ -88,15 +88,14 @@ def process_for_redshift(z, mstar_bins, gsmf_at_z):
     redshift = z
     h = cosmology.h
 
-    M = 10 ** mstar_bins * unyt.Solar_Mass / h
-    Phi = 10 ** gsmf_at_z[:, 0] * h ** 3 * unyt.Mpc ** (-3)
+    M = 10 ** mstar_bins * unyt.Solar_Mass
+    Phi = 10 ** gsmf_at_z[:, 0] * unyt.Mpc ** (-3)
     # y_scatter should be a 1xN or 2xN array describing offsets from
     # the median point 'y'
     # Errors are log error dz = 1/ln(10) dy/y
     # We want dy = y ln(10) dz
     Phi_err = (
         (10 ** gsmf_at_z[:, 0][:, None] * np.log(10) * gsmf_at_z[:, [2, 1]]).T
-        * h ** 3
         * unyt.Mpc ** (-3)
     )
 
