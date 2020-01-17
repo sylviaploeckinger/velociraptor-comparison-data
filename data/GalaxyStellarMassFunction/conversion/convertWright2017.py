@@ -16,7 +16,7 @@ h_sim = cosmology.h
 input_filename = "../raw/Wright2017.txt"
 delimiter = " "
 
-output_filename = "Wright_2017.hdf5"
+output_filename = "Wright2017.hdf5"
 output_directory = "../"
 
 if not os.path.exists(output_directory):
