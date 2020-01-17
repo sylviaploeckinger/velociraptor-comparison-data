@@ -28,11 +28,12 @@ name = "GSMF from GAMA"
 plot_as = "points"
 redshift = 0.06
 h = cosmology.h
+h_obs = 0.7
 
 log_M = raw.T[0]
-M = 10 ** (log_M) * unyt.Solar_Mass
-Phi = raw.T[2] * unyt.Mpc ** (-3)
-Phi_scatter = raw.T[3] * unyt.Mpc ** (-3)
+M = 10 ** (log_M) * unyt.Solar_Mass * (h / h_obs) ** -2
+Phi = raw.T[2] * unyt.Mpc ** (-3) * (h / h_obs) ** 3
+Phi_scatter = raw.T[3] * unyt.Mpc ** (-3) * (h / h_obs) ** 3
 
 processed.associate_x(M, scatter=None, comoving=True, description="Galaxy Stellar Mass")
 processed.associate_y(Phi, scatter=Phi_scatter, comoving=True, description="Phi, GSMF")
