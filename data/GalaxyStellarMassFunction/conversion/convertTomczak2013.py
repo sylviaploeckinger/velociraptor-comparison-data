@@ -88,8 +88,8 @@ def process_for_redshift(z, mstar_bins, gsmf_at_z):
     processed = ObservationalData()
 
     comment = (
-        f"Assuming Chabrier IMF, quoted redshift is lower bound of range. "
-        "h-corrected for SWIFT using Cosmology: {cosmology.name}."
+        "Assuming Chabrier IMF, quoted redshift is lower bound of range. "
+        f"h-corrected for SWIFT using Cosmology: {cosmology.name}."
     )
     citation = "Tomczak et al (2013)"
     bibcode = "2014ApJ...783...85T"
