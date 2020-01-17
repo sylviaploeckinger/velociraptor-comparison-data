@@ -5,7 +5,14 @@
 
 extra_arg=${1}
 
+return_code=0
+
 black cosmology.py $extra_arg
+return_code=$(( $return_code > $? ? $return_code : $? ))
 black plot_individual_dataset.py $extra_arg
+return_code=$(( $return_code > $? ? $return_code : $? ))
 
 black data/*/conversion/*.py $extra_arg
+return_code=$(( $return_code > $? ? $return_code : $? ))
+
+exit $return_code
