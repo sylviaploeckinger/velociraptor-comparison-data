@@ -1,4 +1,6 @@
 # From Trujillo et al. 2020.
+# Extracted by hand using WebPlotDigitizer, so this
+# data may not be completely correct.
 # Assumes a standard Lamda CDM Cosmology, Omega_L = 0.7 and H = 70 km/s/Mpc
 # Galaxy Stellar Mass [M_odot], Half-Mass Radius [kpc]
 11076056.346558662, 0.5642582864882776
