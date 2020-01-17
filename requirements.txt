@@ -1,4 +1,5 @@
 black
 velociraptor
+numpy
 astropy
 matplotlib
