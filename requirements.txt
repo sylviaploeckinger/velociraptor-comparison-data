@@ -1,5 +1,5 @@
 black
 velociraptor
-numpy
+numpy>1.16.0
 astropy
 matplotlib
