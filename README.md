@@ -1,6 +1,8 @@
 Observational Data Collection
 =============================
 
+[![Build Status](https://travis-ci.com/SWIFTSIM/velociraptor-comparison-data.svg?branch=master)](https://travis-ci.com/SWIFTSIM/velociraptor-comparison-data)
+
 This collection of "observational" (really, comparison - as this
 includes some theory datasets as well) are used for comparisons
 within the
@@ -18,6 +20,14 @@ This functionality is supported by the
 class within the VELOCIraptor python library. The file format,
 and information on how to create a given file, is available
 in that documentation.
+
+Build Status
+------------
+
+The build checks that:
+
++ All python files are correctly formatted
++ All conversions succeed with a Planck15 cosmology.
 
 Contributing
 ------------
