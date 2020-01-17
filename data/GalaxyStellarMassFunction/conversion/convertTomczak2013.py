@@ -7,9 +7,13 @@ import re
 import sys
 
 
+ORIGINAL_H = 0.70
+
+
 def handle_bad_values(parts):
     """
-    Convert "missing data" values to NaNs and fix the "errors" on these values getting misinterpreted as additional data points.
+    Convert "missing data" values to NaNs and fix the "errors" on these values getting
+    misinterpreted as additional data points.
 
     parts: list of strings obtained by splitting a line from the datafile on "   "
     """
@@ -28,7 +32,9 @@ def handle_bad_values(parts):
 
 def load_file_and_split_by_z(raw_file_name):
     """
-    Read the data file and do all the mucking around needed to extract lists of the redshift and stellar mass bins for which the GSMF is tabulated, along with the corresponding GSMF values and their errors.
+    Read the data file and do all the mucking around needed to extract lists of the
+    redshift and stellar mass bins for which the GSMF is tabulated, along with the
+    corresponding GSMF values and their errors.
 
     raw_file_name: the file name of the raw data file to extract the GSMF from 
     """
@@ -38,7 +44,7 @@ def load_file_and_split_by_z(raw_file_name):
     n_header_lines = sum(re.match("#.+|^\s*$", l) is not None for l in lines)
 
     z_ranges = lines[4]
-    # Each range of redshifts is separated by two or more space characters
+    # Each range of redshifts is separated by two or more spaces
     z_ranges = re.split("#?\s{2,}", z_ranges)[1:]
     z_bins_arr = np.asarray([float(z_rge.split()[0]) for z_rge in z_ranges])
 
@@ -49,7 +55,7 @@ def load_file_and_split_by_z(raw_file_name):
     mass_bins_arr = np.zeros(n_stellar_mass_bins)
 
     for ism, l in enumerate(lines[n_header_lines:]):
-        # The GSMF values for each redshift bin are separated by two or more space characters
+        # The GSMF values for each redshift bin are separated by two or more spaces
         parts = re.split("#?\s{2,}", l)
         # The first number on each line is the stellar mass bin
         mass_bins_arr[ism] = float(parts[0])
