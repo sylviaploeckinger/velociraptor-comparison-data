@@ -73,29 +73,34 @@ def process_for_redshift(z, mstar_bins, gsmf_at_z):
     """
     Output an HDF5 file containing the GSMF at a given redshift.
 
-    z: the redshift to produce the GSMF for. The given value corresponds to the lower edge of a range in redshift, which has width 0.25 for z < 1.5 and 0.5 for z >= 1.5
+    z: the redshift to produce the GSMF for. The given value corresponds to the lower
+    edge of a range in redshift, which has width 0.25 for z < 1.5 and 0.5 for z >= 1.5
     mstar_bins: the list of stellar mass bins for which the GSMF is tabulated
     gsmf_at_z: the slice of the GSMF array at the chosen redshift
     """
 
     processed = ObservationalData()
 
-    comment = f"Assuming Chabrier IMF, quoted redshift is lower bound of range. h-corrected for SWIFT using Cosmology: {cosmology.name}."
+    comment = (
+        f"Assuming Chabrier IMF, quoted redshift is lower bound of range. "
+        "h-corrected for SWIFT using Cosmology: {cosmology.name}."
+    )
     citation = "Tomczak et al (2013)"
-    bibcode = " 2014ApJ...783...85T"
+    bibcode = "2014ApJ...783...85T"
     name = "GSMF from ZFOURGE/CANDELS"
     plot_as = "points"
     redshift = z
     h = cosmology.h
 
-    M = 10 ** mstar_bins * unyt.Solar_Mass
-    Phi = 10 ** gsmf_at_z[:, 0] * unyt.Mpc ** (-3)
+    M = 10 ** mstar_bins * (h / ORIGINAL_H) ** (-2) * unyt.Solar_Mass
+    Phi = 10 ** gsmf_at_z[:, 0] * (h / ORIGINAL_H) ** 3 * unyt.Mpc ** (-3)
     # y_scatter should be a 1xN or 2xN array describing offsets from
     # the median point 'y'
     # Errors are log error dz = 1/ln(10) dy/y
     # We want dy = y ln(10) dz
     Phi_err = (
         (10 ** gsmf_at_z[:, 0][:, None] * np.log(10) * gsmf_at_z[:, [2, 1]]).T
+        * (h / ORIGINAL_H) ** 3
         * unyt.Mpc ** (-3)
     )
 
