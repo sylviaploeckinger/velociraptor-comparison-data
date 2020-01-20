@@ -95,7 +95,9 @@ def process_for_redshift(z, gsmf_and_Mstar_at_z):
         * unyt.Mpc ** (-3)
     )
 
-    processed.associate_x(M, scatter=None, comoving=True, description="Galaxy Stellar Mass")
+    processed.associate_x(
+        M, scatter=None, comoving=True, description="Galaxy Stellar Mass"
+    )
     processed.associate_y(Phi, scatter=Phi_err, comoving=True, description="Phi (GSMF)")
     processed.associate_citation(citation, bibcode)
     processed.associate_name(name)
