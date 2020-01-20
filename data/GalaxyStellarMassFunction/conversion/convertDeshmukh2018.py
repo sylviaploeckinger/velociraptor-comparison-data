@@ -62,9 +62,6 @@ def load_file_and_split_by_z(raw_file_name):
     for l1, l2 in pairwise(header_line_nos):
         split_lines.append(lines[l1:l2])
 
-    # The values in the datafile are written in LaTeX markup
-    converter_dict = dict(zip([1, 2], it.repeat(parse_latex_value)))
-
     # figure out the redshift bins
     z_bins_arr = np.zeros_like(split_lines)
     gsmf_arr = []
@@ -86,12 +83,8 @@ def load_file_and_split_by_z(raw_file_name):
             # The datafile tabulates the GSMF for dusty and non-dusty galaxies
             # We combine these to get a total GSMF, adding errors in quadrature
             tot_gsmf = extract[1] + extract[4]
-            nve_err = tot_gsmf * np.sqrt(
-                (extract[2] / extract[1]) ** 2 + (extract[5] / extract[4]) ** 2
-            )
-            pve_err = tot_gsmf * np.sqrt(
-                (extract[3] / extract[1]) ** 2 + (extract[6] / extract[4]) ** 2
-            )
+            nve_err = np.sqrt(extract[2] ** 2 + extract[5] ** 2)
+            pve_err = np.sqrt(extract[3] ** 2 + extract[6] ** 2)
             data[idt] = np.array([extract[0], tot_gsmf, nve_err, pve_err])
         gsmf_arr.append(data)
     return z_bins_arr, gsmf_arr
