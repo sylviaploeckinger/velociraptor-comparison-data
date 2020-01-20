@@ -74,11 +74,11 @@ def load_file_and_split_by_z(raw_file_name):
         data_line_nos = [
             i for i, line in enumerate(lines) if line != "" and line[0].isdigit()
         ]
-        data_start_end = slice(data_line_nos[0], data_line_nos[-1])
+        data_slice = slice(data_line_nos[0], data_line_nos[-1])
         # The values in the datafile are written in val+-error tuples using LaTeX markup
         # We need to extract them manually
-        data = np.zeros((len(data_line_nos), 4))
-        for idt, line in enumerate(lines[data_start_end]):
+        data = np.zeros((data_slice.stop - data_slice.start, 4))
+        for idt, line in enumerate(lines[data_slice]):
             line_split = line.split()
             extract = [float(line_split[0])]  # stellar mass bin
             extract.extend(parse_latex_value(line_split[1]))  # dusty GSMF
@@ -94,7 +94,6 @@ def load_file_and_split_by_z(raw_file_name):
             )
             data[idt] = np.array([extract[0], tot_gsmf, nve_err, pve_err])
         gsmf_arr.append(data)
-
     return z_bins_arr, gsmf_arr
 
 
