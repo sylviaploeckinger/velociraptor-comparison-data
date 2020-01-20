@@ -37,6 +37,7 @@ def load_file_and_split_by_z(raw_file_name):
 
     # find header lines indicating the start of each block of data
     header_line_nos = [i for i, line in enumerate(lines) if "1/Vmax" in line]
+    header_line_nos.append(len(lines))
 
     # split the full loist of lines into one block of lines per redshift bin
     split_lines = []
