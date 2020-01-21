@@ -31,8 +31,8 @@ redshift = 0.100639
 h_obs = 0.7
 h = cosmology.h
 
-M = raw.T[0] * unyt.Solar_Mass * (h_obs / h)
-R = raw.T[1] * unyt.kpc * (h_obs / h)
+M = raw.T[0] * unyt.Solar_Mass
+R = raw.T[1] * unyt.kpc
 
 bins = unyt.unyt_array(np.logspace(8.5, 12, 20), units=unyt.Solar_Mass)
 
