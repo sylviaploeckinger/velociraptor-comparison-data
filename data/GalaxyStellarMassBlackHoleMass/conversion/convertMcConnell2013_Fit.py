@@ -12,7 +12,7 @@ with open(sys.argv[1], "r") as handle:
 # Cosmology
 h_sim = cosmology.h
 
-output_filename = "McConnell2013.hdf5"
+output_filename = "McConnell2013_Fit.hdf5"
 output_directory = "../"
 
 if not os.path.exists(output_directory):
@@ -36,7 +36,7 @@ comment = (
 )
 citation = "McConnell & Ma (2013) - fit"
 bibcode = "2013ApJ...764..184M"
-name = "Black hole mass - stellar mass relation from 72 local galaxies."
+name = "Fit to the black hole mass - stellar mass relation from 72 local galaxies."
 plot_as = "line"
 redshift = 0.0
 h = h_sim
