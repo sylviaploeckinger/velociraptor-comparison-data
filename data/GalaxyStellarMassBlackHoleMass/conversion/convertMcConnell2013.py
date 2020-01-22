@@ -30,7 +30,10 @@ M_BH = 8.46 + 1.05 * np.log10(M_star / (1e11 * unyt.Solar_Mass))
 M_BH = (10.0 ** M_BH) * unyt.Solar_Mass  # Msun
 
 # Meta-data
-comment = f"Data obtained assuming the total stellar mass is the same as the bulge mass. No cosmology correction needed."
+comment = (
+    "Data obtained assuming the total stellar mass is the same as the bulge mass. "
+    "No cosmology correction needed."
+)
 citation = "McConnell & Ma (2013) - fit"
 bibcode = "2013ApJ...764..184M"
 name = "Black hole mass - stellar mass relation from 72 local galaxies."
