@@ -42,7 +42,10 @@ Phi_Md_M = (
 Phi = Phi_Md_M * M * np.log(10)
 
 # Meta-data
-comment = f"Data obtained assuming a Chabrier IMF and h = 0.72. h-corrected for SWIFT using cosmology: {cosmology.name}."
+comment = (
+    "Data obtained assuming a Chabrier IMF and h = 0.72. "
+    f"h-corrected for SWIFT using cosmology: {cosmology.name}."
+)
 citation = "D'Souza et al. (2015)"
 bibcode = "2015MNRAS.454.4027D"
 name = "GSMF from SDSS DR7 (NYU-VAGC catalog) with flux corrections and K-corrections"

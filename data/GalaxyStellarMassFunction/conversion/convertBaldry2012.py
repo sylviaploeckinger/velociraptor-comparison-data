@@ -21,7 +21,11 @@ if not os.path.exists(output_directory):
 processed = ObservationalData()
 raw = np.loadtxt(input_filename, delimiter=delimiter)
 
-comment = f"Baldry et al 2012, Table 1, Chabrier IMF. Below 10^8 solar mass, these are lower limits. Total stellar mass density of 2.3e8 Msun / Mpc^3. Poisson errors. h-corrected for SWIFT using Cosmology: {cosmology.name}."
+comment = (
+    "Baldry et al 2012, Table 1, Chabrier IMF. Below 10^8 solar mass, these are "
+    "lower limits. Total stellar mass density of 2.3e8 Msun / Mpc^3. Poisson errors. "
+    f"h-corrected for SWIFT using Cosmology: {cosmology.name}."
+)
 citation = "Baldry et al. (2012)"
 bibcode = "2012MNRAS.421..621B"
 name = "GSMF from GAMA"
