@@ -69,7 +69,6 @@ def load_file_and_split_by_z(raw_file_name):
         # log errors are dz = 1/ln(10) dy/y
         # we want dy = y ln(10) dz
         newarr[:, 2] = newarr[:, 1] * np.log(10) * newarr[:, 2]
-        print(newarr[:, 2])
         uv_lf_arr.append(newarr)
     return z_bins_arr, uv_lf_arr
 

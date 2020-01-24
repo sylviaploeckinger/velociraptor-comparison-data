@@ -64,14 +64,12 @@ def load_file_and_split_by_z(raw_file_name):
     uv_lf_arr = []
     for isl, lines in enumerate(split_lines):
         newarr = np.genfromtxt(lines, usecols=(0, 1, 3))
-        print(newarr)
         newarr[:, 0] = 10 ** newarr[:, 0]
         newarr[:, 1] = 10 ** newarr[:, 1]
         # log errors are dz = 1/ln(10) dy/y
         # we want dy = y ln(10) dz
         newarr[:, 2] = newarr[:, 1] * np.log(10) * newarr[:, 2]
         uv_lf_arr.append(newarr)
-    print(uv_lf_arr)
     return z_bins_arr, uv_lf_arr
 
 
