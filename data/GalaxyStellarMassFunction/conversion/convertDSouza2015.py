@@ -19,11 +19,11 @@ if not os.path.exists(output_directory):
     os.mkdir(output_directory)
 
 # The data is given in the form of a double Schechter fit (Table 2 of the paper)
-phi_star_1 = 0.008579 * unyt.Mpc ** (-3) * h_sim ** 3  # Mpc^-3 dex^-1
+phi_star_1 = 0.008_579 * unyt.Mpc ** (-3) * h_sim ** 3  # Mpc^-3 dex^-1
 alpha_1 = -1.082
 M_star_1 = (10 ** 10.615) * unyt.Solar_Mass * h_sim ** (-2)  # Msun
 
-phi_star_2 = 0.000355 * unyt.Mpc ** (-3) * h_sim ** 3  # Mpc^-3 dex^-1
+phi_star_2 = 0.000_355 * unyt.Mpc ** (-3) * h_sim ** 3  # Mpc^-3 dex^-1
 alpha_2 = -1.120
 M_star_2 = (10 ** 10.995) * unyt.Solar_Mass * h_sim ** (-2)  # Msun
 
