@@ -22,7 +22,10 @@ if not os.path.exists(output_directory):
 processed = ObservationalData()
 raw = np.loadtxt(input_filename, delimiter=delimiter)
 
-comment = f"Assuming Chabrier IMF (2003), and EAGLE cosmology. h-corrected for SWIFT using cosmology: {cosmology.name}."
+comment = (
+    "Assuming Chabrier IMF (2003), and EAGLE cosmology. "
+    "No h-corrections have been applied since this data was supplied h-free."
+)
 citation = "Crain et al. (2015) (EAGLE NoAGN 25 Mpc)"
 bibcode = "2015MNRAS.450.1937C"
 name = "Galaxy Stellar Mass-Galaxy Size EAGLE NoAGN (25 Mpc)"

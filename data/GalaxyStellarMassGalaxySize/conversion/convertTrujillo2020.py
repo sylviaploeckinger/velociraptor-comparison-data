@@ -21,7 +21,10 @@ if not os.path.exists(output_directory):
 processed = ObservationalData()
 raw = np.loadtxt(input_filename, delimiter=delimiter)
 
-comment = f"Assuming Chabrier IMF (2003), and a standard LCDM cosmology with H=70km/s/Mpc and O_L = 0.7. h-corrected for SWIFT using cosmology: {cosmology.name}."
+comment = (
+    "Assuming Chabrier IMF (2003), and a standard LCDM cosmology with H=70km/s/Mpc "
+    "and O_L = 0.7. Supplied h-free so no corrections have been made."
+)
 citation = "Trujillo et al. (2020)"
 bibcode = "2020arXiv200102689T"
 name = "Galaxy Stellar Mass-Galaxy Size"
