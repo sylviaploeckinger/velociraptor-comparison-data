@@ -1,5 +1,4 @@
 from velociraptor.observations.objects import ObservationalData
-from velociraptor.tools.lines import binned_median_line
 
 import unyt
 import numpy as np
@@ -10,10 +9,10 @@ import sys
 with open(sys.argv[1], "r") as handle:
     exec(handle.read())
 
-input_filename = "../raw/Crain2015_REF25_z0p1.txt"
-delimiter = " "
+input_filename = "../raw/Chang2015.txt"
+delimiter = None
 
-output_filename = "Crain2015_REF25_z0p1.hdf5"
+output_filename = "Chang2015.hdf5"
 output_directory = "../"
 
 if not os.path.exists(output_directory):
@@ -23,33 +22,29 @@ processed = ObservationalData()
 raw = np.loadtxt(input_filename, delimiter=delimiter)
 
 comment = (
-    "Assuming Chabrier IMF (2003), and EAGLE cosmology. "
-    "No h-corrections have been applied since this data was supplied h-free."
+    "Assuming Chabrier IMF. z=0.01 - 0.2. No h-correction "
+    "was required as data was supplied h-free. "
 )
-citation = "Crain et al. (2015) (EAGLE REF 25 Mpc)"
-bibcode = "2015MNRAS.450.1937C"
-name = "Galaxy Stellar Mass-Galaxy Size EAGLE NoAGN (25 Mpc)"
+citation = "Chang et al. (2015) (SDSS)"
+bibcode = "2013MNRAS.434..209B"
+name = "Galaxy Stellar Mass - Galaxy Size from SDSS"
 plot_as = "line"
-redshift = 0.100_639
-h_obs = 0.7
+redshift = 0.1
 h = cosmology.h
 
-M = raw.T[0] * unyt.Solar_Mass
-R = raw.T[1] * unyt.kpc
-
-bins = unyt.unyt_array(np.logspace(8.5, 12, 20), units=unyt.Solar_Mass)
-
-# Now bin the line
-centers, median, deviation = binned_median_line(x=M, y=R, x_bins=bins)
+log_M = raw.T[0]
+M = unyt.unyt_array(10 ** (log_M), units=unyt.Solar_Mass)
+SFR = unyt.unyt_array(10 ** raw.T[1], units=unyt.Solar_Mass / unyt.year)
+sSFR = SFR / M
 
 processed.associate_x(
-    centers, scatter=None, comoving=True, description="Galaxy Stellar Mass (30kpc, 3D)"
+    M, scatter=None, comoving=False, description="Galaxy Stellar Mass"
 )
 processed.associate_y(
-    median,
-    scatter=deviation,
-    comoving=True,
-    description="Galaxy Half-Mass Radius (30kpc 3D)",
+    sSFR,
+    scatter=None,
+    comoving=False,
+    description="Specific Star Formation Rate (sSFR)",
 )
 processed.associate_citation(citation, bibcode)
 processed.associate_name(name)
