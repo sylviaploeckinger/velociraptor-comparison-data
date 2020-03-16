@@ -40,8 +40,8 @@ M_star_up = (10.0 ** (np.log10(M_star / unyt.Solar_Mass) + 0.24)) * unyt.Solar_M
 M_star_lo = (10.0 ** (np.log10(M_star / unyt.Solar_Mass) - 0.24)) * unyt.Solar_Mass
 
 # Define the scatter as offset from the mean value
-x_scatter = (M_star - M_star_lo, M_star_up - M_star)
-y_scatter = (M_BH - M_BH_lo, M_BH_up - M_BH)
+x_scatter = unyt.unyt_array((M_star - M_star_lo, M_star_up - M_star))
+y_scatter = unyt.unyt_array((M_BH - M_BH_lo, M_BH_up - M_BH))
 
 # Meta-data
 comment = (
