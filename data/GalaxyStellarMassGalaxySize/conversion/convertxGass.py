@@ -29,14 +29,14 @@ comment = (
     "no h-correction made."
 )
 citation = "xGASS (in prep)"
-bibcode = None
+bibcode = "None available"
 name = "Galaxy Stellar Mass-Galaxy Size"
 plot_as = "line"
 redshift = 0.0
 h_obs = 0.7
 h = cosmology.h
 
-half_mass = raw.T[0] * unyt.kpc
+half_mass = 10 ** (raw.T[0]) * unyt.kpc
 M = 10 ** (raw.T[1]) * unyt.Solar_Mass
 
 # We now need to bin this data

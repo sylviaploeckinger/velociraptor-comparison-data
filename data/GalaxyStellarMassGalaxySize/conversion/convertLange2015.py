@@ -39,7 +39,7 @@ for band in ["r", "H"]:
     h_obs = 0.7
     h = cosmology.h
 
-    half_mass = raw.T[1] * unyt.kpc
+    half_mass = 10 ** (raw.T[1]) * unyt.kpc
     M = 10 ** (raw.T[0]) * unyt.Solar_Mass
 
     # We now need to bin this data
