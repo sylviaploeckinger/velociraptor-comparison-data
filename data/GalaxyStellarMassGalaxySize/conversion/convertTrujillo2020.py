@@ -36,9 +36,9 @@ h = cosmology.h
 M = raw.T[0] * unyt.Solar_Mass
 R = raw.T[1] * unyt.kpc
 
-processed.associate_x(M, scatter=None, comoving=True, description="Galaxy Stellar Mass")
+processed.associate_x(M, scatter=None, comoving=False, description="Galaxy Stellar Mass")
 processed.associate_y(
-    R, scatter=None, comoving=True, description="Galaxy Half-Mass Radius"
+    R, scatter=None, comoving=False, description="Galaxy Half-Mass Radius"
 )
 processed.associate_citation(citation, bibcode)
 processed.associate_name(name)

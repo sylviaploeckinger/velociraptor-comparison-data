@@ -49,9 +49,9 @@ for radius, output_filename, desc in zip(
     ],
 ):
     processed.associate_x(
-        M, scatter=None, comoving=True, description="Galaxy Stellar Mass"
+        M, scatter=None, comoving=False, description="Galaxy Stellar Mass"
     )
-    processed.associate_y(radius, scatter=None, comoving=True, description=desc)
+    processed.associate_y(radius, scatter=None, comoving=False, description=desc)
     processed.associate_citation(citation, bibcode)
     processed.associate_name(name)
     processed.associate_comment(comment)

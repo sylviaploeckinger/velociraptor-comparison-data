@@ -43,12 +43,12 @@ bins = unyt.unyt_array(np.logspace(8.5, 12, 20), units=unyt.Solar_Mass)
 centers, median, deviation = binned_median_line(x=M, y=R, x_bins=bins)
 
 processed.associate_x(
-    centers, scatter=None, comoving=True, description="Galaxy Stellar Mass (30kpc, 3D)"
+    centers, scatter=None, comoving=False, description="Galaxy Stellar Mass (30kpc, 3D)"
 )
 processed.associate_y(
     median,
     scatter=deviation,
-    comoving=True,
+    comoving=False,
     description="Galaxy Half-Mass Radius (30kpc 3D)",
 )
 processed.associate_citation(citation, bibcode)
