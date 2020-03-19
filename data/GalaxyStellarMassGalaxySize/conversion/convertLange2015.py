@@ -34,7 +34,7 @@ for band in ["r", "H"]:
     citation = f"Lange et al. (2015, {band}-band)"
     bibcode = "2015MNRAS.447.2603L"
     name = "Galaxy Stellar Mass-Galaxy Size"
-    plot_as = "line"
+    plot_as = "points"
     redshift = 0.05
     h_obs = 0.7
     h = cosmology.h
