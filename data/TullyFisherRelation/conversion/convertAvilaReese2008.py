@@ -25,8 +25,8 @@ stellar_masses = np.linspace(8.818, 11.685, 128)
 gradient = (2.560 - 1.771) / (11.685 - 8.818)
 v_max = 1.771 + (stellar_masses - 8.818) * gradient
 
-stellar_masses = unyt.unyt_array(10**stellar_masses, units=unyt.Solar_Mass)
-v_max = unyt.unyt_array(10**v_max, units=unyt.km / unyt.s)
+stellar_masses = unyt.unyt_array(10 ** stellar_masses, units=unyt.Solar_Mass)
+v_max = unyt.unyt_array(10 ** v_max, units=unyt.km / unyt.s)
 
 
 # Meta-data
@@ -47,12 +47,7 @@ processed = ObservationalData()
 processed.associate_x(
     stellar_masses, scatter=None, comoving=False, description="Galaxy Stellar Mass"
 )
-processed.associate_y(
-    v_max,
-    scatter=None,
-    comoving=False,
-    description="Halo VMax",
-)
+processed.associate_y(v_max, scatter=None, comoving=False, description="Halo VMax")
 processed.associate_citation(citation, bibcode)
 processed.associate_name(name)
 processed.associate_comment(comment)
