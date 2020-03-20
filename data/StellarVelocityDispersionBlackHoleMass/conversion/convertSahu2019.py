@@ -22,10 +22,12 @@ if not os.path.exists(output_directory):
 
 # Fit directly from paper.
 log_velocity_dispersion = np.linspace(1.6, 2.7, 256)
-velocity_dispersion = unyt.unyt_array(10**log_velocity_dispersion, units=unyt.km / unyt.s)
+velocity_dispersion = unyt.unyt_array(
+    10 ** log_velocity_dispersion, units=unyt.km / unyt.s
+)
 
 log_black_hole_mass = 5.82 * (log_velocity_dispersion - np.log10(200)) + 8.17
-black_hole_mass = unyt.unyt_array(10**log_black_hole_mass, units=unyt.Solar_Mass)
+black_hole_mass = unyt.unyt_array(10 ** log_black_hole_mass, units=unyt.Solar_Mass)
 
 
 # Meta-data
@@ -45,9 +47,14 @@ h = h_sim
 # Write everything
 processed = ObservationalData()
 processed.associate_x(
-    velocity_dispersion, scatter=None, comoving=False, description="Stellar velocity dispersion (~1kpc aperture)"
+    velocity_dispersion,
+    scatter=None,
+    comoving=False,
+    description="Stellar velocity dispersion (~1kpc aperture)",
 )
-processed.associate_y(black_hole_mass, scatter=None, comoving=False, description="Black hole mass")
+processed.associate_y(
+    black_hole_mass, scatter=None, comoving=False, description="Black hole mass"
+)
 processed.associate_citation(citation, bibcode)
 processed.associate_name(name)
 processed.associate_comment(comment)
