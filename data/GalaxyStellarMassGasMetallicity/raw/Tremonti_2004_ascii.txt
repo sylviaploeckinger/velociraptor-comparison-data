@@ -1,6 +1,6 @@
 # mass-metallicity data from Tremonti et al. 2004
 # The columns P_xx correspond to the xx percentile of the
-# distribution of 10 + log10(O/H) of galaxies in that mass
+# distribution of 12 + log10(O/H) of galaxies in that mass
 # bin.
 #
 # log10(Mstar/Msun)  P_2.5 P_16 P_50 P_84 P_97.5
