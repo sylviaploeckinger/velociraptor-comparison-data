@@ -47,7 +47,7 @@ processed.associate_x(
     M_star, scatter=None, comoving=True, description="Galaxy Stellar Mass"
 )
 processed.associate_y(
-    Z_median, scatter=None, comoving=True, description="Gas phase metallicity"
+    Z_star, scatter=None, comoving=True, description="Gas phase metallicity"
 )
 processed.associate_citation(citation, bibcode)
 processed.associate_name(name)
