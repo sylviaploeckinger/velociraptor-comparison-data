@@ -3,3 +3,6 @@ data/*/*.hdf5
 
 # MacOS
 .DS_Store
+
+# emacs
+*~
