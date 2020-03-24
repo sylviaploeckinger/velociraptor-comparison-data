@@ -24,7 +24,7 @@ if not os.path.exists(output_directory):
 
 # Read the data
 raw = np.loadtxt(input_filename, delimiter=delimiter)
-M_star = unyt.Solar_Mass * (h_sim / h_obs) ** -2
+M_star = raw[:, 0] * unyt.Solar_Mass * (h_sim / h_obs) ** -2
 Z_star = raw[:, 1] * unyt.dimensionless  # 12 + log(O/H)
 
 # Meta-data

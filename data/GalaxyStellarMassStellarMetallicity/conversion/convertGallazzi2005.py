@@ -25,8 +25,8 @@ if not os.path.exists(output_directory):
 # Read the data
 raw = np.loadtxt(input_filename, delimiter=delimiter)
 M_star = 10 ** raw[:, 0] * unyt.Solar_Mass * (h_sim / h_obs) ** -2
-Z_median = 10 ** raw[:, 2] * unyt.dimensionless  # Z/Zsun
-Z_lo = 10 ** raw[:, 1] * unyt.dimensionless  # Z/Zsun
+Z_median = 10 ** raw[:, 1] * unyt.dimensionless  # Z/Zsun
+Z_lo = 10 ** raw[:, 2] * unyt.dimensionless  # Z/Zsun
 Z_hi = 10 ** raw[:, 3] * unyt.dimensionless  # Z/Zsun
 
 # Define the scatter as offset from the mean value
