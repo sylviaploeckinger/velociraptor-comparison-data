@@ -28,11 +28,9 @@ raw = np.loadtxt(input_filename, delimiter=delimiter)
 M_star = (
     10 ** raw[:, 0] * unyt.Solar_Mass * (h_sim / h_obs) ** -2 * kroupa_to_chabrier_mass
 )
-Z_median = (
-    10 ** raw[:, 1] * unyt.dimensionless * solar_metallicity / Z_solar_obs
-)  # Z/Zsun
-Z_lo = 10 ** raw[:, 2] * unyt.dimensionless * solar_metallicity / Z_solar_obs  # Z/Zsun
-Z_hi = 10 ** raw[:, 3] * unyt.dimensionless * solar_metallicity / Z_solar_obs  # Z/Zsun
+Z_median = 10 ** raw[:, 1] * unyt.dimensionless * Z_solar_obs / solar_metallicity
+Z_lo = 10 ** raw[:, 2] * unyt.dimensionless * Z_solar_obs / solar_metallicity
+Z_hi = 10 ** raw[:, 3] * unyt.dimensionless * Z_solar_obs / solar_metallicity
 
 # Define the scatter as offset from the mean value
 y_scatter = unyt.unyt_array((Z_median - Z_lo, Z_hi - Z_median))
