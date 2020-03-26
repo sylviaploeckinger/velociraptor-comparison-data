@@ -23,9 +23,9 @@ if not os.path.exists(output_directory):
 
 # Read the data
 raw = np.loadtxt(input_filename, delimiter=delimiter)
-M_star = 10 ** raw[:, 0] * unyt.Solar_Mass
-M_star_lo = 10 ** (raw[:, 0] - raw[:, 1]) * unyt.Solar_Mass
-M_star_hi = 10 ** (raw[:, 0] + raw[:, 2]) * unyt.Solar_Mass
+M_star = 10 ** raw[:, 0] * unyt.Solar_Mass * kroupa_to_chabrier_mass
+M_star_lo = 10 ** (raw[:, 0] - raw[:, 1]) * unyt.Solar_Mass * kroupa_to_chabrier_mass
+M_star_hi = 10 ** (raw[:, 0] + raw[:, 2]) * unyt.Solar_Mass * kroupa_to_chabrier_mass
 
 Z_star = 10 ** raw[:, 3] * unyt.dimensionless  # Z/Z_sun
 Z_star_lo = 10 ** (raw[:, 3] - raw[:, 4]) * unyt.dimensionless  # Z/Z_sun
@@ -39,6 +39,8 @@ y_scatter = unyt.unyt_array((Z_star - Z_star_lo, Z_star_hi - Z_star))
 comment = (
     "Data obtained assuming a Kroupa IMF and 12+log10(Fe/H)_sun = 7.52. "
     "The metallicity is expressed in units of solar metallicity. "
+    f"There is also a correction of {kroupa_to_chabrier_mass} on the stellar "
+    "masses to convert from Kroupa to the Chabrier IMF."
 )
 citation = "Kirby et al. (2013)"
 bibcode = "2013ApJ...779..102K"

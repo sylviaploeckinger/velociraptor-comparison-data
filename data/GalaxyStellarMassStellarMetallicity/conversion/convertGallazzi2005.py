@@ -12,6 +12,7 @@ with open(sys.argv[1], "r") as handle:
 # Cosmology
 h_sim = cosmology.h
 h_obs = 0.7
+Z_solar_obs = 0.02
 
 input_filename = "../raw/Gallazzi_2005_ascii.txt"
 delimiter = "\t"
@@ -24,10 +25,14 @@ if not os.path.exists(output_directory):
 
 # Read the data
 raw = np.loadtxt(input_filename, delimiter=delimiter)
-M_star = 10 ** raw[:, 0] * unyt.Solar_Mass * (h_sim / h_obs) ** -2
-Z_median = 10 ** raw[:, 1] * unyt.dimensionless  # Z/Zsun
-Z_lo = 10 ** raw[:, 2] * unyt.dimensionless  # Z/Zsun
-Z_hi = 10 ** raw[:, 3] * unyt.dimensionless  # Z/Zsun
+M_star = (
+    10 ** raw[:, 0] * unyt.Solar_Mass * (h_sim / h_obs) ** -2 * kroupa_to_chabrier_mass
+)
+Z_median = (
+    10 ** raw[:, 1] * unyt.dimensionless * solar_metallicity / Z_solar_obs
+)  # Z/Zsun
+Z_lo = 10 ** raw[:, 2] * unyt.dimensionless * solar_metallicity / Z_solar_obs  # Z/Zsun
+Z_hi = 10 ** raw[:, 3] * unyt.dimensionless * solar_metallicity / Z_solar_obs  # Z/Zsun
 
 # Define the scatter as offset from the mean value
 y_scatter = unyt.unyt_array((Z_median - Z_lo, Z_hi - Z_median))
@@ -36,8 +41,11 @@ y_scatter = unyt.unyt_array((Z_median - Z_lo, Z_hi - Z_median))
 comment = (
     "Data obtained assuming a Kroupa IMF and h=0.7. "
     f"h-corrected for SWIFT using cosmology: {cosmology.name}. "
-    "The metallicity is expressed in units of solar metallicity. "
-    "The error bars given the 16th and 84th percentile of the distribution."
+    "The metallicity is expressed in units of solar metallicity, using Z=0.02. "
+    "The error bars given the 16th and 84th percentile of the distribution. "
+    f"This has been corrected to use Z_solar={solar_metallicity}. "
+    f"There is also a correction of {kroupa_to_chabrier_mass} on the stellar "
+    "masses to convert from Kroupa to the Chabrier IMF."
 )
 citation = "Gallazzi et al. (2005) (SDSS)"
 bibcode = "2005MNRAS.362...41G"
