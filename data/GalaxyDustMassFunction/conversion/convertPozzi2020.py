@@ -9,6 +9,7 @@ import itertools as it
 
 ORIGINAL_H = 0.7
 
+
 def load_file_and_split_by_z(raw_file_name):
     """
     Read the data file and do all the mucking around needed to extract a list of the
@@ -20,39 +21,15 @@ def load_file_and_split_by_z(raw_file_name):
     raw_file_name: the file name of the raw data file to extract the GSMF from
     """
 
-    data = np.genfromtxt(raw_file_name, comments='#')
+    data = np.genfromtxt(raw_file_name, comments="#")
 
     # array of the lower redshift bin edges for each GDMF
-    z_bins_arr  = np.unique(data[:,-2])
-    
+    z_bins_arr = np.unique(data[:, -2])
+
     gsmf_arr = []
     for zlow in z_bins_arr:
-       bdx = data[:,-2] == zlow 
-       gsmf_arr.append(data[bdx,:-2])
-
-
-    # # find header lines indicating the start of each block of data
-    # header_line_nos = [i for i, line in enumerate(lines) if "1/Vmax" in line]
-    # header_line_nos.append(len(lines))
-
-    # # split the full loist of lines into one block of lines per redshift bin
-    # split_lines = []
-    # for l1, l2 in pairwise(header_line_nos):
-    #     split_lines.append(lines[l1:l2])
-
-    # # The datafile uses '-99' to indicate missing data; we convert these to NaNs
-    # handle_bad_value_converter = (
-    #     lambda s: float(s.strip()) if b"-99" not in s else np.nan
-    # )
-    # converter_dict = dict(zip(range(2, 5), it.repeat(handle_bad_value_converter)))
-
-    # # figure out the redshift bins
-    # z_bins_arr = np.zeros_like(split_lines)
-    # gsmf_arr = []
-    # for isl, lines in enumerate(split_lines):
-    #     z_bins_arr[isl] = float(re.search("z=\[(\d.\d)", lines[0]).group(1))
-    #     gsmf_arr.append(np.loadtxt(lines, converters=converter_dict, usecols=range(5)))
-
+        bdx = data[:, -2] == zlow
+        gsmf_arr.append(data[bdx, :-2])
     return z_bins_arr, gsmf_arr
 
 
