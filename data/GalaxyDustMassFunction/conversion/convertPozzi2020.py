@@ -13,12 +13,12 @@ ORIGINAL_H = 0.7
 def load_file_and_split_by_z(raw_file_name):
     """
     Read the data file and do all the mucking around needed to extract a list of the
-    redshift bins for which the GSMF is tabulated, along with the corresponding GSMF
+    redshift bins for which the GDMF is tabulated, along with the corresponding GDMF
     values and their errors.
     The number and spacing of the stellar mass bins vary with z; they are given in the
     first column of the returned array.
 
-    raw_file_name: the file name of the raw data file to extract the GSMF from
+    raw_file_name: the file name of the raw data file to extract the GDMF from
     """
 
     data = np.genfromtxt(raw_file_name, comments="#")
@@ -35,12 +35,12 @@ def load_file_and_split_by_z(raw_file_name):
 
 def process_for_redshift(z, gsmf_and_Mstar_at_z):
     """
-    Output an HDF5 file containing the GSMF at a given redshift.
+    Output an HDF5 file containing the GDMF at a given redshift.
 
-    z: the redshift to produce the GSMF for. The given value corresponds to the lower
+    z: the redshift to produce the GDMF for. The given value corresponds to the lower
     edge of a range in redshift of width 0.5, except for the first bin 0.2 < z < 0.5,
     and the last bin 3.0 < z < 4.0
-    gsmf_and_mstar_at_z: the array containing stellar mass bins and the GSMF at the
+    gsmf_and_mstar_at_z: the array containing stellar mass bins and the GDMF at the
     chosen redshift
     """
 
@@ -129,7 +129,7 @@ if not os.path.exists(output_directory):
 # z_bins is a 1-D ndarray containing the lower edges of the redshift bins
 # gsmf_and_Mstar is a list of 2D ndarrays, one per redshift
 # Each contains five columns as follows:
-# log(Mstar) bins, Mstar errors, log(GSMF), GSMF +- errors
+# log(Mstar) bins, Mstar errors, log(GDMF), GDMF +- errors
 z_bins, gsmf_and_Mstar = load_file_and_split_by_z(input_filename)
 
 for z, gsmf_and_Mstar_at_z in zip(z_bins, gsmf_and_Mstar):
