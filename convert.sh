@@ -8,7 +8,6 @@ do
 
     for convert in ./*.py;
     do
-	echo $convert
         python3 $convert ../../../cosmology.py;
         this_return_code=$?
         return_code=$(( $return_code > $this_return_code ? $return_code : $this_return_code ))

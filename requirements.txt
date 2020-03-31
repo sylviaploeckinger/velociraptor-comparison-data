@@ -3,4 +3,3 @@ velociraptor
 numpy>1.16.0
 astropy
 matplotlib
-mpi4py
