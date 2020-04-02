@@ -16,7 +16,7 @@ h_obs = 0.7
 input_filename = "../raw/Gallazzi_2005_ascii.txt"
 delimiter = "\t"
 
-output_filename = "Gallazzi2005_Age_Data.hdf5"
+output_filename = "Gallazzi2005_Data.hdf5"
 output_directory = "../"
 
 if not os.path.exists(output_directory):
