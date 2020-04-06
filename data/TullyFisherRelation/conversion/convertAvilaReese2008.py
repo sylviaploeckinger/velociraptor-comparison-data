@@ -21,7 +21,7 @@ if not os.path.exists(output_directory):
 
 
 # Numbers extracted with webplotdigitizer
-stellar_masses = np.linspace(8.818, 11.685, 128)
+stellar_masses = np.linspace(8.818, 11.685, 128) * kroupa_to_chabrier_mass
 gradient = (2.560 - 1.771) / (11.685 - 8.818)
 v_max = 1.771 + (stellar_masses - 8.818) * gradient
 
@@ -33,7 +33,8 @@ v_max = unyt.unyt_array(10 ** v_max, units=unyt.km / unyt.s)
 comment = (
     "Fit obtained directly from paper using webplotdigitizer. "
     "No cosmology correction needed as variables provided as physical. "
-    "Extracted using 76 galaxies."
+    "Extracted using 76 galaxies. "
+    f"Converted Kroupa to Chabrier IMF using ratio {kroupa_to_chabrier_mass}."
 )
 citation = "Avila-Reese et al. (2008) (Fit)"
 bibcode = "2008AJ....136.1340A"
