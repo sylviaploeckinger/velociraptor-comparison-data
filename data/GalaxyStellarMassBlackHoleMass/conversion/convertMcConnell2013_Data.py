@@ -48,7 +48,7 @@ comment = (
     "Data obtained assuming the total stellar mass is the same as the bulge mass. "
     "No cosmology correction needed."
 )
-citation = "McConnell & Ma (2013) - data"
+citation = "McConnell & Ma (2013) (Data)"
 bibcode = "2013ApJ...764..184M"
 name = "Black hole mass - stellar mass relation from 36 local galaxies."
 plot_as = "points"
