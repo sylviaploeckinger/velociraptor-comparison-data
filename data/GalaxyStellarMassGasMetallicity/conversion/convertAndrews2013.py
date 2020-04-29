@@ -9,6 +9,8 @@ import sys
 with open(sys.argv[1], "r") as handle:
     exec(handle.read())
 
+# Cosmologies
+h_sim = cosmology.h
 
 output_filename = "Andrews2013_Data.hdf5"
 output_directory = "../"
