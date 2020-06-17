@@ -9,7 +9,7 @@ import itertools as it
 
 ORIGINAL_H = 0.7
 
-unitless = (unyt.Solar_Mass / unyt.Solar_Mass).simplify()
+unitless = unyt.dimensionless
 
 # Exec the master cosmology file passed as first argument
 # These lines are _required_ and you are required to use
