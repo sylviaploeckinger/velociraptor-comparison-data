@@ -40,7 +40,6 @@ for i in range(len(table_index)):
     # set -99.9 values to NaNs
     table[table == -99.9] = np.nan
     tables.append(table)
-    print(tables)
 
 citation = "Saintonge et al. (2017), z = 0"
 comment = (
