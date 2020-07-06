@@ -39,7 +39,6 @@ for i in range(len(table_index)):
     tables.append(
         np.loadtxt(input_filename, skiprows=table_index[i], max_rows=readrows[i])
     )
-    print(tables)
 
 citation = "Catinella et al. (2018), z = 0"
 comment = "HI to stellar fractions a z=0, h-corrected for SWIFT using Cosmology: {cosmology.name}."
