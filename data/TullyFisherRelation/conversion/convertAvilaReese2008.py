@@ -21,11 +21,14 @@ if not os.path.exists(output_directory):
 
 
 # Numbers extracted with webplotdigitizer
-stellar_masses = np.linspace(8.818, 11.685, 128) * kroupa_to_chabrier_mass
+stellar_masses = np.linspace(8.818, 11.685, 128)
 gradient = (2.560 - 1.771) / (11.685 - 8.818)
 v_max = 1.771 + (stellar_masses - 8.818) * gradient
 
-stellar_masses = unyt.unyt_array(10 ** stellar_masses, units=unyt.Solar_Mass)
+stellar_masses = (
+    unyt.unyt_array(10 ** stellar_masses, units=unyt.Solar_Mass)
+    * kroupa_to_chabrier_mass
+)
 v_max = unyt.unyt_array(10 ** v_max, units=unyt.km / unyt.s)
 
 
