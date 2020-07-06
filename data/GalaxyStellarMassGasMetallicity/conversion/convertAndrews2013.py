@@ -35,17 +35,13 @@ Z_star = (
 # Convert the masses to Chabrier IMF
 M_star = M_star * kroupa_to_chabrier_mass
 
-# Convert the metallicities to the Tremonti+2004 convention
-Z_star = Z_star + (8.69 - 8.86)
-
 # Meta-data
 comment = (
-    "Fits to the stacks obtained assuming a Kroupa IMF and 12+log10(O/H)_sun = 8.86. "
+    "Fits to the stacks obtained assuming a Kroupa IMF. "
     "The metallicity is expressed as 12 + log10(O/H). "
     "In these units the solar metallicity is 8.69."
     f"A correction of {kroupa_to_chabrier_mass} on the stellar "
     "masses has been applied to convert from Kroupa to the Chabrier IMF."
-    "There is also a correction to convert the metallicities to the 12+log10(O/H) convention."
 )
 citation = "Andrews & Martini (2013) (SDSS)"
 bibcode = "2013ApJ...765..140A"
