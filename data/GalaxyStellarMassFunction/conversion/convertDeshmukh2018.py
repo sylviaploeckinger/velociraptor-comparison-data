@@ -63,10 +63,10 @@ def load_file_and_split_by_z(raw_file_name):
         split_lines.append(lines[l1:l2])
 
     # figure out the redshift bins
-    z_bins_arr = np.zeros_like(split_lines)
+    z_bins_arr = []
     gsmf_arr = []
     for isl, lines in enumerate(split_lines):
-        z_bins_arr[isl] = float(re.search("(\d.\d) <or=", lines[0]).group(1))
+        z_bins_arr.append(float(re.search("(\d.\d) <or=", lines[0]).group(1)))
         # find the lines containing the actual data
         data_line_nos = [
             i for i, line in enumerate(lines) if line != "" and line[0].isdigit()

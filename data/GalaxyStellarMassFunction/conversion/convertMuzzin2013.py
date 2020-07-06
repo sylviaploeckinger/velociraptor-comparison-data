@@ -51,10 +51,10 @@ def load_file_and_split_by_z(raw_file_name):
     converter_dict = dict(zip(range(2, 5), it.repeat(handle_bad_value_converter)))
 
     # figure out the redshift bins
-    z_bins_arr = np.zeros_like(split_lines)
+    z_bins_arr = []
     gsmf_arr = []
     for isl, lines in enumerate(split_lines):
-        z_bins_arr[isl] = float(re.search("z=\[(\d.\d)", lines[0]).group(1))
+        z_bins_arr.append(float(re.search("z=\[(\d.\d)", lines[0]).group(1)))
         gsmf_arr.append(np.loadtxt(lines, converters=converter_dict, usecols=range(5)))
 
     return z_bins_arr, gsmf_arr
