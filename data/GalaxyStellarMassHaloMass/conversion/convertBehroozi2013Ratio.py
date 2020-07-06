@@ -20,7 +20,7 @@ if not os.path.exists(output_directory):
     os.mkdir(output_directory)
 
 
-halo_masses = np.logspace(4, 16, 512)
+halo_masses = np.logspace(8.75, 16, 512)
 stellar_masses = behroozi_raw(0.0, halo_masses)
 
 # Meta-data
