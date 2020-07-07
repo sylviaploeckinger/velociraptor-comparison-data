@@ -19,24 +19,27 @@ if not os.path.exists(output_directory):
     os.mkdir(output_directory)
 
 
-# Numbers extracted with webplotdigitizer
-stellar_masses = np.linspace(8.818, 11.685, 128)
-gradient = (2.560 - 1.771) / (11.685 - 8.818)
-v_max = 1.771 + (stellar_masses - 8.818) * gradient
+# Fit from table 1
+log10_stellar_masses = np.linspace(8.8, 11.7, 128)
+log10_v_max = -0.650 + 0.274 * log10_stellar_masses
 
-stellar_masses = (
-    unyt.unyt_array(10 ** stellar_masses, units=unyt.Solar_Mass)
-    * kroupa_to_chabrier_mass
-)
-v_max = unyt.unyt_array(10 ** v_max, units=unyt.km / unyt.s)
+# Apply IMF correction (Avila-Reese, private communication)
+log10_stellar_masses = log10_stellar_masses - 0.15
 
+# Apply additional correction to the masses from appendix of Li & White 2009
+stellar_masses = 1e10 * 10.0 ** (((log10_stellar_masses - 10.0) - 0.130) / 0.922)
+
+# Give proper units
+stellar_masses = unyt.unyt_array(stellar_masses, units=unyt.Solar_Mass)
+v_max = unyt.unyt_array(10.0 ** log10_v_max, units=unyt.km / unyt.s)
 
 # Meta-data
 comment = (
     "Fit obtained directly from paper using webplotdigitizer. "
     "No cosmology correction needed as variables provided as physical. "
     "Extracted using 76 galaxies. "
-    f"Converted Kroupa to Chabrier IMF using ratio {kroupa_to_chabrier_mass}."
+    "Converted Chabrier IMF and use an additional correction from "
+    "Appendix A1 of Li & White (2009)."
 )
 citation = "Avila-Reese et al. (2008) (Fit)"
 bibcode = "2008AJ....136.1340A"
