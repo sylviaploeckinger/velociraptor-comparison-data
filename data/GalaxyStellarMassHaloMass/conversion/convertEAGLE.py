@@ -18,7 +18,7 @@ output_directory = "../"
 if not os.path.exists(output_directory):
     os.mkdir(output_directory)
 
-data = np.loadtxt("../raw/EAGLE_SMHM_L100N1504_z0p0.dat")
+data = np.loadtxt("../raw/EAGLE_SMHM_L100N1504_z0p0.txt")
 M_200 = data[:, 0] * unyt.Solar_Mass
 M_star_16 = data[:, 1] * unyt.Solar_Mass
 M_star_50 = data[:, 2] * unyt.Solar_Mass
