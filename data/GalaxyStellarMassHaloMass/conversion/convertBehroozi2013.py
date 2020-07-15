@@ -23,12 +23,16 @@ M_vir = (10 ** data[:, 0]) * unyt.Solar_Mass
 M_star_ratio = (10 ** data[:, 1]) * unyt.dimensionless
 M_star = M_vir * M_star_ratio
 
+# Correct M_vir --> M_200 (fit from EAGLE cosmology - cosmology dependence is very weak)
+M_200 = M_vir / 1.2
+
 # Meta-data
 comment = (
     "Fit obtained directly from Peter Behroozi's webpage. "
     "Stellar Masses: Chabrier IMF, BC03 SPS model, Blanton et al. dust model (i.e., kcorrect)."
     "Cosmology: Omega_m = 0.27, ns = 0.95, Omega_b = 0.046, sigma_8 = 0.82, h = 0.7."
     "No cosmology correction needed. "
+    "Halo masses have been corrected from M_vir to M_200_cr."
     "Shows the relation betweeen stellar mass and halo mass."
 )
 citation = "Behroozi et al. (2013)"
@@ -41,7 +45,7 @@ h = h_sim
 # Write everything
 processed = ObservationalData()
 processed.associate_x(
-    M_vir, scatter=None, comoving=True, description="Halo Mass (M_200_cr)"
+    M_200, scatter=None, comoving=True, description="Halo Mass (M_200_cr)"
 )
 processed.associate_y(
     M_star, scatter=None, comoving=True, description="Galaxy Stellar Mass"

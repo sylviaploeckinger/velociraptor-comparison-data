@@ -24,6 +24,9 @@ M_star_ratio = (10 ** data[:, 1]) * unyt.dimensionless
 M_star_ratio_p = (10 ** (data[:, 1] + data[:, 2])) * unyt.dimensionless
 M_star_ratio_m = (10 ** (data[:, 1] - data[:, 3])) * unyt.dimensionless
 
+# Correct M_vir --> M_200 (fit from EAGLE cosmology - cosmology dependence is very weak)
+M_200 = M_vir / 1.2
+
 # Define the scatter as offset from the mean value
 y_scatter = unyt.unyt_array(
     (M_star_ratio - M_star_ratio_m, M_star_ratio_p - M_star_ratio_m)
@@ -35,6 +38,7 @@ comment = (
     "Stellar Masses: Chabrier IMF, BC03 SPS model, Blanton et al. dust model (i.e., kcorrect)."
     "Cosmology: Omega_m = 0.27, ns = 0.95, Omega_b = 0.046, sigma_8 = 0.82, h = 0.7."
     "No cosmology correction needed. "
+    "Halo masses have been corrected from M_vir to M_200_cr."
     "Shows the ratio betweeen stellar mass and halo mass."
 )
 citation = "Behroozi et al. (2013)"
@@ -47,11 +51,11 @@ h = h_sim
 # Write everything
 processed = ObservationalData()
 processed.associate_x(
-    M_vir, scatter=None, comoving=True, description="Halo Mass (M_200_cr)"
+    M_200, scatter=None, comoving=True, description="Halo Mass (M_200_cr)"
 )
 processed.associate_y(
     M_star_ratio,
-    scatter=None, # y_scatter, # We don't want to plot the scatter
+    scatter=None,  # y_scatter, # We don't want to plot the scatter
     comoving=True,
     description="Galaxy Stellar Mass / Halo Mass (M_200_cr)",
 )
