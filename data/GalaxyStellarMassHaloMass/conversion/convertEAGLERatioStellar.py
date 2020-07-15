@@ -18,12 +18,11 @@ output_directory = "../"
 if not os.path.exists(output_directory):
     os.mkdir(output_directory)
 
-data = np.loadtxt("../raw/EAGLE_SMHM_L100N1504_z0p0.txt")
-M_200 = data[:, 0] * unyt.Solar_Mass
-M_star_50 = data[:, 2] * unyt.Solar_Mass
-M_star_ratio_16 = data[:, 1] * unyt.Solar_Mass / M_200
-M_star_ratio_50 = data[:, 2] * unyt.Solar_Mass / M_200
-M_star_ratio_84 = data[:, 3] * unyt.Solar_Mass / M_200
+data = np.loadtxt("../raw/EAGLE_SMHM_ratio_stellar_L100N1504_z0p0.txt")
+M_star = data[:, 0] * unyt.Solar_Mass
+M_star_ratio_16 = data[:, 1] * unyt.dimensionless
+M_star_ratio_50 = data[:, 2] * unyt.dimensionless
+M_star_ratio_84 = data[:, 3] * unyt.dimensionless
 
 # Define the scatter as offset from the mean value
 y_scatter = unyt.unyt_array(
@@ -46,10 +45,7 @@ h = h_sim
 # Write everything
 processed = ObservationalData()
 processed.associate_x(
-    M_star_50,
-    scatter=None,
-    comoving=True,
-    description="Galaxy Stellar Mass (30kpc, 3D)",
+    M_star, scatter=None, comoving=True, description="Galaxy Stellar Mass (30kpc, 3D)"
 )
 processed.associate_y(
     M_star_ratio_50,
