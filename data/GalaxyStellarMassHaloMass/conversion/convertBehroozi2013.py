@@ -1,5 +1,4 @@
 from velociraptor.observations.objects import ObservationalData
-from velociraptor.fitting_formulae.smhmr import moster_raw, behroozi_raw
 
 import unyt
 import numpy as np
@@ -19,18 +18,22 @@ output_directory = "../"
 if not os.path.exists(output_directory):
     os.mkdir(output_directory)
 
-
-halo_masses = np.logspace(8.75, 16, 512)
-stellar_masses = behroozi_raw(0.0, halo_masses)
+data = np.loadtxt("../raw/Behroozi_2013_z0p1.txt")
+M_vir = (10 ** data[:, 0]) * unyt.Solar_Mass
+M_star_ratio = (10 ** data[:, 1]) * unyt.dimensionless
+M_star = M_vir * M_star_ratio
 
 # Meta-data
 comment = (
-    "Fit obtained directly from paper using the smhmr module in "
-    "velociraptor-python. No cosmology correction needed."
+    "Fit obtained directly from Peter Behroozi's webpage. "
+    "Stellar Masses: Chabrier IMF, BC03 SPS model, Blanton et al. dust model (i.e., kcorrect)."
+    "Cosmology: Omega_m = 0.27, ns = 0.95, Omega_b = 0.046, sigma_8 = 0.82, h = 0.7."
+    "No cosmology correction needed. "
+    "Shows the relation betweeen stellar mass and halo mass."
 )
 citation = "Behroozi et al. (2013)"
 bibcode = "2013ApJ...770...57B"
-name = "Fit to the stellar mass - stellar halo mass relation at z=0."
+name = "Fit to the stellar mass - halo mass relation at z=0."
 plot_as = "line"
 redshift = 0.0
 h = h_sim
@@ -38,13 +41,10 @@ h = h_sim
 # Write everything
 processed = ObservationalData()
 processed.associate_x(
-    halo_masses * unyt.Solar_Mass, scatter=None, comoving=False, description="Halo Mass"
+    M_vir, scatter=None, comoving=True, description="Halo Mass (M_200_cr)"
 )
 processed.associate_y(
-    stellar_masses * unyt.Solar_Mass,
-    scatter=None,
-    comoving=True,
-    description="Galaxy Stellar Mass",
+    M_star, scatter=None, comoving=True, description="Galaxy Stellar Mass"
 )
 processed.associate_citation(citation, bibcode)
 processed.associate_name(name)
