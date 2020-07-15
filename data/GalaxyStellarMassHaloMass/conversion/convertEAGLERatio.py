@@ -37,7 +37,7 @@ comment = (
 )
 citation = "EAGLE - L100N1504"
 bibcode = "2015MNRAS.446..521S"
-name = "Stellar mass - halo mass relation at z=0."
+name = "Galaxy Stellar Mass / Halo mass - Halo Mass relation at z=0."
 plot_as = "line"
 redshift = 0.0
 h = h_sim
