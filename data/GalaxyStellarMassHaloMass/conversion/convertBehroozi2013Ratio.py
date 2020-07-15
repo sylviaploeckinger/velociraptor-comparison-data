@@ -51,7 +51,7 @@ processed.associate_x(
 )
 processed.associate_y(
     M_star_ratio,
-    scatter=y_scatter,
+    scatter=None, # y_scatter, # We don't want to plot the scatter
     comoving=True,
     description="Galaxy Stellar Mass / Halo Mass (M_200_cr)",
 )
