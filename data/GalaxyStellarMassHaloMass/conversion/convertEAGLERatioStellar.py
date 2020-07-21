@@ -55,7 +55,7 @@ processed.associate_y(
     M_star_ratio_50,
     scatter=y_scatter,
     comoving=True,
-    description="Galaxy Stellar Mass (30kpc, 3D) / Halo mass (M_200_cr)",
+    description="Galaxy Stellar Mass (30kpc, 3D) / Halo mass ($M_{200, {\rm crit}}$)",
 )
 processed.associate_citation(citation, bibcode)
 processed.associate_name(name)

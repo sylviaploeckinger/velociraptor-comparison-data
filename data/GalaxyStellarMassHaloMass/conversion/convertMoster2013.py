@@ -38,7 +38,10 @@ h = h_sim
 # Write everything
 processed = ObservationalData()
 processed.associate_x(
-    halo_masses * unyt.Solar_Mass, scatter=None, comoving=False, description="Halo Mass"
+    halo_masses * unyt.Solar_Mass,
+    scatter=None,
+    comoving=False,
+    description="Halo Mass ($M_{200, {\rm crit}}$)",
 )
 processed.associate_y(
     stellar_masses * unyt.Solar_Mass,

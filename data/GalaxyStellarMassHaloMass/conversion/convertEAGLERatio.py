@@ -45,13 +45,13 @@ h = h_sim
 # Write everything
 processed = ObservationalData()
 processed.associate_x(
-    M_200, scatter=None, comoving=True, description="Halo Mass (M_200_cr)"
+    M_200, scatter=None, comoving=True, description="Halo Mass ($M_{200, {\rm crit}}$)"
 )
 processed.associate_y(
     M_star_ratio_50,
     scatter=y_scatter,
     comoving=True,
-    description="Galaxy Stellar Mass (30kpc, 3D) / Halo mass (M_200_cr)",
+    description="Galaxy Stellar Mass (30kpc, 3D) / Halo mass ($M_{200, {\rm crit}}$)",
 )
 processed.associate_citation(citation, bibcode)
 processed.associate_name(name)
