@@ -43,7 +43,7 @@ h = h_sim
 # Write everything
 processed = ObservationalData()
 processed.associate_x(
-    M_200, scatter=None, comoving=True, description="Halo Mass (M_200_cr)"
+    M_200, scatter=None, comoving=True, description="Halo Mass ($M_{200, {\rm crit}}$)"
 )
 processed.associate_y(
     M_star_50,
