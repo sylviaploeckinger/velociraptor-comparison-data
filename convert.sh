@@ -6,7 +6,7 @@ for func in *;
 do
     conversion_path=$func/conversion
 
-    if [ ! -d $conversion_path ]
+    if [ -d $conversion_path ]
     then
         cd $conversion_path
 
