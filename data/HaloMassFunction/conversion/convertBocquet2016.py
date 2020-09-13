@@ -18,8 +18,8 @@ if not os.path.exists(output_directory):
 
 data = np.loadtxt("../raw/HMF_Colossus.txt")
 
-M_200 = raw[:, 0] * unyt.Solar_Mass
-Phi = raw[:, 2] * unyt.Mpc ** (-3)
+M_200 = data[:, 0] * unyt.Solar_Mass
+Phi = data[:, 2] * unyt.Mpc ** (-3)
 
 comment = (
     "Halo mass functions at z=0 from the colossus package (Diemer+18) assuming a 'planck13' cosmology. "
