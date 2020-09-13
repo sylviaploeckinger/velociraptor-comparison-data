@@ -36,7 +36,7 @@ def load_file_and_split_by_z(raw_file_name):
     redshift and stellar mass bins for which the GSMF is tabulated, along with the
     corresponding GSMF values and their errors.
 
-    raw_file_name: the file name of the raw data file to extract the GSMF from 
+    raw_file_name: the file name of the raw data file to extract the GSMF from
     """
     with open(raw_file_name, "r") as f:
         lines = f.readlines()
