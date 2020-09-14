@@ -30,8 +30,8 @@ SFR = (
 )  # Msun / year
 
 # Create the y-data (double Schechter)
-Phi = (phi_star) * np.exp(-SFR / SFR_star) * (SFR / SFR_star) ** alpha
-Phi = Phi * SFR
+Phi = (phi_star / SFR_star) * np.exp(-SFR / SFR_star) * (SFR / SFR_star) ** alpha
+Phi = Phi * SFR * np.log(10)
 
 # Meta-data
 comment = "Data obtained assuming a Chabrier IMF and h = 0.7. "
