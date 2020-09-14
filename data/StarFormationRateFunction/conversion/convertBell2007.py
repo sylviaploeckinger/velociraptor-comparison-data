@@ -29,7 +29,7 @@ SFR = (
     np.logspace(np.log10(SFR_min), np.log10(SFR_max), 50) * unyt.Solar_Mass / unyt.year
 )  # Msun / year
 
-# Create the y-data (double Schechter)
+# Create the y-data (Schechter function)
 Phi = (phi_star / SFR_star) * np.exp(-SFR / SFR_star) * (SFR / SFR_star) ** alpha
 Phi = Phi * SFR * np.log(10)
 
