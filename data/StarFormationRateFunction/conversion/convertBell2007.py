@@ -16,18 +16,18 @@ if not os.path.exists(output_directory):
     os.mkdir(output_directory)
 
 # The data is given in the form of a Schechter fit (Table 1 of the paper)
-phi_star = 9.8 * (10.0 ** -4) * unyt.Mpc ** (-3)  # Mpc^-3 dex^-1
+phi_star = unyt.unyt_quantity(9.8e-4, units="Mpc**-3")
 alpha = -1.45
-SFR_star = (10 ** 1.11) * unyt.Solar_Mass / unyt.year  # Msun  / year
+SFR_star = unyt.unyt_quantity(10 ** 1.11, units="Msun / yr")
 
 # Minimal and maximal mass
-SFR_min = (10 ** -1) * unyt.Solar_Mass / unyt.year  # Msun / year
-SFR_max = (10 ** 2) * unyt.Solar_Mass / unyt.year  # Msun / year
+SFR_min = unyt.unyt_quantity(1e-1, units="Msun / yr")
+SFR_max = unyt.unyt_quantity(1e2, units="Msun / yr")
 
 # Create the x-data
-SFR = (
-    np.logspace(np.log10(SFR_min), np.log10(SFR_max), 50) * unyt.Solar_Mass / unyt.year
-)  # Msun / year
+SFR = unyt.unyt_array(
+    np.logspace(np.log10(SFR_min), np.log10(SFR_max), 50), units="Msun / yr"
+)
 
 # Create the y-data (Schechter function)
 Phi = (phi_star / SFR_star) * np.exp(-SFR / SFR_star) * (SFR / SFR_star) ** alpha
