@@ -9,7 +9,7 @@ import sys
 with open(sys.argv[1], "r") as handle:
     exec(handle.read())
 
-output_filename = "Bell2007.hdf5"
+output_filename = "Zwaan2003.hdf5"
 output_directory = "../"
 
 if not os.path.exists(output_directory):
