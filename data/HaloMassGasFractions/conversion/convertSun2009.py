@@ -37,16 +37,6 @@ error_fb_500_m = unyt.unyt_array(
 x_scatter = unyt.unyt_array((error_M_500_m, error_M_500_p))
 y_scatter = unyt.unyt_array((error_fb_500_m, error_fb_500_p))
 
-import matplotlib
-import matplotlib.pyplot as plt
-
-fig, ax = plt.subplots()
-ax.errorbar(M_500, fb_500, fmt="o", xerr=x_scatter, yerr=y_scatter)
-
-fig.savefig("test.png")
-plt.show()
-
-
 # Meta-data
 comment = (
     "Gas and total mass profiles for 23 low-redshift, relaxed groups spanning "
