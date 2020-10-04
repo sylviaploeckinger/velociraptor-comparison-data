@@ -14,7 +14,7 @@ h_sim = cosmology.h
 
 input_filename = "../raw/Vikhlinin2006.dat"
 
-output_filenames = "Vikhlinin2006.hdf5"
+output_filename = "Vikhlinin2006.hdf5"
 output_directory = "../"
 
 if not os.path.exists(output_directory):
