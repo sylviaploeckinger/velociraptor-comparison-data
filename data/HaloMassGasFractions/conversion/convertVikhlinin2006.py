@@ -11,6 +11,8 @@ with open(sys.argv[1], "r") as handle:
 
 # Cosmology
 h_sim = cosmology.h
+Omega_b = cosmology.Ob0
+Omega_m = cosmology.Om0
 
 input_filename = "../raw/Vikhlinin2006.dat"
 
@@ -26,6 +28,10 @@ M_500 = unyt.unyt_array((10 ** 14) * (0.72 / h_sim) * raw[:, 1], units="Msun")
 error_M_500 = unyt.unyt_array((10 ** 14) * (0.72 / h_sim) * raw[:, 2], units="Msun")
 fb_500 = unyt.unyt_array((0.72 / h_sim) ** 1.5 * raw[:, 3], units="dimensionless")
 error_fb_500 = unyt.unyt_array((0.72 / h_sim) ** 1.5 * raw[:, 4], units="dimensionless")
+
+# Normalise by the cosmic mean
+fb_500 = fb_500 / (Omega_b / Omega_m)
+error_fb_500 = error_fb_500 / (Omega_b / Omega_m)
 
 # Define the scatter as offset from the mean value
 x_scatter = unyt.unyt_array((error_M_500, error_M_500))

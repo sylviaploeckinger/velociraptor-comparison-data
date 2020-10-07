@@ -11,6 +11,8 @@ with open(sys.argv[1], "r") as handle:
 
 # Cosmology
 h_sim = cosmology.h
+Omega_b = cosmology.Ob0
+Omega_m = cosmology.Om0
 
 input_filename = "../raw/Sun2009.dat"
 
@@ -32,6 +34,11 @@ error_fb_500_p = unyt.unyt_array(
 error_fb_500_m = unyt.unyt_array(
     (0.73 / h_sim) ** 1.5 * raw[:, 6], units="dimensionless"
 )
+
+# Normalise by the cosmic mean
+fb_500 = fb_500 / (Omega_b / Omega_m)
+error_fb_500_p = error_fb_500_p / (Omega_b / Omega_m)
+error_fb_500_m = error_fb_500_m / (Omega_b / Omega_m)
 
 # Define the scatter as offset from the mean value
 x_scatter = unyt.unyt_array((error_M_500_m, error_M_500_p))

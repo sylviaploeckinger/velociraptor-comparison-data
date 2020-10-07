@@ -11,6 +11,8 @@ with open(sys.argv[1], "r") as handle:
 
 # Cosmology
 h_sim = cosmology.h
+Omega_b = cosmology.Ob0
+Omega_m = cosmology.Om0
 
 input_filename = "../raw/Lin2012.dat"
 
@@ -32,6 +34,10 @@ z = raw[:, 6]
 fb_500 = (M_500_gas / M_500) * (0.71 / h_sim) ** (2.5)
 fb_500_error = fb_500 * ((M_500_error / M_500) + (M_500_gas_error / M_500_gas))
 
+# Normalise by the cosmic mean
+fb_500 = fb_500 / (Omega_b / Omega_m)
+fb_500_error = fb_500_error / (Omega_b / Omega_m)
+
 # Select only the low-z data
 M_500 = M_500[z < 0.25]
 fb_500 = fb_500[z < 0.25]
@@ -47,7 +53,7 @@ comment = (
     "Ionized gas out of 94 clusters combining Chandra, WISE and 2MASS. "
     "Data was corrected for the simulation's cosmology."
 )
-citation = "Lin et al. (2012)"
+citation = "Lin et al. (2012) - (z < 0.25)"
 bibcode = "2012ApJ...745L...3L"
 name = "Halo mass - Gas fraction relation from Chandra-observed clusters."
 plot_as = "points"
