@@ -19,29 +19,23 @@ output_directory = "../"
 if not os.path.exists(output_directory):
     os.mkdir(output_directory)
 
-processed = ObservationalData()
-
 # Value taken from page 16 of the paper
 Omega_star = 1.66 * 10 ** -3 / (h_obs / h_sim)
 Omega_star_p = 0.24 * 10 ** -3 / (h_obs / h_sim)
 Omega_star_m = 0.23 * 10 ** -3 / (h_obs / h_sim)
 
-# Convert to a physical density
-stellar_mass_density = unyt.unyt_array(
-    np.ones(1) * Omega_star * cosmology.critical_density0, "g / cm**3"
-)
-stellar_mass_density_p = unyt.unyt_array(
-    np.ones(1) * Omega_star_p * cosmology.critical_density0, "g / cm**3"
-)
-stellar_mass_density_m = unyt.unyt_array(
-    np.ones(1) * Omega_star_m * cosmology.critical_density0, "g / cm**3"
-)
+# Convert to densities assuming the simulation's cosmology
+rho_crit = unyt.unyt_array.from_astropy(cosmology.critical_density0)
+stellar_mass_density = unyt.unyt_array([Omega_star * rho_crit])
+stellar_mass_density_p = unyt.unyt_array([Omega_star_p * rho_crit])
+stellar_mass_density_m = unyt.unyt_array([Omega_star_m * rho_crit])
 
+# Construct the error bar
 y_scatter = unyt.unyt_array((stellar_mass_density_m, stellar_mass_density_p))
 
 # Redshift of the data point
 z = 0.1
-a = unyt.unyt_array(np.ones(1) * 1 / (1 + z), "dimensionless")
+a = unyt.unyt_array([1 / (1 + z)], "dimensionless")
 
 # Meta-data
 comment = (
@@ -55,6 +49,7 @@ redshift = z
 plot_as = "points"
 
 # Write everything
+processed = ObservationalData()
 processed.associate_x(a, scatter=None, comoving=True, description="Scale-factor")
 processed.associate_y(
     stellar_mass_density,
