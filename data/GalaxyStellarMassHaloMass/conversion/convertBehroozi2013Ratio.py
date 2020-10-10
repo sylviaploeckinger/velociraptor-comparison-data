@@ -39,7 +39,7 @@ comment = (
     "Cosmology: Omega_m = 0.27, ns = 0.95, Omega_b = 0.046, sigma_8 = 0.82, h = 0.7."
     "No cosmology correction needed. "
     "Halo masses have been corrected from M_vir to M_200_cr."
-    "Shows the ratio betweeen stellar mass and halo mass."
+    "Shows the ratio between stellar mass and halo mass."
 )
 citation = "Behroozi et al. (2013)"
 bibcode = "2013ApJ...770...57B"
