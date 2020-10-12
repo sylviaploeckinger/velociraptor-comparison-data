@@ -53,7 +53,7 @@ comment = (
     "Ionized gas out of 94 clusters combining Chandra, WISE and 2MASS. "
     "Data was corrected for the simulation's cosmology."
 )
-citation = "Lin et al. (2012) - (z < 0.25)"
+citation = "Lin et al. (2012; $z<0.25$ only)"
 bibcode = "2012ApJ...745L...3L"
 name = "Halo mass - Gas fraction relation from Chandra-observed clusters."
 plot_as = "points"
