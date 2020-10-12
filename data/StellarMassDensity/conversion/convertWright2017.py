@@ -25,7 +25,7 @@ Omega_star_p = 0.24 * 10 ** -3 / (h_obs / h_sim)
 Omega_star_m = 0.23 * 10 ** -3 / (h_obs / h_sim)
 
 # Convert to densities assuming the simulation's cosmology
-rho_crit = unyt.unyt_array.from_astropy(cosmology.critical_density0)
+rho_crit = unyt.unyt_array.from_astropy(cosmology.critical_density0).to("Msun/Mpc**3")
 stellar_mass_density = unyt.unyt_array([Omega_star * rho_crit])
 stellar_mass_density_p = unyt.unyt_array([Omega_star_p * rho_crit])
 stellar_mass_density_m = unyt.unyt_array([Omega_star_m * rho_crit])
