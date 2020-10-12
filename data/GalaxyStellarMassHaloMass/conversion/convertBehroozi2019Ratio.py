@@ -22,7 +22,7 @@ if not os.path.exists(output_directory):
 # Redshift at which to plot the data
 redshift = 0.0
 
-M_vir = np.logspace(7, 15, 512)
+M_vir = np.logspace(9, 15, 512)
 
 # Note that the function below actually takes M_{vir, peak}, and we are
 # ignoring this fact
@@ -34,10 +34,12 @@ M_200 = M_vir / 1.2
 # Meta-data
 comment = (
     "The data is taken from https://www.peterbehroozi.com/data.html"
-    "Median Fit to the raw data including both satellites and centrals."
+    "Median fit to the raw data for centrals (i.e. excluding satellites)"
     "The stellar mass is the true stellar mass (i.e. w/o observational corrections)"
     "The halo mass is the peak halo mass that follows the Bryan & Norman (1998)"
     "spherical overdensity definition"
+    "The fitting function does not include the intrahalo light contribution to the"
+    "stellar mass"
     "Cosmology: Omega_m=0.307, Omega_lambda=0.693, h=0.678, sigma_8=0.823, n_s=0.96"
     "Shows the ratio between stellar mass and halo mass as a function of halo mass"
 )
