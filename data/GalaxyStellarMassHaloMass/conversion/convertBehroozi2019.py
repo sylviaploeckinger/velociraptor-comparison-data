@@ -33,15 +33,15 @@ M_200 = M_vir / 1.2
 
 # Meta-data
 comment = (
-    "The data is taken from https://www.peterbehroozi.com/data.html"
-    "Median fit to the raw data for centrals (i.e. excluding satellites)"
-    "The stellar mass is the true stellar mass (i.e. w/o observational corrections)"
-    "The halo mass is the peak halo mass that follows the Bryan & Norman (1998)"
-    "spherical overdensity definition"
-    "The fitting function does not include the intrahalo light contribution to the"
-    "stellar mass"
-    "Cosmology: Omega_m=0.307, Omega_lambda=0.693, h=0.678, sigma_8=0.823, n_s=0.96"
-    "Shows the stellar mass as a function halo mass"
+    "The data is taken from https://www.peterbehroozi.com/data.html. "
+    "Median fit to the raw data for centrals (i.e. excluding satellites). "
+    "The stellar mass is the true stellar mass (i.e. w/o observational corrections). "
+    "The halo mass is the peak halo mass that follows the Bryan & Norman (1998) "
+    "spherical overdensity definition. "
+    "The fitting function does not include the intrahalo light contribution to the "
+    "stellar mass. "
+    "Cosmology: Omega_m=0.307, Omega_lambda=0.693, h=0.678, sigma_8=0.823, n_s=0.96. "
+    "Shows the stellar mass as a function halo mass."
 )
 citation = "Behroozi et al. (2019)"
 bibcode = "2019MNRAS.488.3143B"
