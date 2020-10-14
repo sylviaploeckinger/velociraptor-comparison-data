@@ -20,15 +20,15 @@ if not os.path.exists(output_directory):
     os.mkdir(output_directory)
 
 # Data point taken from the paper conclusion
-BHMD = unyt.unyt_array([4.20 * 10 ** 5], "Msun / Mpc**3") / (h_obs / h_sim)
-BHMD_m = unyt.unyt_array([(4.20 - 0.14) * 10 ** 5], "Msun / Mpc**3") / (h_obs / h_sim)
-BHMD_p = unyt.unyt_array([(4.20 + 0.29) * 10 ** 5], "Msun / Mpc**3") / (h_obs / h_sim)
+BHMD = unyt.unyt_array([4.20 * 1e5], "Msun / Mpc**3") / (h_obs / h_sim)
+BHMD_m = unyt.unyt_array([0.14 * 1e5], "Msun / Mpc**3") / (h_obs / h_sim)
+BHMD_p = unyt.unyt_array([0.29 * 1e5], "Msun / Mpc**3") / (h_obs / h_sim)
 
 # Construct the error bar
 y_scatter = unyt.unyt_array((BHMD_m, BHMD_p))
 
 # Redshift of the data point
-z = 0.1
+z = 0.01
 a = unyt.unyt_array([1 / (1 + z)], "dimensionless")
 
 # Meta-data
@@ -39,7 +39,7 @@ comment = (
 citation = "Aird et al. (2015)"
 bibcode = "2015MNRAS.451.1892A"
 name = ""
-plot_as = "line"
+plot_as = "points"
 redshift = z
 h = h_sim
 
