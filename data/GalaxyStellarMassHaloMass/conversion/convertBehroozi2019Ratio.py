@@ -19,7 +19,7 @@ redshifts = [0.0, 0.2, 0.5, 1.0, 2.0, 3.0, 4.0, 5.0]
 # Create and save data for each z in redshifts
 for z in redshifts:
 
-    output_filename = f"Behroozi2019Ratio_{f'z{z:.1f}'.replace('.', 'p')}.hdf5"
+    output_filename = f"Behroozi2019Ratio_{f'z{z:07.3f}'.replace('.', 'p')}.hdf5"
     output_directory = "../"
 
     if not os.path.exists(output_directory):
@@ -57,13 +57,13 @@ for z in redshifts:
         M_BN98 * unyt.Solar_Mass,
         scatter=None,
         comoving=True,
-        description=r"Halo Mass ($M_{\rm BN98}$)",
+        description="Halo Mass ($M_{\\rm BN98}$)",
     )
     processed.associate_y(
         (M_star / M_BN98) * unyt.dimensionless,
         scatter=None,
         comoving=True,
-        description=r"Galaxy Stellar Mass / Halo Mass ($M_* / M_{\rm BN98}$)",
+        description="Galaxy Stellar Mass / Halo Mass ($M_* / M_{\\rm BN98}$)",
     )
     processed.associate_citation(citation, bibcode)
     processed.associate_name(name)
