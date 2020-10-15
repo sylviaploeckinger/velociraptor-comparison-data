@@ -47,6 +47,7 @@ bibcode = "2017MNRAS.470.283W"
 name = "Stellar mass density obtained intagrating the GSMF from GAMA-II."
 redshift = z
 plot_as = "points"
+h = h_sim
 
 # Write everything
 processed = ObservationalData()
