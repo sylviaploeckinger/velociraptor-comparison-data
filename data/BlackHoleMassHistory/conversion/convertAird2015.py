@@ -9,54 +9,45 @@ import sys
 with open(sys.argv[1], "r") as handle:
     exec(handle.read())
 
-# Cosmologies
+# Cosmology
 h_obs = 0.7
 h_sim = cosmology.h
 
-output_filename = "Wright2017.hdf5"
+output_filename = "Aird2015.hdf5"
 output_directory = "../"
 
 if not os.path.exists(output_directory):
     os.mkdir(output_directory)
 
-# Value taken from page 16 of the paper
-Omega_star = 1.66 * 10 ** -3 / (h_obs / h_sim)
-Omega_star_p = 0.24 * 10 ** -3 / (h_obs / h_sim)
-Omega_star_m = 0.23 * 10 ** -3 / (h_obs / h_sim)
-
-# Convert to densities assuming the simulation's cosmology
-rho_crit = unyt.unyt_array.from_astropy(cosmology.critical_density0).to("Msun/Mpc**3")
-stellar_mass_density = unyt.unyt_array([Omega_star * rho_crit])
-stellar_mass_density_p = unyt.unyt_array([Omega_star_p * rho_crit])
-stellar_mass_density_m = unyt.unyt_array([Omega_star_m * rho_crit])
+# Data point taken from the paper conclusion
+BHMD = unyt.unyt_array([4.20 * 1e5], "Msun / Mpc**3") / (h_obs / h_sim)
+BHMD_m = unyt.unyt_array([0.14 * 1e5], "Msun / Mpc**3") / (h_obs / h_sim)
+BHMD_p = unyt.unyt_array([0.29 * 1e5], "Msun / Mpc**3") / (h_obs / h_sim)
 
 # Construct the error bar
-y_scatter = unyt.unyt_array((stellar_mass_density_m, stellar_mass_density_p))
+y_scatter = unyt.unyt_array((BHMD_m, BHMD_p))
 
 # Redshift of the data point
-z = 0.1
+z = 0.01
 a = unyt.unyt_array([1 / (1 + z)], "dimensionless")
 
 # Meta-data
 comment = (
-    "Data obtained assuming a Chabrier IMF and h = 0.7. "
+    "Model fitted to X-ray luminosity data combining Chandra, ROSAT and ASCA surveys."
     f"h-corrected for SWIFT using cosmology: {cosmology.name}. "
 )
-citation = "Wright et al. (2017) (GAMA-II)"
-bibcode = "2017MNRAS.470.283W"
-name = "Stellar mass density obtained intagrating the GSMF from GAMA-II."
-redshift = z
+citation = "Aird et al. (2015)"
+bibcode = "2015MNRAS.451.1892A"
+name = "Redshift - Black-hole Mass Density relation"
 plot_as = "points"
+redshift = z
 h = h_sim
 
 # Write everything
 processed = ObservationalData()
 processed.associate_x(a, scatter=None, comoving=True, description="Scale-factor")
 processed.associate_y(
-    stellar_mass_density,
-    scatter=y_scatter,
-    comoving=True,
-    description="Stellar Mass Density",
+    BHMD, scatter=y_scatter, comoving=True, description="Black-hole Mass Density"
 )
 processed.associate_citation(citation, bibcode)
 processed.associate_name(name)
