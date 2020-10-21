@@ -29,7 +29,7 @@ comment = (
     "Stellar Masses: Chabrier IMF, BC03 SPS model, Blanton et al. dust model (i.e., kcorrect)."
     "Cosmology: Omega_m = 0.27, ns = 0.95, Omega_b = 0.046, sigma_8 = 0.82, h = 0.7."
     "No cosmology correction needed. "
-    "Shows the ratio betweeen stellar mass and halo mass as a function of stellar mass."
+    "Shows the ratio between stellar mass and halo mass as a function of stellar mass."
 )
 citation = "Behroozi et al. (2013)"
 bibcode = "2013ApJ...770...57B"
