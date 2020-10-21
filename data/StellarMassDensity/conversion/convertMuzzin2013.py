@@ -41,8 +41,8 @@ rho_star_lo = unyt.unyt_array(10 ** (raw[:, 17] - raw[:, 19]), "Msun / Mpc**3")
 
 # Convert from Kroupa to Chabrier IMF
 rho_star = rho_star / 10 ** 0.04
-rho_star_hi = rho_star / 10 ** 0.04
-rho_star_low = rho_star / 10 ** 0.04
+rho_star_hi = rho_star_hi / 10 ** 0.04
+rho_star_low = rho_star_lo / 10 ** 0.04
 
 # Build scatter
 x_scatter = unyt.unyt_array((a - a_lo, a_hi - a))
@@ -57,7 +57,7 @@ comment = (
 citation = "Muzzin et al. (2013) (COSMOS)"
 bibcode = "2013ApJ...777...18M"
 name = "Stellar mass density obtained intagrating the GSMF from COSMOS/ultraVISTA."
-redshift = z
+redshift = np.mean(z)
 plot_as = "points"
 
 # Write everything
