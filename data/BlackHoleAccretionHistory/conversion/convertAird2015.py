@@ -41,7 +41,7 @@ citation = "Aird et al. (2015)"
 bibcode = "2015MNRAS.451.1892A"
 name = "Redshift - Black-hole Mass Accretion Rate Density relation"
 plot_as = "line"
-redshift = z
+redshift = np.mean(z)
 h = h_sim
 
 # Write everything
