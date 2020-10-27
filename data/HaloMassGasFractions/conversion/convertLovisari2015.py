@@ -25,11 +25,14 @@ if not os.path.exists(output_directory):
 # Read the data
 raw = np.loadtxt(input_filename)
 M_500 = unyt.unyt_array((0.70 / h_sim) * 10 ** raw[:, 0], units="Msun")
-fb_500 = unyt.unyt_array( raw[:, 1] * (0.70 / h_sim) ** (2.5)) / (Omega_b / Omega_m)
+fb_500 = unyt.unyt_array(raw[:, 1] * (0.70 / h_sim) ** (2.5), units="dimensionless") / (
+    Omega_b / Omega_m
+)
 
 # Meta-data
 comment = (
-    "Data was corrected for the simulation's cosmology."
+    "23 Galaxy groups observed with XMM-Newton"
+    "Corrected for the original cosmology which had h=0.7"
 )
 citation = "Lovisari et al. (2015)"
 bibcode = "2015A&A...573A.118L"
