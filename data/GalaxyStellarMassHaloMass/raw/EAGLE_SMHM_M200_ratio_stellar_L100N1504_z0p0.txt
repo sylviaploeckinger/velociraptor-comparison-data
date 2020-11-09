@@ -1,8 +1,14 @@
 # Stellar mass / Halo mass - Stellar mass relation for the EAGLE-Ref model.
 # Box size: 100^3 Mpc^3
+# Redshift: 0.00
 # Number of particles: 1504^3
+# Halo mass: M_200_crit
+# Stellar mass: 30kpc apertures
 # Centrals only - Halos with 0 stellar mass included.
 # M_star [M_sun]    M_star / M_200 (16th per) [-]     M_star / M_200 (50th per) [-]    M_star / M_200 (84th per) [-]    Counts [-]
+1.000000e+06    2.166180e-04    5.893199e-04    2.117277e-03    4077
+1.584893e+06    2.010027e-04    2.757831e-04    5.515030e-04    61
+2.511886e+06    3.865180e-04    7.035146e-04    2.098631e-03    19110
 3.981072e+06    5.191265e-04    8.490728e-04    1.993154e-03    15284
 6.309573e+06    6.591800e-04    1.066860e-03    2.229281e-03    27153
 1.000000e+07    8.166999e-04    1.282038e-03    2.414881e-03    19163
