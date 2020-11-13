@@ -20,9 +20,11 @@ redshift_header_info = ", ".join([f"{z:.1f}" for z in redshifts])
 
 # Halo masses
 M_BN98 = np.logspace(9, 15, 512)
+# Duplicate M_BN98 for all z
+M_BN98_arr = np.array([M_BN98 for _ in redshifts])
 
 # Stellar masses (for each z in redshifts)
-M_star = np.array([behroozi_2019_raw(z, M_BN98) for z in redshifts])
+M_star_arr = np.array([behroozi_2019_raw(z, M_BN98) for z in redshifts])
 
 output_filename = "Behroozi2019.hdf5"
 output_directory = "../"
@@ -53,13 +55,13 @@ h = h_sim
 # Write everything
 processed = ObservationalData()
 processed.associate_x(
-    M_BN98 * unyt.Solar_Mass,
+    M_BN98_arr * unyt.Solar_Mass,
     scatter=None,
     comoving=True,
     description="Halo Mass ($M_{\\rm BN98}$)",
 )
 processed.associate_y(
-    M_star * unyt.Solar_Mass,
+    M_star_arr * unyt.Solar_Mass,
     scatter=None,
     comoving=True,
     description="Galaxy Stellar Mass",
