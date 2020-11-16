@@ -38,7 +38,7 @@ comment = (
     "Data obtained summing up all the star particles in the snapshots. "
     "No cosmology correction needed."
 )
-citation = "EAGLE - stars"
+citation = citation = "Schaye et al. (2015) (EAGLE)"
 bibcode = "2015MNRAS..446..521S"
 name = "Metal mass locked in stars density obtained from the Ref EAGLE model"
 redshift = np.mean(z)
