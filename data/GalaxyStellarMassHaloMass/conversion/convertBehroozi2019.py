@@ -1,4 +1,7 @@
-from velociraptor.observations.objects import ObservationalData
+from velociraptor.observations.objects import (
+    ObservationalData,
+    MultiRedshiftObservationalData,
+)
 from velociraptor.fitting_formulae.smhmr import behroozi_2019_raw
 
 import unyt
@@ -10,9 +13,6 @@ import sys
 with open(sys.argv[1], "r") as handle:
     exec(handle.read())
 
-# Cosmology
-h_sim = cosmology.h
-
 # Redshifts at which to plot the data
 redshifts = [0.0, 0.2, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 4.0, 5.0]
 # Create the formatted version of the above array
@@ -20,17 +20,9 @@ redshift_header_info = ", ".join([f"{z:.1f}" for z in redshifts])
 
 # Halo masses
 M_BN98 = np.logspace(9, 15, 512)
-# Duplicate M_BN98 for all z
-M_BN98_arr = np.array([M_BN98 for _ in redshifts])
 
-# Stellar masses (for each z in redshifts)
-M_star_arr = np.array([behroozi_2019_raw(z, M_BN98) for z in redshifts])
-
-output_filename = "Behroozi2019.hdf5"
-output_directory = "../"
-
-if not os.path.exists(output_directory):
-    os.mkdir(output_directory)
+# Cosmology
+h_sim = cosmology.h
 
 # Meta-data
 comment = (
@@ -52,30 +44,51 @@ name = f"Fit to the stellar mass - halo mass relation at z=[{redshift_header_inf
 plot_as = "line"
 h = h_sim
 
-# Write everything
-processed = ObservationalData()
-processed.associate_x(
-    M_BN98_arr * unyt.Solar_Mass,
-    scatter=None,
-    comoving=True,
-    description="Halo Mass ($M_{\\rm BN98}$)",
-)
-processed.associate_y(
-    M_star_arr * unyt.Solar_Mass,
-    scatter=None,
-    comoving=True,
-    description="Galaxy Stellar Mass",
-)
-processed.associate_citation(citation, bibcode)
-processed.associate_name(name)
-processed.associate_comment(comment)
-processed.associate_redshift(redshifts)
-processed.associate_plot_as(plot_as)
-processed.associate_cosmology(cosmology)
+# Store metadata at the top level
+multi_z = MultiRedshiftObservationalData()
+multi_z.associate_citation(citation, bibcode)
+multi_z.associate_name(name)
+multi_z.associate_comment(comment)
+multi_z.associate_cosmology(cosmology)
+
+output_filename = "Behroozi2019.hdf5"
+output_directory = "../"
+
+if not os.path.exists(output_directory):
+    os.mkdir(output_directory)
+
+for z in redshifts:
+
+    # Create a single observational-data instance at redshift z
+    processed = ObservationalData()
+
+    # Stellar masses (for the given halo masses, at redshift z)
+    M_star = behroozi_2019_raw(z, M_BN98)
+
+    # A fitting function gives us the data at any z. Hence, no need to have \Delta z
+    redshift_lower, redshift_upper = [z, z]
+
+    processed.associate_x(
+        M_BN98 * unyt.Solar_Mass,
+        scatter=None,
+        comoving=True,
+        description="Halo Mass ($M_{\\rm BN98}$)",
+    )
+    processed.associate_y(
+        M_star * unyt.Solar_Mass,
+        scatter=None,
+        comoving=True,
+        description="Galaxy Stellar Mass",
+    )
+
+    processed.associate_redshift(z, redshift_lower, redshift_upper)
+    processed.associate_plot_as(plot_as)
+
+    multi_z.associate_dataset(processed)
 
 output_path = f"{output_directory}/{output_filename}"
 
 if os.path.exists(output_path):
     os.remove(output_path)
 
-processed.write(filename=output_path)
+multi_z.write(filename=output_path)
