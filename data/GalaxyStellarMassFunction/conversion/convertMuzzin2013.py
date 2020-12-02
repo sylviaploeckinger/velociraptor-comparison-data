@@ -1,4 +1,7 @@
-from velociraptor.observations.objects import ObservationalData
+from velociraptor.observations.objects import (
+    ObservationalData,
+    MultiRedshiftObservationalData,
+)
 
 import unyt
 import numpy as np
@@ -54,7 +57,12 @@ def load_file_and_split_by_z(raw_file_name):
     z_bins_arr = []
     gsmf_arr = []
     for isl, lines in enumerate(split_lines):
-        z_bins_arr.append(float(re.search("z=\[(\d.\d)", lines[0]).group(1)))
+        redshift_regex = re.search("z=\[(\d.\d),(\d.\d)\)", lines[0])
+        redshift_range = [
+            float(redshift_regex.group(1)),
+            float(redshift_regex.group(2)),
+        ]
+        z_bins_arr.append(redshift_range)
         gsmf_arr.append(np.loadtxt(lines, converters=converter_dict, usecols=range(5)))
 
     return z_bins_arr, gsmf_arr
@@ -73,15 +81,7 @@ def process_for_redshift(z, gsmf_and_Mstar_at_z):
 
     processed = ObservationalData()
 
-    comment = (
-        "Assuming Kroupa IMF and Vmax selection, quoted redshift is lower bound of range. "
-        f"h-corrected for SWIFT using Cosmology: {cosmology.name}."
-    )
-    citation = "Muzzin et al. (2013)"
-    bibcode = "2013ApJ...777...18M"
-    name = "GSMF from COSMOS/UltraVISTA"
     plot_as = "points"
-    redshift = z
     h = cosmology.h
 
     Mstar_bins = gsmf_and_Mstar_at_z[:, 0]
@@ -110,26 +110,10 @@ def process_for_redshift(z, gsmf_and_Mstar_at_z):
         M, scatter=M_err, comoving=True, description="Galaxy Stellar Mass"
     )
     processed.associate_y(Phi, scatter=Phi_err, comoving=True, description="Phi (GSMF)")
-    processed.associate_citation(citation, bibcode)
-    processed.associate_name(name)
-    processed.associate_comment(comment)
-    processed.associate_redshift(redshift)
+    processed.associate_redshift(sum(z) * 0.5, *z)
     processed.associate_plot_as(plot_as)
-    processed.associate_cosmology(cosmology)
 
     return processed
-
-
-def stringify_z(z):
-    """
-    Eagle-style text formatting of redshift label.
-    Example: z=1.5 will be printed as z001p500.
-
-    z: The redshift to produce a label for
-    """
-    whole = int(z)
-    frac = int(1000 * (z - whole))
-    return f"z{whole:03d}p{frac:03d}"
 
 
 # Exec the master cosmology file passed as first argument
@@ -141,24 +125,34 @@ with open(sys.argv[1], "r") as handle:
 
 input_filename = "../raw/Muzzin2013.txt"
 
-output_filename = "Muzzin2013_{}.hdf5"
+output_filename = "Muzzin2013.hdf5"
 output_directory = "../"
 
 if not os.path.exists(output_directory):
     os.mkdir(output_directory)
 
+comment = (
+    "Assuming Kroupa IMF and Vmax selection, quoted redshift is lower bound of range. "
+    f"h-corrected for SWIFT using Cosmology: {cosmology.name}."
+)
+citation = "Muzzin et al. (2013)"
+bibcode = "2013ApJ...777...18M"
+name = "GSMF from COSMOS/UltraVISTA"
+
+multi_z = MultiRedshiftObservationalData()
+multi_z.associate_comment(comment)
+multi_z.associate_name(name)
+multi_z.associate_citation(citation, bibcode)
+multi_z.associate_cosmology(cosmology)
+
 # z_bins is a 1-D ndarray containing the lower edges of the redshift bins
 # gsmf_and_Mstar is a list of 2D ndarrays, one per redshift
 # Each contains five columns as follows:
 # log(Mstar) bins, Mstar errors, log(GSMF), GSMF +- errors
+
 z_bins, gsmf_and_Mstar = load_file_and_split_by_z(input_filename)
 
 for z, gsmf_and_Mstar_at_z in zip(z_bins, gsmf_and_Mstar):
-    processed = process_for_redshift(z, gsmf_and_Mstar_at_z)
+    multi_z.associate_dataset(process_for_redshift(z, gsmf_and_Mstar_at_z))
 
-    output_path = f"{output_directory}/{output_filename.format(stringify_z(z))}"
-
-    if os.path.exists(output_path):
-        os.remove(output_path)
-
-    processed.write(filename=output_path)
+multi_z.write(f"{output_directory}/{output_filename}")
