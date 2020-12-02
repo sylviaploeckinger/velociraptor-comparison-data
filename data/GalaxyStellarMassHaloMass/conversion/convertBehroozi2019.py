@@ -14,12 +14,12 @@ with open(sys.argv[1], "r") as handle:
     exec(handle.read())
 
 # Redshifts at which to plot the data
-redshifts = [0.0, 0.2, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 4.0, 5.0]
+redshifts = [0.0, 0.2, 0.5, 1.0, 2.0, 3.0, 4.0, 5.0]
 # Create the formatted version of the above array
 redshift_header_info = ", ".join([f"{z:.1f}" for z in redshifts])
 
-# Halo masses
-M_BN98 = np.logspace(9, 15, 512)
+# Halo masses (Berhoozi data were fitted in the range [10**10.5, 10**15] Msun)
+M_BN98 = np.logspace(10, 15, 512)
 
 # Cosmology
 h_sim = cosmology.h
