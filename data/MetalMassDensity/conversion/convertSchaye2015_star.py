@@ -59,7 +59,7 @@ processed.associate_comment(comment)
 processed.associate_redshift(redshift)
 processed.associate_plot_as(plot_as)
 processed.associate_cosmology(cosmology)
-processed.associate_redshift(0., 0., 20.)
+processed.associate_redshift(0.0, 0.0, 20.0)
 
 output_path = f"{output_directory}/{output_filename}"
 
