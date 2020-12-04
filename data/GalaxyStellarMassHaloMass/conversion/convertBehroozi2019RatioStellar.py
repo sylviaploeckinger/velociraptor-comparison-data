@@ -51,6 +51,7 @@ multi_z.associate_citation(citation, bibcode)
 multi_z.associate_name(name)
 multi_z.associate_comment(comment)
 multi_z.associate_cosmology(cosmology)
+multi_z.associate_maximum_number_of_returns(1)
 
 output_filename = "Behroozi2019RatioStellar.hdf5"
 output_directory = "../"
