@@ -14,7 +14,13 @@ with open(sys.argv[1], "r") as handle:
     exec(handle.read())
 
 # Redshifts at which to plot the data
-redshifts = [0.0, 0.2, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0]
+redshifts = np.array([0.0, 0.2, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0])
+
+# Valid redshift ranges for each z from above
+Delta_z = 0.5 * (redshifts[1:] - redshifts[:-1])
+redshifts_lower = np.append(0.10, Delta_z)
+redshifts_upper = np.append(Delta_z, 0.25)
+
 # Create the formatted version of the above array
 redshift_header_info = ", ".join([f"{z:.1f}" for z in redshifts])
 
@@ -59,7 +65,7 @@ output_directory = "../"
 if not os.path.exists(output_directory):
     os.mkdir(output_directory)
 
-for z in redshifts:
+for z, dz_lower, dz_upper in zip(redshifts, redshifts_lower, redshifts_upper):
 
     # Create a single observational-data instance at redshift z
     processed = ObservationalData()
@@ -67,8 +73,8 @@ for z in redshifts:
     # Stellar masses (for the given halo masses, at redshift z)
     M_star = behroozi_2019_raw(z, M_BN98)
 
-    # Choose \Delta z = 0.25 to cover the whole range in z
-    redshift_lower, redshift_upper = [z - 0.25, z + 0.25]
+    # Compute \Delta z
+    redshift_lower, redshift_upper = [z - dz_lower, z + dz_upper]
 
     processed.associate_x(
         M_star * unyt.Solar_Mass,
