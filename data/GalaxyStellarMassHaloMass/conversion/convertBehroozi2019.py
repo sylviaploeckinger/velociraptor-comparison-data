@@ -66,7 +66,7 @@ for z in redshifts:
     # Stellar masses (for the given halo masses, at redshift z)
     M_star = behroozi_2019_raw(z, M_BN98)
 
-    # A fitting function gives us the data at any z. Hence, no need to have \Delta z
+    # Choose \Delta z = 0.25 to cover the whole range in z
     redshift_lower, redshift_upper = [z - 0.25, z + 0.25]
 
     processed.associate_x(
