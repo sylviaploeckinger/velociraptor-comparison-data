@@ -6,7 +6,7 @@ import os
 import sys
 import copy
 import re
-from velociraptor.tools.lines import  binned_median_line
+from velociraptor.tools.lines import binned_median_line
 
 # Exec the master cosmology file passed as first argument
 with open(sys.argv[1], "r") as handle:
@@ -115,9 +115,7 @@ subsig = lambda a: np.percentile(a, 16)
 x_bins = np.percentile(x_all, np.linspace(1, 99, 10)) * unyt.dimensionless
 x_mids = x_bins[:-1] + np.diff(x_bins) * 0.5
 
-_, y_med, y_sigs  = (
-    binned_median_line(x_all, y_all, x_bins=x_bins)
-)
+_, y_med, y_sigs = binned_median_line(x_all, y_all, x_bins=x_bins)
 
 y_scatter = unyt.unyt_array((y_sigs[0], y_sigs[1]))
 x_scatter = unyt.unyt_array([np.diff(x_bins) * 0.5] * 2)
