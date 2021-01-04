@@ -6,7 +6,7 @@ import os
 import sys
 import copy
 import re
-from scipy.stats import binned_statistic
+from velociraptor.tools.lines import  binned_median_line
 
 # Exec the master cosmology file passed as first argument
 with open(sys.argv[1], "r") as handle:
@@ -115,25 +115,14 @@ subsig = lambda a: np.percentile(a, 16)
 x_bins = np.percentile(x_all, np.linspace(1, 99, 10)) * unyt.dimensionless
 x_mids = x_bins[:-1] + np.diff(x_bins) * 0.5
 
-y_med = (
-    binned_statistic(x_all, y_all, statistic="median", bins=x_bins)[0]
-    * unyt.dimensionless
-)
-y_psig = (
-    binned_statistic(x_all, y_all, statistic=plussig, bins=x_bins)[0]
-    * unyt.dimensionless
-)
-y_ssig = (
-    binned_statistic(x_all, y_all, statistic=subsig, bins=x_bins)[0]
-    * unyt.dimensionless
+_, y_med, y_sigs  = (
+    binned_median_line(x_all, y_all, x_bins=x_bins)
 )
 
-y_scatter = unyt.unyt_array((y_med - y_ssig, y_psig - y_med))
+y_scatter = unyt.unyt_array((y_sigs[0], y_sigs[1]))
 x_scatter = unyt.unyt_array([np.diff(x_bins) * 0.5] * 2)
 
 output_filename = "DeLooze20_composite_median.hdf5"
-
-print(x_mids, y_med)
 
 # Meta-data
 comment = f"Median and scatter compiled from multiple surveys"
