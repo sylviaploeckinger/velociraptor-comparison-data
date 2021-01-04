@@ -35,10 +35,11 @@ M_max = (10 ** 12.0) * unyt.Solar_Mass * h_sim ** (-2)  # Msun
 M = np.logspace(np.log10(M_min), np.log10(M_max), 50) * unyt.Solar_Mass  # Msun
 
 # Create the y-data (double Schechter)
-Phi_Md_M = (
-    (phi_star_1 / M_star_1) * np.exp(-M / M_star_1) * (M / M_star_1) ** alpha_1
-    + (phi_star_2 / M_star_2) * np.exp(-M / M_star_2) * (M / M_star_2) ** alpha_2
-)
+Phi_Md_M = (phi_star_1 / M_star_1) * np.exp(-M / M_star_1) * (
+    M / M_star_1
+) ** alpha_1 + (phi_star_2 / M_star_2) * np.exp(-M / M_star_2) * (
+    M / M_star_2
+) ** alpha_2
 Phi = Phi_Md_M * M * np.log(10)
 
 # Meta-data
