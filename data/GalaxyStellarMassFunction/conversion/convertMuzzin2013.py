@@ -85,9 +85,10 @@ def process_for_redshift(z, gsmf_and_Mstar_at_z):
     h = cosmology.h
 
     Mstar_bins = gsmf_and_Mstar_at_z[:, 0]
-    M = 10 ** Mstar_bins * (h / ORIGINAL_H) ** (-2) * unyt.Solar_Mass
+    Mstar_Chab = Mstar_bins - 0.04 # convert from Kroupa IMF
+    M = 10 ** Mstar_Chab * (h / ORIGINAL_H) ** (-2) * unyt.Solar_Mass
     M_err = (
-        (10 ** Mstar_bins * np.log(10) * gsmf_and_Mstar_at_z[:, 1])
+        (10 ** Mstar_Chab * np.log(10) * gsmf_and_Mstar_at_z[:, 1])
         * (h / ORIGINAL_H) ** (-2)
         * unyt.Solar_Mass
     )
@@ -132,7 +133,8 @@ if not os.path.exists(output_directory):
     os.mkdir(output_directory)
 
 comment = (
-    "Assuming Kroupa IMF and Vmax selection, quoted redshift is lower bound of range. "
+    "Vmax selection, quoted redshift is lower bound of range. "
+    "Converted to Chabrier IMF (from Kroupa). "
     f"h-corrected for SWIFT using Cosmology: {cosmology.name}."
 )
 citation = "Muzzin et al. (2013)"
