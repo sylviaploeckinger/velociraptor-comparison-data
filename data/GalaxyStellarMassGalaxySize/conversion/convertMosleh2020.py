@@ -51,12 +51,14 @@ multi_z_sf.associate_comment(f"{comment} Includes SFing galaxies only.")
 multi_z_sf.associate_name(f"{name} (SF)")
 multi_z_sf.associate_citation(f"{citation} (SF)", bibcode)
 multi_z_sf.associate_cosmology(cosmology)
+multi_z_sf.associate_maximum_number_of_returns(1)
 
 multi_z_nsf = MultiRedshiftObservationalData()
 multi_z_nsf.associate_comment(f"{comment} Includes quiescent galaxies only.")
 multi_z_nsf.associate_name(f"{name} (Q)")
 multi_z_nsf.associate_citation(f"{citation} (Q)", bibcode)
 multi_z_nsf.associate_cosmology(cosmology)
+multi_z_nsf.associate_maximum_number_of_returns(1)
 
 redshift_bins = [[0.3, 0.7], [0.7, 1.0], [1.0, 1.3], [1.3, 2.0]]
 
