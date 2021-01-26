@@ -76,12 +76,13 @@ def process_for_redshift(z, gsmf_and_Mstar_at_z):
 
     Mstar_bins = 10 ** gsmf_and_Mstar_at_z[:, 0]
     M = Mstar_bins * (h / ORIGINAL_H) ** (-2) * unyt.Solar_Mass
-    M_err = Mstar_bins *np.log(10) * gsmf_and_Mstar_at_z[:, 1] * (h / ORIGINAL_H) ** (-2) * unyt.Solar_Mass
+    # Mass errors are log error dz = 1/ln(10) dy/y
+    # We want dy = y ln(10) dz
+    M_err = Mstar_bins * np.log(10) * gsmf_and_Mstar_at_z[:, 1] * (h / ORIGINAL_H) ** (-2) * unyt.Solar_Mass
+    
     Phi = gsmf_and_Mstar_at_z[:, 2] * (h / ORIGINAL_H) ** 3 * unyt.Mpc ** (-3)
     # y_scatter should be a 1xN or 2xN array describing offsets from
     # the median point 'y'
-    # Errors are log error dz = 1/ln(10) dy/y
-    # We want dy = y ln(10) dz
     Phi_err = gsmf_and_Mstar_at_z[:, 3:].T * (h / ORIGINAL_H) ** 3 * unyt.Mpc ** (-3)
     
     processed.associate_x(
