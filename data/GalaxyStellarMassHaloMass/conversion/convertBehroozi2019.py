@@ -121,8 +121,7 @@ def behroozi_2019_raw_with_uncertainties(
     # The best-fit stellar mass
     log_mstar_best = np.copy(log_mstar_all[0, :])
 
-    for i in range(np.shape(log_mstar_all)[1]):
-        log_mstar_all[:, i] = sorted(log_mstar_all[:, i], key=lambda x: x)
+    log_mstar_all.sort(axis=0)
 
     log_mstar_84 = log_mstar_all[int((1 + 0.6827) * len(log_mstar_all) / 2.0)]
     log_mstar_16 = log_mstar_all[int((1 - 0.6827) * len(log_mstar_all) / 2.0)]
