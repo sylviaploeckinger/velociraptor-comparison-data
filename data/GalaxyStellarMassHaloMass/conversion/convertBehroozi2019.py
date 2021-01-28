@@ -170,7 +170,7 @@ def StellarMass_vs_HaloMass():
 
         # Stellar masses (for the given halo masses, at redshift z)
         M_star, M_84, M_16 = behroozi_2019_raw_with_uncertainties(
-            z, M_BN98, "../raw/Behroozi2019_params_smhm_true_med_cen_params.txt"
+            z, M_BN98, "../raw/Behroozi_2019_fitting_params_smhm_true_med_cen.txt"
         )
 
         # Compute \Delta z
@@ -243,7 +243,7 @@ def StellarMassHaloMassRatios_vs_HaloMass():
         # Stellar masses (for the given halo masses, at redshift z)
         # Stellar masses (for the given halo masses, at redshift z)
         M_star, M_84, M_16 = behroozi_2019_raw_with_uncertainties(
-            z, M_BN98, "../raw/Behroozi2019_params_smhm_true_med_cen_params.txt"
+            z, M_BN98, "../raw/Behroozi_2019_fitting_params_smhm_true_med_cen.txt"
         )
 
         # Compute \Delta z
@@ -319,7 +319,7 @@ def StellarMassHaloMassRatios_vs_StellarMass():
         # Stellar masses (for the given halo masses, at redshift z)
         # Stellar masses (for the given halo masses, at redshift z)
         M_star, M_84, M_16 = behroozi_2019_raw_with_uncertainties(
-            z, M_BN98, "../raw/Behroozi2019_params_smhm_true_med_cen_params.txt"
+            z, M_BN98, "../raw/Behroozi_2019_fitting_params_smhm_true_med_cen.txt"
         )
 
         # Compute \Delta z
