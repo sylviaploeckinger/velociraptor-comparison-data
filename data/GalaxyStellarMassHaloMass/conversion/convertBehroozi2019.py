@@ -29,11 +29,11 @@ def behroozi_2019_raw_with_uncertainties(
     The halo mass is the peak halo mass that follows the Bryan & Norman (1998)
     spherical overdensity definition
 
-    The function the best-fit smellar-to-halo mass ratios as well as their
-    68% confidence interval range
+    The function returns the best-fit stellar mass as well as its 68% confidence
+    interval range
 
-    The function must be provided with a .txt file with the fitting parameters taken
-    directly from https://www.peterbehroozi.com/data.html
+    The function must be provided with a .txt file containing the fitting parameters
+    taken directly from https://www.peterbehroozi.com/data.html
 
     Provided by Evgenii Chaikin.
 
