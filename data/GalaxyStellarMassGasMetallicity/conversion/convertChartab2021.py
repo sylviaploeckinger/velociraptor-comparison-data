@@ -1,47 +1,43 @@
-from velociraptor.observations.objects import (
-    ObservationalData,
-    MultiRedshiftObservationalData,
-)
+from velociraptor.observations.objects import ObservationalData
 
 import unyt
 import numpy as np
 import os
 import sys
 
-# Exec the master cosmology file passed as first argument
-with open(sys.argv[1], "r") as handle:
-    exec(handle.read())
 
-output_filename = "Chartab2021_Data.hdf5"
-output_directory = "../"
-input_redshifts = [1.5, 2.3]
+def stringify_z(z):
+    """
+    Eagle-style text formatting of redshift label.
+    Example: z=1.5 will be printed as z001p500.
 
-# Meta-data
-comment = (
-    "Fits to stacks obtained assuming a Chabrier IMF. "
-    "The metallicity is expressed as 12 + log10(O/H). "
-)
-citation = "Chartab et al. (2021)"
-bibcode = "https://arxiv.org/pdf/2101.01706.pdf"
-name = "MOSDEF Survey: gas-phase metallicity of galaxies at 1.4 <= z <= 2.6"
-plot_as = "line"
+    z: The redshift to produce a label for
+    """
+    whole = int(z)
+    frac = int(1000 * (z - whole))
+    return f"z{whole:03d}p{frac:03d}"
 
-if not os.path.exists(output_directory):
-    os.mkdir(output_directory)
 
-multi_z = MultiRedshiftObservationalData()
-multi_z.associate_citation(citation, bibcode)
-multi_z.associate_name(name)
-multi_z.associate_comment(comment)
-multi_z.associate_cosmology(cosmology)
-multi_z.associate_maximum_number_of_returns(1)
+def process_for_redshift(z):
+    """
+    Output an HDF5 file containing the stellar mass-gas metallicity relation at a given redshift.
 
-for filename, redshifts in zip(input_filenames, input_redshifts):
+    z: the redshift to produce the relation
+    """
+
     processed = ObservationalData()
-    raw = np.loadtxt(filename, delimiter=delimiter)
 
+    # Meta-data
+    comment = (
+        "Fits to stacks obtained assuming a Chabrier IMF. "
+        "The metallicity is expressed as 12 + log10(O/H). "
+    )
+    citation = "Chartab et al. (2021)"
+    bibcode = "https://arxiv.org/pdf/2101.01706.pdf"
+    name = "MOSDEF Survey: gas-phase metallicity of galaxies at 1.4 <= z <= 2.6"
     plot_as = "line"
-    redshift = redshifts
+
+    redshift = z
     h = cosmology.h
 
     log10_M_star_min = 9.5
@@ -75,12 +71,24 @@ for filename, redshifts in zip(input_filenames, input_redshifts):
     processed.associate_redshift(redshift)
     processed.associate_plot_as(plot_as)
     processed.associate_cosmology(cosmology)
+    return processed
 
-    multi_z.associate_dataset(processed)
 
-output_path = f"{output_directory}/{output_filename}"
+# Exec the master cosmology file passed as first argument
+with open(sys.argv[1], "r") as handle:
+    exec(handle.read())
 
-if os.path.exists(output_path):
-    os.remove(output_path)
+output_filename = "Chartab2021_{}.hdf5"
+output_directory = "../"
+input_redshifts = (1.5, 2.3)
 
-multi_z.write(filename=output_path)
+for z in input_redshifts:
+
+    processed = process_for_redshift(z)
+
+    output_path = f"{output_directory}/{output_filename.format(stringify_z(z))}"
+
+    if os.path.exists(output_path):
+        os.remove(output_path)
+
+    processed.write(filename=output_path)
