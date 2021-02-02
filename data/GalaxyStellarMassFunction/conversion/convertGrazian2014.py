@@ -11,7 +11,7 @@ import sys
 import itertools as it
 
 # not required, since data file is already in h-free units
-#ORIGINAL_H = 0.7
+# ORIGINAL_H = 0.7
 
 
 def pairwise(iterable):
@@ -52,13 +52,19 @@ def load_file_and_split_by_z(raw_file_name):
     z_bins_arr = []
     gsmf_arr = []
     for isl, lines in enumerate(split_lines):
-        redshift_regex = re.search("(\d.\d)<z<(\d.\d)\)", lines[0])
+        redshift_regex = re.search("(\d.\d)<z<(\d.\d)", lines[0])
         redshift_range = [
             float(redshift_regex.group(1)),
             float(redshift_regex.group(2)),
         ]
         z_bins_arr.append(redshift_range)
-        gsmf_arr.append(np.loadtxt(lines, converters=converter_dict, usecols=range(4)))
+
+        gsmf_data = np.loadtxt(lines, delimiter=",")
+        # errors are stored as absoloute values
+        # convert them to be relative offsets
+        gsmf_data[:, 2:] = np.abs(gsmf_data[:, [1]] - gsmf_data[:, 2:])
+        print(gsmf_data)
+        gsmf_arr.append(gsmf_data)
 
     return z_bins_arr, gsmf_arr
 
@@ -77,16 +83,22 @@ def process_for_redshift(z, gsmf_and_Mstar_at_z):
     plot_as = "points"
     h = cosmology.h
 
-    Mstar_bins = gsmf_and_Mstar_at_z[:, 0] + np.log10(salpeter_to_chabrier_mass) # convert from Salpeter IMF
-    M = 10 ** Mstar_bins * h ** -2 * unyt.Solar_Mass
-    
-    Phi = 10 ** gsmf_and_Mstar_at_z[:, 2] * h ** 3 * unyt.Mpc ** (-3)
+    Mstar_bins = (
+        gsmf_and_Mstar_at_z[:, 0] * salpeter_to_chabrier_mass
+    )  # convert from Salpeter IMF
+    M = Mstar_bins * h ** -2 * unyt.Solar_Mass
+
+    Phi = 10 ** gsmf_and_Mstar_at_z[:, 1] * h ** 3 * unyt.Mpc ** (-3)
     # y_scatter should be a 1xN or 2xN array describing offsets from
     # the median point 'y'
     # Errors are log error dz = 1/ln(10) dy/y
     # We want dy = y ln(10) dz
     Phi_err = (
-        (10 ** gsmf_and_Mstar_at_z[:, 1][:, None] * np.log(10) * gsmf_and_Mstar_at_z[:, [3, 2]]).T
+        (
+            10 ** gsmf_and_Mstar_at_z[:, [1]]
+            * np.log(10)
+            * gsmf_and_Mstar_at_z[:, [3, 2]]
+        ).T
         * h ** 3
         * unyt.Mpc ** (-3)
     )
@@ -118,7 +130,7 @@ if not os.path.exists(output_directory):
 
 comment = (
     "Vmax selection, quoted redshift is lower bound of range. "
-    "Data assuumes Salpeter IMF, converted to Chabrier using factor {salpeter_to_chabrier_mass}. "
+    f"Data assumes Salpeter IMF, converted to Chabrier using factor {salpeter_to_chabrier_mass}. "
     f"h-corrected for SWIFT using Cosmology: {cosmology.name}."
 )
 citation = "Grazian et al. (2014)"
