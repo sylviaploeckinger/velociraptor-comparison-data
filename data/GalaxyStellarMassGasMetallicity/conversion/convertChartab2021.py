@@ -1,6 +1,6 @@
 from velociraptor.observations.objects import (
-   ObservationalData,
-   MultiRedshiftObservationalData,
+    ObservationalData,
+    MultiRedshiftObservationalData,
 )
 
 import unyt
@@ -11,14 +11,12 @@ import sys
 
 def StellarMass_vs_GasMetallicity():
 
-    name = (
-        f"Fit to the stellar mass - gas metallicity at z=[{redshift_header_info:s}]"
-    )
+    name = f"Fit to the stellar mass - gas metallicity at z=[{redshift_header_info:s}]"
     comment = (
-               "The data is taken from Chartab+21 "
-               "Median fit to galaxy stacks from MOSDEF survey. "
-               "Stellar masses obtained assuming a Chabrier IMF. "
-               "The metallicity is expressed as 12 + log10(O/H). "
+        "The data is taken from Chartab+21 "
+        "Median fit to galaxy stacks from MOSDEF survey. "
+        "Stellar masses obtained assuming a Chabrier IMF. "
+        "The metallicity is expressed as 12 + log10(O/H). "
     )
 
     # Store metadata at the top level
@@ -28,15 +26,15 @@ def StellarMass_vs_GasMetallicity():
     multi_z.associate_comment(comment)
     multi_z.associate_cosmology(cosmology)
     multi_z.associate_maximum_number_of_returns(1)
-    
+
     output_filename = "Chartab2021.hdf5"
     output_directory = "../"
-    
+
     if not os.path.exists(output_directory):
         os.mkdir(output_directory)
 
     for z, dz_lower, dz_upper in zip(redshifts, redshifts_lower, redshifts_upper):
-    
+
         # Create a single observational-data instance at redshift z
         processed = ObservationalData()
 
@@ -45,25 +43,29 @@ def StellarMass_vs_GasMetallicity():
 
         log10_M_star_min = 9.5
         log10_M_star_max = 11.5
-    
+
         if z == 1.5:
-            
+
             Z_asm = 6.29
             alpha = 0.21
             M_star = np.arange(log10_M_star_min, log10_M_star_max, 0.2)
             Z_gas = (Z_asm + alpha * M_star) * unyt.dimensionless  # 12 + log(O/H)
             M_star = 10 ** M_star * unyt.Solar_Mass
-        
-        if z == 2 or z==2.5:
-            
+
+        if z == 2 or z == 2.5:
+
             Z_asm = 4.84
             alpha = 0.35
             M_star = np.arange(log10_M_star_min, log10_M_star_max, 0.2)
             Z_gas = (Z_asm + alpha * M_star) * unyt.dimensionless  # 12 + log(O/H)
             M_star = 10 ** M_star * unyt.Solar_Mass
 
-        processed.associate_x(M_star, scatter=None, comoving=True, description="Galaxy Stellar Mass")
-        processed.associate_y(Z_gas, scatter=None, comoving=True, description="Gas phase metallicity")
+        processed.associate_x(
+            M_star, scatter=None, comoving=True, description="Galaxy Stellar Mass"
+        )
+        processed.associate_y(
+            Z_gas, scatter=None, comoving=True, description="Gas phase metallicity"
+        )
         processed.associate_redshift(z, redshift_lower, redshift_upper)
         processed.associate_plot_as(plot_as)
         multi_z.associate_dataset(processed)
@@ -72,7 +74,7 @@ def StellarMass_vs_GasMetallicity():
 
     if os.path.exists(output_path):
         os.remove(output_path)
-    
+
     multi_z.write(filename=output_path)
 
 
@@ -103,4 +105,3 @@ h = h_sim
 
 # Create, format, and save the data
 StellarMass_vs_GasMetallicity()
-
