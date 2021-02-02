@@ -38,29 +38,31 @@ def load_file_and_split_by_z(raw_file_name):
 
     z_bins_arr = []
     gsmf_arr = []
-    
+
     for line in lines:
-        lsplit = line.split('\t') # file is tab-delimited
+        lsplit = line.split("\t")  # file is tab-delimited
         # extract redshift info from header row
-        if line.startswith('#'):
+        if line.startswith("#"):
             for column_name in lsplit:
-                z_match = re.search(r'z=([\d\.]+)', column_name)
+                z_match = re.search(r"z=([\d\.]+)", column_name)
                 if z_match:
                     z_bins_arr.append(float(z_match.group(1)))
         else:
             # first field is the mass range
             mass_str = lsplit[0]
-            mmin, mmax = map(float, mass_str.strip('[]').split('-'))
+            mmin, mmax = map(float, mass_str.strip("[]").split("-"))
 
             # column starts with mass and mass bin width
-            phi_vals = [0.5*(mmin+mmax), 0.5*(mmax-mmin)]
+            phi_vals = [0.5 * (mmin + mmax), 0.5 * (mmax - mmin)]
 
             # remaining fields are phi values, with +-error in brackets
             for phi_str in lsplit[1:]:
-                phi_vals_match = re.search(r'(-[\d\.]+)\((\+[\d\.]+) (-[\d\.]+)\)', phi_str)
+                phi_vals_match = re.search(
+                    r"(-[\d\.]+)\((\+[\d\.]+) (-[\d\.]+)\)", phi_str
+                )
                 if phi_vals_match:
                     phi_vals.extend(map(float, phi_vals_match.groups()))
-                else: # data is missing
+                else:  # data is missing
                     phi_vals.extend([np.nan] * 3)
             gsmf_arr.append(phi_vals)
     return np.array(z_bins_arr), np.array(gsmf_arr)
@@ -95,7 +97,8 @@ def process_for_redshift(z, gsmf_and_Mstar_at_z):
     # We want dy = y ln(10) dz
     Phi_err = (
         (
-            10 ** gsmf_and_Mstar_at_z[:, 2][:, None] * np.abs(gsmf_and_Mstar_at_z[:, [4, 3]])
+            10 ** gsmf_and_Mstar_at_z[:, 2][:, None]
+            * np.abs(gsmf_and_Mstar_at_z[:, [4, 3]])
             * np.log(10)
         ).T
         * (h / ORIGINAL_H) ** 3
@@ -148,7 +151,9 @@ multi_z.associate_cosmology(cosmology)
 z_bins, gsmf_and_Mstar = load_file_and_split_by_z(input_filename)
 
 for i, z in enumerate(z_bins):
-    gsmf_and_Mstar_at_z = np.concatenate([gsmf_and_Mstar[:,:2], gsmf_and_Mstar[:,i*3+2:(i+1)*3+2]], axis=1)
+    gsmf_and_Mstar_at_z = np.concatenate(
+        [gsmf_and_Mstar[:, :2], gsmf_and_Mstar[:, i * 3 + 2 : (i + 1) * 3 + 2]], axis=1
+    )
     multi_z.associate_dataset(process_for_redshift(z, gsmf_and_Mstar_at_z))
 
 multi_z.write(f"{output_directory}/{output_filename}")
