@@ -78,6 +78,7 @@ redshift = 0.0
 redshift_lower, redshift_upper = -0.1, 2.1
 h = h_sim
 
+# stellar mass versus halo mass
 comment = (
     "Measurements of stellar mass-halo mass relation obtained by fitting the "
     "rotation curves of isolated dwarf galaxies. "
@@ -121,6 +122,7 @@ if os.path.exists(output_path):
 
 processed.write(filename=output_path)
 
+# stellar-to-halo mass ratio versus halo mass
 comment = (
     "Measurements of stellar mass-halo mass relation obtained by fitting the "
     "rotation curves of isolated dwarf galaxies. "
@@ -164,6 +166,7 @@ if os.path.exists(output_path):
 
 processed.write(filename=output_path)
 
+# stellar-to-halo mass ratio versus stellar mass
 comment = (
     "Measurements of stellar mass-halo mass relation obtained by fitting the "
     "rotation curves of isolated dwarf galaxies. "
