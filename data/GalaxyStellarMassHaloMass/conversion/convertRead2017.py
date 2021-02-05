@@ -68,7 +68,7 @@ MRatio_scatter = MRatio * np.sqrt(
 )
 
 # Define metadata, which is the same in all the three cases
-citation = "Reed et al. (2017)"
+citation = "Read et al. (2017)"
 bibcode = "2017MNRAS.467.2019R"
 name = "The stellar mass-halo mass relation of isolated field dwarfs."
 plot_as = "points"
@@ -84,7 +84,7 @@ comment = (
     "rotation curves of isolated dwarf galaxies. "
     "Cosmology: Omega_m=0.27, Omega_lambda=0.73, h=0.7, sigma_8=0.82, "
     "n_s=0.95. (un-corrected). "
-    "The data is taken from Table 2 in Reed's paper. "
+    "The data is taken from Table 2 in Read's paper. "
     "The galaxies whose data was considered as 'bad' (see the discussion on the "
     "exclusion of 'rogues' in paragraph 4.4) are not shown. "
     "The halo mass used is the 'virial' mass within a spherical region whose mean "
@@ -92,7 +92,7 @@ comment = (
     "Plotted is the stellar mass versus halo mass at z=0."
 )
 
-output_filename = "Reed2017.hdf5"
+output_filename = "Read2017.hdf5"
 
 # Write everything
 processed = ObservationalData()
@@ -128,7 +128,7 @@ comment = (
     "rotation curves of isolated dwarf galaxies. "
     "Cosmology: Omega_m=0.27, Omega_lambda=0.73, h=0.7, sigma_8=0.82, "
     "n_s=0.95. (un-corrected). "
-    "The data is taken from Table 2 in Reed's paper. "
+    "The data is taken from Table 2 in Read's paper. "
     "The galaxies whose data was considered as 'bad' (see the discussion on the "
     "exclusion of 'rogues' in paragraph 4.4) are not shown. "
     "The halo mass used is the 'virial' mass within a spherical region whose mean "
@@ -136,7 +136,7 @@ comment = (
     "Plotted is the stellar-to-halo mass ratio versus halo mass at z=0."
 )
 
-output_filename = "Reed2017_Ratio.hdf5"
+output_filename = "Read2017_Ratio.hdf5"
 
 # Write everything
 processed = ObservationalData()
@@ -172,7 +172,7 @@ comment = (
     "rotation curves of isolated dwarf galaxies. "
     "Cosmology: Omega_m=0.27, Omega_lambda=0.73, h=0.7, sigma_8=0.82, "
     "n_s=0.95. (un-corrected). "
-    "The data is taken from Table 2 in Reed's paper. "
+    "The data is taken from Table 2 in Read's paper. "
     "The galaxies whose data was considered as 'bad' (see the discussion on the "
     "exclusion of 'rogues' in paragraph 4.4) are not shown. "
     "The halo mass used is the 'virial' mass within a spherical region whose mean "
@@ -180,7 +180,7 @@ comment = (
     "Plotted is the stellar-to-halo mass ratio versus stellar mass at z=0"
 )
 
-output_filename = "Reed2017_RatioStellar.hdf5"
+output_filename = "Read2017_RatioStellar.hdf5"
 
 # Write everything
 processed = ObservationalData()
