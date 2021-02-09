@@ -63,7 +63,6 @@ def load_file_and_split_by_z(raw_file_name):
         # errors are stored as absoloute values
         # convert them to be relative offsets
         gsmf_data[:, 2:] = np.abs(gsmf_data[:, [1]] - gsmf_data[:, 2:])
-        print(gsmf_data)
         gsmf_arr.append(gsmf_data)
 
     return z_bins_arr, gsmf_arr
