@@ -1,4 +1,7 @@
-from velociraptor.observations.objects import ObservationalData
+from velociraptor.observations.objects import (
+    ObservationalData,
+    MultiRedshiftObservationalData,
+)
 
 import unyt
 import numpy as np
@@ -46,7 +49,10 @@ def load_file_and_split_by_z(raw_file_name):
     z_ranges = lines[4]
     # Each range of redshifts is separated by two or more spaces
     z_ranges = re.split("#?\s{2,}", z_ranges)[1:]
-    z_bins_arr = np.asarray([float(z_rge.split()[0]) for z_rge in z_ranges])
+    z_bins_arr = []
+    for z_rge in z_ranges:
+        z_bins_arr.append(list(map(float, z_rge.split("<")[::2])))
+    z_bins_arr = np.asarray(z_bins_arr)
 
     n_redshift_bins = len(z_bins_arr)
     n_stellar_mass_bins = len(lines) - n_header_lines
@@ -87,15 +93,7 @@ def process_for_redshift(z, mstar_bins, gsmf_at_z):
 
     processed = ObservationalData()
 
-    comment = (
-        "Assuming Chabrier IMF, quoted redshift is lower bound of range. "
-        f"h-corrected for SWIFT using Cosmology: {cosmology.name}."
-    )
-    citation = "Tomczak et al (2013)"
-    bibcode = "2014ApJ...783...85T"
-    name = "GSMF from ZFOURGE/CANDELS"
     plot_as = "points"
-    redshift = z
     h = cosmology.h
 
     M = 10 ** mstar_bins * (h / ORIGINAL_H) ** (-2) * unyt.Solar_Mass
@@ -105,7 +103,7 @@ def process_for_redshift(z, mstar_bins, gsmf_at_z):
     # Errors are log error dz = 1/ln(10) dy/y
     # We want dy = y ln(10) dz
     Phi_err = (
-        (10 ** gsmf_at_z[:, 0][:, None] * np.log(10) * gsmf_at_z[:, [2, 1]]).T
+        (10 ** gsmf_at_z[:, [0]] * np.log(10) * gsmf_at_z[:, [2, 1]]).T
         * (h / ORIGINAL_H) ** 3
         * unyt.Mpc ** (-3)
     )
@@ -114,26 +112,10 @@ def process_for_redshift(z, mstar_bins, gsmf_at_z):
         M, scatter=None, comoving=True, description="Galaxy Stellar Mass"
     )
     processed.associate_y(Phi, scatter=Phi_err, comoving=True, description="Phi (GSMF)")
-    processed.associate_citation(citation, bibcode)
-    processed.associate_name(name)
-    processed.associate_comment(comment)
-    processed.associate_redshift(redshift)
+    processed.associate_redshift(sum(z) * 0.5, *z)
     processed.associate_plot_as(plot_as)
-    processed.associate_cosmology(cosmology)
 
     return processed
-
-
-def stringify_z(z):
-    """
-    Eagle-style text formatting of redshift label.
-    Example: z=1.5 will be printed as z001p500.
-
-    z: The redshift to produce a label for
-    """
-    whole = int(z)
-    frac = int(1000 * (z - whole))
-    return f"z{whole:03d}p{frac:03d}"
 
 
 # Exec the master cosmology file passed as first argument
@@ -145,24 +127,39 @@ with open(sys.argv[1], "r") as handle:
 
 input_filename = "../raw/Tomczak2013.txt"
 
-output_filename = "Tomczak2013_{}.hdf5"
+output_filename = "Tomczak2013.hdf5"
 output_directory = "../"
 
 if not os.path.exists(output_directory):
     os.mkdir(output_directory)
 
-# z_bins, mstar_bins are 1-D ndarrays containing the lower edges of the redshift bins,
-# and the log(stellar mass) bins respectively
-# gsmf is a 3-D ndarray with axes 0 and 1 corresponding to z and stellar mass bins
+comment = (
+    f"Assuming Chabrier IMF, quoted redshift is average in range. "
+    "h-corrected for SWIFT using Cosmology: {cosmology.name}."
+)
+citation = "Tomczak et al (2013)"
+bibcode = "2014ApJ...783...85T"
+name = "GSMF from ZFOURGE/CANDELS"
+
+multi_z = MultiRedshiftObservationalData()
+multi_z.associate_comment(comment)
+multi_z.associate_name(name)
+multi_z.associate_citation(citation, bibcode)
+multi_z.associate_cosmology(cosmology)
+
+
+# z_bins, mstar_bins are 1-D ndarrays containing the redshift ranges and the log(stellar mass) bins respectively
+# gsmf is a 3-D ndarray with axes 0 and 1 corresponding to redshift ranges and stellar mass bins
 # Axis 2 ranges from 0..2 and contains log(GSMF), and the +- errors respectively
 z_bins, mstar_bins, gsmf = load_file_and_split_by_z(input_filename)
 
-for iz, z in enumerate(z_bins):
-    processed = process_for_redshift(z, mstar_bins, gsmf[iz])
 
-    output_path = f"{output_directory}/{output_filename.format(stringify_z(z))}"
+for z, gsmf_at_z in zip(z_bins, gsmf):
+    multi_z.associate_dataset(process_for_redshift(z, mstar_bins, gsmf_at_z))
 
-    if os.path.exists(output_path):
-        os.remove(output_path)
+output_path = f"{output_directory}/{output_filename}"
 
-    processed.write(filename=output_path)
+if os.path.exists(output_path):
+    os.remove(output_path)
+
+multi_z.write(output_path)
