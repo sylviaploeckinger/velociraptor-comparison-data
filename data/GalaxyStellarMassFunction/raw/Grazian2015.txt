@@ -1,4 +1,4 @@
-# GSMF from Grazian et al 2014. Salpeter IMF, h=0.7
+# GSMF from Grazian et al 2015. Salpeter IMF, h=0.7
 
 # 3.5<z<4.5
 # Mstar/h**-2, Phi, Phi_upper, Phi_lower

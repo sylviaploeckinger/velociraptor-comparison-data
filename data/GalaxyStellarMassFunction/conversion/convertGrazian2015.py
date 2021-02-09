@@ -119,9 +119,9 @@ def process_for_redshift(z, gsmf_and_Mstar_at_z):
 with open(sys.argv[1], "r") as handle:
     exec(handle.read())
 
-input_filename = "../raw/Grazian2014.txt"
+input_filename = "../raw/Grazian2015.txt"
 
-output_filename = "Grazian2014.hdf5"
+output_filename = "Grazian2015.hdf5"
 output_directory = "../"
 
 if not os.path.exists(output_directory):
@@ -132,7 +132,7 @@ comment = (
     f"Data assumes Salpeter IMF, converted to Chabrier using factor {salpeter_to_chabrier_mass}. "
     f"h-corrected for SWIFT using Cosmology: {cosmology.name}."
 )
-citation = "Grazian et al. (2014)"
+citation = "Grazian et al. (2015)"
 bibcode = " 2015A&A...575A..96G"
 name = "GSMF from CANDELS+HUDF, HUGS, and SEDS"
 
