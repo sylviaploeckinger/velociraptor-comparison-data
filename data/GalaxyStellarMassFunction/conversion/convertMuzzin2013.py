@@ -135,7 +135,7 @@ if not os.path.exists(output_directory):
     os.mkdir(output_directory)
 
 comment = (
-    "Vmax selection, quoted redshift is lower bound of range. "
+    "Vmax selection, quoted redshift is mean of range. "
     f"Data assumes Kroupa IMF, converted to Chabrier using factor {kroupa_to_chabrier_mass}. "
     f"h-corrected for SWIFT using Cosmology: {cosmology.name}."
 )
