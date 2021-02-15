@@ -38,6 +38,8 @@ citation = "McConnell & Ma (2013) (Fit)"
 bibcode = "2013ApJ...764..184M"
 name = "Fit to the black hole mass - stellar mass relation from 72 local galaxies."
 plot_as = "line"
+# We purposely make this data show up not only a z=0 but also at higher z
+redshift_lower, redshift_upper = -0.1, 3.1
 redshift = 0.0
 h = h_sim
 
@@ -50,7 +52,7 @@ processed.associate_y(M_BH, scatter=None, comoving=True, description="Black Hole
 processed.associate_citation(citation, bibcode)
 processed.associate_name(name)
 processed.associate_comment(comment)
-processed.associate_redshift(redshift)
+processed.associate_redshift(redshift, redshift_lower, redshift_upper)
 processed.associate_plot_as(plot_as)
 processed.associate_cosmology(cosmology)
 
