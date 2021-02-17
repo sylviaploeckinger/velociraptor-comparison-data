@@ -69,6 +69,8 @@ for output_name, output_filename in zip(output_names, output_filenames):
         f"{num_galaxies} local {output_name}s."
     )
     plot_as = "points"
+    # We purposely make this data show up not only a z=0 but also at higher z
+    redshift_lower, redshift_upper = -0.1, 3.1
     redshift = 0.0
     h = h_sim
 
@@ -95,7 +97,7 @@ for output_name, output_filename in zip(output_names, output_filenames):
     processed.associate_citation(citation, bibcode)
     processed.associate_name(name)
     processed.associate_comment(comment)
-    processed.associate_redshift(redshift)
+    processed.associate_redshift(redshift, redshift_lower, redshift_upper)
     processed.associate_plot_as(plot_as)
     processed.associate_cosmology(cosmology)
 
