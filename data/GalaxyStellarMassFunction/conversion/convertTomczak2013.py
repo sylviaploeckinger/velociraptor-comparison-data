@@ -146,6 +146,7 @@ multi_z.associate_comment(comment)
 multi_z.associate_name(name)
 multi_z.associate_citation(citation, bibcode)
 multi_z.associate_cosmology(cosmology)
+multi_z.associate_maximum_number_of_returns(2)
 
 
 # z_bins, mstar_bins are 1-D ndarrays containing the redshift ranges and the log(stellar mass) bins respectively
