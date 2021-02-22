@@ -143,6 +143,7 @@ multi_z.associate_comment(comment)
 multi_z.associate_name(name)
 multi_z.associate_citation(citation, bibcode)
 multi_z.associate_cosmology(cosmology)
+multi_z.associate_maximum_number_of_returns(1)
 
 # z_bins is a 1-D ndarray containing the lower edges of the redshift bins
 # gsmf_and_Mstar is a list of 2D ndarrays, one per redshift
