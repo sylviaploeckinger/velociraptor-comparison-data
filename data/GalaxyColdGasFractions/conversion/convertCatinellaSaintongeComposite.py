@@ -6,7 +6,6 @@ import os
 import re
 import sys
 import itertools as it
-from scipy.interpolate import interp1d
 
 ORIGINAL_H = 0.7
 
@@ -111,14 +110,13 @@ for i in range(len(tables)):
     x_err = x_vals * 0.0
 
     fneut = 10 ** tables[i][:, 1] * unitless
-    fh2_func = interp1d(
-        tables_h2[i][:, 0],
-        tables_h2[i][:, 2],
-        fill_value=(tables_h2[i][0, 2], tables_h2[i][-1, 2]),
-        bounds_error=False,
-    )
+    log10_fh2 = np.interp(tables[i][:, 0],
+                          tables_h2[i][:, 0],
+                          tables_h2[i][:, 2],
+                          tables_h2[i][0, 2],
+                          tables_h2[i][-1, 2])
 
-    fh2 = 10 ** fh2_func(tables[i][:, 0]) * unitless
+    fh2 = 10 ** log10_fh2 * unitless
 
     fgas = fh2 / fneut
     fgas_err = fgas * 0.0
