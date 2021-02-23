@@ -110,11 +110,13 @@ for i in range(len(tables)):
     x_err = x_vals * 0.0
 
     fneut = 10 ** tables[i][:, 1] * unitless
-    log10_fh2 = np.interp(tables[i][:, 0],
-                          tables_h2[i][:, 0],
-                          tables_h2[i][:, 2],
-                          tables_h2[i][0, 2],
-                          tables_h2[i][-1, 2])
+    log10_fh2 = np.interp(
+        tables[i][:, 0],
+        tables_h2[i][:, 0],
+        tables_h2[i][:, 2],
+        tables_h2[i][0, 2],
+        tables_h2[i][-1, 2],
+    )
 
     fh2 = 10 ** log10_fh2 * unitless
 
