@@ -53,12 +53,14 @@ readrows = np.hstack([np.diff(table_h2_index).astype(int), None])
 
 tables_h2 = []
 for i in range(len(table_h2_index)):
-    table_h2 = np.loadtxt(input_filename_h2, skiprows=table_h2_index[i], max_rows=readrows[i])
+    table_h2 = np.loadtxt(
+        input_filename_h2, skiprows=table_h2_index[i], max_rows=readrows[i]
+    )
     # set -99.9 values to NaNs
     table_h2[table_h2 == -99.9] = np.nan
     tables_h2.append(table_h2)
 
-tables_h2 = [tables_h2[i] for i in [0,1,3,2]]
+tables_h2 = [tables_h2[i] for i in [0, 1, 3, 2]]
 
 # #  load Catinella+18 data
 # table_hi_index = [i for i, line in enumerate(lines) if "# x = " in line]
@@ -71,7 +73,7 @@ tables_h2 = [tables_h2[i] for i in [0,1,3,2]]
 #         np.loadtxt(input_filename, skiprows=table_hi_index[i], max_rows=readrows[i])
 #     )
 
-    
+
 citation = "Catinella et al. (2018), z = 0"
 comment = "HI+H2 vs stellar fractions at z=0, h-corrected for SWIFT using Cosmology: {cosmology.name}."
 bibcode = "2018MNRAS.476..875C"
@@ -85,7 +87,7 @@ h = cosmology.h
 units = [
     pow(h / ORIGINAL_H, -2) * unyt.Solar_Mass,
     unyt.Solar_Mass * pow(unyt.kpc, -2),
-    pow(unyt.yr, -1)
+    pow(unyt.yr, -1),
 ]
 
 labels = [
@@ -109,14 +111,17 @@ for i in range(len(tables)):
     x_err = x_vals * 0.0
 
     fneut = 10 ** tables[i][:, 1] * unitless
-    fh2_func = interp1d(tables_h2[i][:, 0], tables_h2[i][:, 2],
-                        fill_value=(tables_h2[i][0, 2], tables_h2[i][-1, 2]), bounds_error=False)
+    fh2_func = interp1d(
+        tables_h2[i][:, 0],
+        tables_h2[i][:, 2],
+        fill_value=(tables_h2[i][0, 2], tables_h2[i][-1, 2]),
+        bounds_error=False,
+    )
 
     fh2 = 10 ** fh2_func(tables[i][:, 0]) * unitless
 
-    fgas = fh2/fneut
+    fgas = fh2 / fneut
     fgas_err = fgas * 0.0
-    
 
     processed.associate_x(x_vals, scatter=x_err, comoving=0, description=labels[i])
     processed.associate_y(

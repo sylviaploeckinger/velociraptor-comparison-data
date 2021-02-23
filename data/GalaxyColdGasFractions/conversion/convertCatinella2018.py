@@ -51,7 +51,7 @@ h = cosmology.h
 units = [
     pow(h / ORIGINAL_H, -2) * unyt.Solar_Mass,
     unyt.Solar_Mass * pow(unyt.kpc, -2),
-    pow(unyt.yr, -1)
+    pow(unyt.yr, -1),
 ]
 
 labels = [
