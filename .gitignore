@@ -1,2 +1,8 @@
 # Output files, these are cosmology specific.
 data/*/*.hdf5
+
+# MacOS
+.DS_Store
+
+# emacs
+*~

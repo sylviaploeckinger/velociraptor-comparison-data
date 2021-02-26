@@ -4,18 +4,26 @@ Plots an individual dataset and shows the result.
 
 import sys
 import matplotlib.pyplot as plt
-from velociraptor.observations import load_observation
+import unyt
+from velociraptor.observations import load_observations
 
-obs = load_observation(sys.argv[1])
+try:
+    lower = float(sys.argv[2])
+    upper = float(sys.argv[3])
+except:
+    print("Redshift range not found, assuming 0.0 -> 1000.0")
+    lower = 0.0
+    upper = 1000.0
 
-fig, ax = plt.subplots()
-ax.loglog()
+obs = load_observations(sys.argv[1], [lower, upper])
 
-obs.plot_on_axes(ax)
+with unyt.matplotlib_support:
+    fig, ax = plt.subplots()
+    ax.loglog()
 
-ax.set_xlabel(f"{obs.x_description} $\\left[{obs.x_units.latex_repr}\\right]$")
-ax.set_ylabel(f"{obs.y_description} $\\left[{obs.y_units.latex_repr}\\right]$")
-ax.set_title(obs.name)
+    for observation in obs:
+        observation.plot_on_axes(ax)
+        ax.set_title(observation.name)
 
 ax.legend()
 fig.tight_layout()
@@ -23,7 +31,7 @@ fig.tight_layout()
 ax.text(
     0.025,
     0.025,
-    obs.comment,
+    obs[0].comment,
     ha="left",
     va="bottom",
     transform=ax.transAxes,

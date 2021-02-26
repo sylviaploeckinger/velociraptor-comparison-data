@@ -37,7 +37,11 @@ Phi_plus = (Phi_plus * unyt.Mpc ** (-3)) * (h_sim / h_obs) ** 3
 Phi_minus = (Phi_minus * unyt.Mpc ** (-3)) * (h_sim / h_obs) ** 3
 
 # Meta-data
-comment = f"Data obtained assuming a Chabrier IMF and h = 0.7. h-corrected for SWIFT using cosmology: {cosmology.name}. Ignoring the mass bins for which GAMA is systematically incomplete."
+comment = (
+    "Data obtained assuming a Chabrier IMF and h = 0.7. "
+    f"h-corrected for SWIFT using cosmology: {cosmology.name}. "
+    "Ignoring the mass bins for which GAMA is systematically incomplete."
+)
 citation = "Wright et al. (2017) (GAMA-II)"
 bibcode = "2017MNRAS.470.283W"
 name = "GSMF from GAMA-II using bivariate brightness distribution"

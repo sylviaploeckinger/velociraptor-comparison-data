@@ -111,3 +111,18 @@ the format_all.sh script.
 You can preview your data file by using the included
 `plot_individual_dataset.py` script, and passing the `.hdf5` file
 as the first argument.
+
+Formatting
+----------
+
+The code is formatted with `black`, and follows all rules exactly apart from one;
+strings that are longer than 88 characters should be broken into pieces so that
+the maximal line length in a file is 88, such as:
+
+```python
+long_string = (
+    "This would have been a really, really, really, really, really, really, really, "
+    "really, really, really, really, really, really, really really, really, really, "
+    "long string."
+)
+```

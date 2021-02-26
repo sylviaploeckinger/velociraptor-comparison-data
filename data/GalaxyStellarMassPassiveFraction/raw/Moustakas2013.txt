@@ -1,0 +1,50 @@
+## J. Moustakas et al. 2013, ApJ, 767, 50
+## jmoustakas@siena.edu
+##
+## SDSS/PRIMUS stellar mass functions for ALL galaxies
+## based on the fiducial set of prior parameters described
+## in the paper.  Please contact me with any questions.
+##
+## Adopted cosmological parameters and IMF:
+##   h100=0.70, omega0=0.30, omegaL=0.70
+##   Chabrier (2003) IMF from 0.1-100 Msun
+## 
+# 1 zlo - lower redshift bound
+# 2 zhi - upper redshift bound
+# 3 mass - center of stellar mass bin [log Msun]
+# 4 ngal - number of galaxies in bin
+# 5 ngalQ - number of quiescent galaxies in bin
+# 6 ngalSF - number of starforming galaxies in bin
+0.01  0.20   9.00  1040    186     854 
+0.01  0.20   9.10  1239    209    1030 
+0.01  0.20   9.20  1397    235    1162 
+0.01  0.20   9.30  1594    266    1328 
+0.01  0.20   9.40  1874    280    1594 
+0.01  0.20   9.50  2106    316    1790 
+0.01  0.20   9.60  2465    386    2079 
+0.01  0.20   9.70  2820    435    2385 
+0.01  0.20   9.80  3434    548    2886 
+0.01  0.20   9.90  3971    716    3255 
+0.01  0.20  10.00  4667    957    3710 
+0.01  0.20  10.10  5631   1384    4247 
+0.01  0.20  10.20  6601   1855    4746 
+0.01  0.20  10.30  8096   2673    5423 
+0.01  0.20  10.40  9341   3510    5831 
+0.01  0.20  10.50 10901   4460    6441 
+0.01  0.20  10.60 12177   5471    6706 
+0.01  0.20  10.70 13594   6593    7001 
+0.01  0.20  10.80 14172   7592    6580 
+0.01  0.20  10.90 14148   8319    5829 
+0.01  0.20  11.00 13361   8646    4715 
+0.01  0.20  11.10 11592   8286    3306 
+0.01  0.20  11.20  8682   6764    1918 
+0.01  0.20  11.30  5717   4781     936 
+0.01  0.20  11.40  3119   2728     391 
+0.01  0.20  11.50  1398   1258     140 
+0.01  0.20  11.60   535    492      43 
+0.01  0.20  11.70   201    189      12 
+0.01  0.20  11.80    67     61       6 
+0.01  0.20  11.90    16     14       2 
+0.01  0.20  12.00     4      3       1 
+0.01  0.20  12.10     2      2       0 
+0.01  0.20  12.20     1      1       0

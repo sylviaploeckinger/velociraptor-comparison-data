@@ -1,0 +1,31 @@
+# Number and stellar mass densities estimated by integrating the 
+#     best-fit Schechter SMF over the specified stellar mass range
+# ALL galaxies with [z_low,z_high)
+# Ho=70., Omega_lambda=0.7, Omega_matter=0.3
+# Muzzin, Marchesini, et al. 2013, ApJ, submitted
+# eta = log(number density), with number density in units of [1/Mpc^3]
+# rho = log(stellar mass density), with stellar mass density in units of [Msun/Mpc^3]
+#
+# the upper (_errU) and lower (_errL) errors represent total 1-sigma errors, 
+#     including Poisson uncertainties, the uncertainties from photometric redshift 
+#     random errors, and cosmic variance.
+# 
+# The following subscripts refer to the stellar mass ranges used in the 
+#      integration of the Schechter SMFs 
+# _8   =  8   < lg(Mstar/Msun) < 13 
+# _9   =  9   < lg(Mstar/Msun) < 13 
+# _10  = 10   < lg(Mstar/Msun) < 13 
+# _11  = 11   < lg(Mstar/Msun) < 13 
+# _115 = 11.5 < lg(Mstar/Msun) < 13 
+# 
+# [see also Table 2 in Muzzin et al. 2013]
+# For any questions, contact Danilo Marchesini (danilo.marchesini@tufts.edu) or Adam Muzzin (muzzin@strw.leidenuniv.nl)
+#
+# z_low  z_high  eta_8  eta_8_errU  eta_8_errL  eta_9  eta_9_errU  eta_9_errL  eta_10  eta_10_errU  eta_10_errL  eta_11  eta_11_errU  eta_11_errL  eta_115  eta_115_errU  eta_115_errL  rho_8  rho_8_errU  rho_8_errL  rho_9  rho_9_errU  rho_9_errL  rho_10  rho_10_errU  rho_10_errL  rho_11  rho_11_errU  rho_11_errL  rho_115  rho_115_errU  rho_115_errL
+0.2      0.5   	 -1.49	0.06	    0.06       	-1.89  0.07	   0.07        -2.35   0.09	    0.09   	 -3.25	 0.13	      0.13   	   -4.52    0.18	  0.23		8.41   0.06	   0.06	       8.40   0.07	  0.07        8.35    0.09	   0.09   	7.98	0.13	     0.14	  7.08	   0.18		 0.23
+0.5      1.0  	 -1.69	0.04	    0.04   	-2.00  0.04	   0.04        -2.45   0.06	    0.06   	 -3.49	 0.11	      0.11   	   -4.88    0.18	  0.14    	8.26   0.03	   0.03        8.25   0.04	  0.04        8.19    0.06	   0.06   	7.73	0.11	     0.10   	  6.72	   0.19		 0.14
+1.0      1.5   	 -2.04	0.17	    0.03   	-2.26  0.07	   0.04        -2.66   0.06	    0.06   	 -3.77	 0.12	      0.12   	   -5.45    0.35	  0.18    	8.02   0.03	   0.03        8.01   0.04	  0.04        7.95    0.06	   0.06   	7.41	0.13	     0.12   	  6.13	   0.36		 0.18
+1.5      2.0  	 -2.41	0.37	    0.11   	-2.56  0.19	   0.08        -2.88   0.07	    0.07   	 -3.97	 0.14	      0.14   	   -5.76    0.38	  0.21    	7.79   0.05	   0.03        7.79   0.05	  0.04        7.74    0.07	   0.07   	7.20	0.14	     0.13   	  5.81	   0.39		 0.21
+2.0      2.5   	 -3.06	0.70	    0.13   	-3.11  0.43	   0.11        -3.30   0.16	    0.09   	 -4.20	 0.16	      0.16   	   -5.89    0.38	  0.26    	7.43   0.11	   0.04        7.43   0.11	  0.06        7.41    0.10	   0.08   	6.98	0.16	     0.16   	  5.69	   0.40		 0.26
+2.5      3.0   	 -2.88	0.69	    0.52   	-3.09  0.41	   0.35        -3.43   0.19	    0.18  	 -4.32	 0.18	      0.18   	   -5.57    0.28	  0.27    	7.32   0.13	   0.09        7.32   0.13	  0.10        7.28    0.12	   0.11   	6.91	0.18	     0.18   	  6.04	   0.28		 0.28
+3.0      4.0   	 -3.14	1.41	    1.25   	-3.65  0.84	   0.74        -4.20   0.36	    0.34   	 -5.04	 0.22	      0.16   	   -5.80    0.25	  0.24   	6.64   0.43	   0.19        6.63   0.31	  0.18        6.57    0.20	   0.15   	6.31	0.21	     0.17   	  5.89	   0.26		 0.26
