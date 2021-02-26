@@ -30,51 +30,49 @@ def load_file_and_split_by_z(raw_file_name):
     Read the data file and do all the mucking around needed to extract a list of the
     redshift bins for which the GSMF is tabulated, along with the corresponding GSMF
     values and their errors.
-    The number and spacing of the stellar mass bins vary with z; they are given in the
-    first column of the returned array.
 
     raw_file_name: the file name of the raw data file to extract the GSMF from
     """
     with open(raw_file_name, "r") as f:
         lines = f.readlines()
 
-    # find header lines indicating the start of each block of data
-    header_line_nos = [i for i, line in enumerate(lines) if "1/Vmax" in line]
-    header_line_nos.append(len(lines))
-
-    # split the full loist of lines into one block of lines per redshift bin
-    split_lines = []
-    for l1, l2 in pairwise(header_line_nos):
-        split_lines.append(lines[l1:l2])
-
-    # The datafile uses '-99' to indicate missing data; we convert these to NaNs
-    handle_bad_value_converter = (
-        lambda s: float(s.strip()) if b"-99" not in s else np.nan
-    )
-    converter_dict = dict(zip(range(2, 5), it.repeat(handle_bad_value_converter)))
-
-    # figure out the redshift bins
     z_bins_arr = []
     gsmf_arr = []
-    for isl, lines in enumerate(split_lines):
-        redshift_regex = re.search("z=\[(\d.\d),(\d.\d)\)", lines[0])
-        redshift_range = [
-            float(redshift_regex.group(1)),
-            float(redshift_regex.group(2)),
-        ]
-        z_bins_arr.append(redshift_range)
-        gsmf_arr.append(np.loadtxt(lines, converters=converter_dict, usecols=range(5)))
 
-    return z_bins_arr, gsmf_arr
+    for line in lines:
+        lsplit = line.split("\t")  # file is tab-delimited
+        # extract redshift info from header row
+        if line.startswith("#"):
+            for column_name in lsplit:
+                z_match = re.search(r"z=([\d\.]+)", column_name)
+                if z_match:
+                    z_bins_arr.append(float(z_match.group(1)))
+        else:
+            # first field is the mass range
+            mass_str = lsplit[0]
+            mmin, mmax = map(float, mass_str.strip("[]").split("-"))
+
+            # column starts with mass and mass bin width
+            phi_vals = [0.5 * (mmin + mmax), 0.5 * (mmax - mmin)]
+
+            # remaining fields are phi values, with +-error in brackets
+            for phi_str in lsplit[1:]:
+                phi_vals_match = re.search(
+                    r"(-[\d\.]+)\((\+[\d\.]+) (-[\d\.]+)\)", phi_str
+                )
+                if phi_vals_match:
+                    phi_vals.extend(map(float, phi_vals_match.groups()))
+                else:  # data is missing
+                    phi_vals.extend([np.nan] * 3)
+            gsmf_arr.append(phi_vals)
+    return np.array(z_bins_arr), np.array(gsmf_arr)
 
 
 def process_for_redshift(z, gsmf_and_Mstar_at_z):
     """
     Output an HDF5 file containing the GSMF at a given redshift.
 
-    z: the redshift to produce the GSMF for. The given value corresponds to the lower
-    edge of a range in redshift of width 0.5, except for the first bin 0.2 < z < 0.5,
-    and the last bin 3.0 < z < 4.0
+    z: the redshift to produce the GSMF for.
     gsmf_and_mstar_at_z: the array containing stellar mass bins and the GSMF at the
     chosen redshift
     """
@@ -85,12 +83,10 @@ def process_for_redshift(z, gsmf_and_Mstar_at_z):
     h = cosmology.h
 
     Mstar_bins = gsmf_and_Mstar_at_z[:, 0]
-    Mstar_Chab = Mstar_bins - np.log10(
-        kroupa_to_chabrier_mass
-    )  # convert from Kroupa IMF
-    M = 10 ** Mstar_Chab * (h / ORIGINAL_H) ** (-2) * unyt.Solar_Mass
+    M = 10 ** Mstar_bins * (h / ORIGINAL_H) ** (-2) * unyt.Solar_Mass
+
     M_err = (
-        (10 ** Mstar_Chab * np.log(10) * gsmf_and_Mstar_at_z[:, 1])
+        (10 ** Mstar_bins * np.log(10) * gsmf_and_Mstar_at_z[:, 1])
         * (h / ORIGINAL_H) ** (-2)
         * unyt.Solar_Mass
     )
@@ -102,8 +98,8 @@ def process_for_redshift(z, gsmf_and_Mstar_at_z):
     Phi_err = (
         (
             10 ** gsmf_and_Mstar_at_z[:, 2][:, None]
+            * np.abs(gsmf_and_Mstar_at_z[:, [4, 3]])
             * np.log(10)
-            * gsmf_and_Mstar_at_z[:, [4, 3]]
         ).T
         * (h / ORIGINAL_H) ** 3
         * unyt.Mpc ** (-3)
@@ -113,7 +109,7 @@ def process_for_redshift(z, gsmf_and_Mstar_at_z):
         M, scatter=M_err, comoving=True, description="Galaxy Stellar Mass"
     )
     processed.associate_y(Phi, scatter=Phi_err, comoving=True, description="Phi (GSMF)")
-    processed.associate_redshift(sum(z) * 0.5, *z)
+    processed.associate_redshift(z)
     processed.associate_plot_as(plot_as)
 
     return processed
@@ -126,42 +122,39 @@ def process_for_redshift(z, gsmf_and_Mstar_at_z):
 with open(sys.argv[1], "r") as handle:
     exec(handle.read())
 
-input_filename = "../raw/Muzzin2013.txt"
+input_filename = "../raw/Gonzalez2011.txt"
 
-output_filename = "Muzzin2013.hdf5"
+output_filename = "Gonzalez2011.hdf5"
 output_directory = "../"
 
 if not os.path.exists(output_directory):
     os.mkdir(output_directory)
 
 comment = (
-    "Vmax selection, quoted redshift is mean of range. "
-    f"Data assumes Kroupa IMF, converted to Chabrier using factor {kroupa_to_chabrier_mass}. "
+    "Assuming Chabrier IMF (converted from Salpeter). "
     f"h-corrected for SWIFT using Cosmology: {cosmology.name}."
 )
-citation = "Muzzin et al. (2013)"
-bibcode = "2013ApJ...777...18M"
-name = "GSMF from COSMOS/UltraVISTA"
+citation = "Gonzalez et. al. (2011)"
+bibcode = "2011ApJ...735L..34G"
+name = "GSMF from GOODS-S"
 
 multi_z = MultiRedshiftObservationalData()
 multi_z.associate_comment(comment)
 multi_z.associate_name(name)
 multi_z.associate_citation(citation, bibcode)
 multi_z.associate_cosmology(cosmology)
+multi_z.associate_maximum_number_of_returns(1)
 
 # z_bins is a 1-D ndarray containing the lower edges of the redshift bins
 # gsmf_and_Mstar is a list of 2D ndarrays, one per redshift
 # Each contains five columns as follows:
 # log(Mstar) bins, Mstar errors, log(GSMF), GSMF +- errors
-
 z_bins, gsmf_and_Mstar = load_file_and_split_by_z(input_filename)
 
-for z, gsmf_and_Mstar_at_z in zip(z_bins, gsmf_and_Mstar):
+for i, z in enumerate(z_bins):
+    gsmf_and_Mstar_at_z = np.concatenate(
+        [gsmf_and_Mstar[:, :2], gsmf_and_Mstar[:, i * 3 + 2 : (i + 1) * 3 + 2]], axis=1
+    )
     multi_z.associate_dataset(process_for_redshift(z, gsmf_and_Mstar_at_z))
 
-output_path = f"{output_directory}/{output_filename}"
-
-if os.path.exists(output_path):
-    os.remove(output_path)
-
-multi_z.write(output_path)
+multi_z.write(f"{output_directory}/{output_filename}")
