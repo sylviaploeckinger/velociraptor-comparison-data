@@ -21,22 +21,22 @@ def load_file(file_name):
 
     file_name: the file name of the raw data to extract the GSMF from
     """
-    with open(file_name, 'r') as f:
+    with open(file_name, "r") as f:
         lines = f.readlines()
 
-    header = list(filter(lambda l: l.startswith('#'), lines))
+    header = list(filter(lambda l: l.startswith("#"), lines))
     nhead = len(header)
 
     # the last line of the header gives the redshift bins the GSMF is tabulated at
-    z_str = re.findall('z=(\d.\d)', header[-1])
+    z_str = re.findall("z=(\d.\d)", header[-1])
     z_bins = np.array([float(zs) for zs in z_str])
 
     raw_data = np.loadtxt(lines[nhead:])
-    Mstar_bins = raw_data[:,0]
-    gsmf = raw_data[:,1:].T # transpose the GSMF so that first axis is redshift
+    Mstar_bins = raw_data[:, 0]
+    gsmf = raw_data[:, 1:].T  # transpose the GSMF so that first axis is redshift
 
     return z_bins, Mstar_bins, gsmf
-    
+
 
 def process_for_redshift(z, Mstar_bins, gsmf_at_z):
     """
@@ -57,7 +57,9 @@ def process_for_redshift(z, Mstar_bins, gsmf_at_z):
     Phi = gsmf_at_z * (h / ORIGINAL_H) ** 3 * unyt.Mpc ** (-3)
     Phi_err = None
 
-    processed.associate_x(M, scatter=M_err, comoving=True, description="Galaxy Stellar Mass")
+    processed.associate_x(
+        M, scatter=M_err, comoving=True, description="Galaxy Stellar Mass"
+    )
     processed.associate_y(Phi, scatter=Phi_err, comoving=True, description="Phi (GSMF)")
     processed.associate_redshift(z)
     processed.associate_plot_as(plot_as)
@@ -98,7 +100,7 @@ for box_sz in box_sizes:
     multi_z.associate_maximum_number_of_returns(1)
 
     z_bins, Mstar_bins, gsmf = load_file(input_filename.format(box=box_sz))
-    
+
     for z, gsmf_at_z in zip(z_bins, gsmf):
         multi_z.associate_dataset(process_for_redshift(z, Mstar_bins, gsmf_at_z))
 
