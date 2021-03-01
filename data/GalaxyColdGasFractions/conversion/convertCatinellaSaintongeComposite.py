@@ -84,7 +84,7 @@ filetag = ["abcissa_M_star", "abcissa_mu_star", "abcissa_sSFR"]
 
 for i in range(len(tables)):
     processed = ObservationalData()
-    
+
     x_vals = 10 ** tables[i][:, 0] * units[i]
 
     fneut = 10 ** tables[i][:, 1] * unitless
