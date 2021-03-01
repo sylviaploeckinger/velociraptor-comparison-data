@@ -3,10 +3,9 @@ from velociraptor.observations.objects import ObservationalData
 import unyt
 import numpy as np
 import os
-import re
 import sys
-import itertools as it
 
+# From cosmology assumed by Catinella+18
 ORIGINAL_H = 0.7
 
 unitless = unyt.dimensionless
@@ -40,7 +39,7 @@ for i in range(len(table_index)):
         np.loadtxt(input_filename, skiprows=table_index[i], max_rows=readrows[i])
     )
 
-citation = "Catinella et al. (2018), z = 0"
+citation = "Catinella et al. (2018)"
 comment = "HI+H2 vs stellar fractions at z=0, h-corrected for SWIFT using Cosmology: {cosmology.name}."
 bibcode = "2018MNRAS.476..875C"
 name = "HI gas fractions from XGAS"
@@ -62,26 +61,17 @@ labels = [
 
 filetag = ["abcissa_M_star", "abcissa_mu_star", "abcissa_sSFR"]
 
-
 for i in range(len(tables)):
     processed = ObservationalData()
 
-    if i < 3:
-        x_vals = 10 ** tables[i][:, 0] * units[i]
-    else:
-        x_vals = tables[i][:, 0] * units[i]
-
-    # no x err
-    x_err = x_vals * 0.0
+    x_vals = 10 ** tables[i][:, 0] * units[i]
 
     fgas = 10 ** tables[i][:, 1] * unitless
 
-    fgas_err = fgas * 0.0
-
-    processed.associate_x(x_vals, scatter=x_err, comoving=0, description=labels[i])
+    processed.associate_x(x_vals, scatter=None, comoving=False, description=labels[i])
     processed.associate_y(
         fgas,
-        scatter=fgas_err,
+        scatter=None,
         comoving=0,
         description="Average galaxy cold gas to stellar fraction",
     )
