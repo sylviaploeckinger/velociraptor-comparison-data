@@ -40,7 +40,7 @@ for i in range(len(labels)):
     raw = np.genfromtxt(
         input_filename,
         skip_header=lines[i] + 1,
-        skip_footer=inc - lines[i + 1],
+        skip_footer=inc - lines[i + 1] + 1,
         dtype=float,
         usecols=[1, 2, 3, 4, 5, 6],
     )
