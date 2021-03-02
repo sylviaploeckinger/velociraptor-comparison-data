@@ -5,6 +5,7 @@ import numpy as np
 import os
 import sys
 
+# From cosmology assumed by Catinella+18, Saintonge+17
 ORIGINAL_H = 0.7
 
 unitless = unyt.dimensionless
@@ -99,12 +100,11 @@ for i in range(len(tables)):
     fh2 = 10 ** log10_fh2 * unitless
 
     fgas = fh2 / fneut
-    fgas_err = fgas * 0.0
 
-    processed.associate_x(x_vals, scatter=None, comoving=0, description=labels[i])
+    processed.associate_x(x_vals, scatter=None, comoving=False, description=labels[i])
     processed.associate_y(
         fgas,
-        scatter=fgas_err,
+        scatter=None,
         comoving=False,
         description="Average galaxy cold gas to stellar fraction",
     )

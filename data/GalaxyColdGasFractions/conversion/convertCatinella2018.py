@@ -72,7 +72,7 @@ for i in range(len(tables)):
     processed.associate_y(
         fgas,
         scatter=None,
-        comoving=0,
+        comoving=False,
         description="Average galaxy cold gas to stellar fraction",
     )
     processed.associate_citation(citation, bibcode)

@@ -73,20 +73,17 @@ for i in range(len(tables)):
     else:
         x_vals = tables[i][:, 0] * units[i]
 
-    # no x err
-    x_err = x_vals * 0.0
-
     fhi = 10 ** tables[i][:, 1] * unitless
 
     fhi_plus_err = (10 ** (tables[i][:, 1] + tables[i][:, 2]) * unitless) - fhi
     fhi_minus_err = fhi - (10 ** (tables[i][:, 1] - tables[i][:, 2]) * unitless)
     fhi_err = np.row_stack([fhi_minus_err, fhi_plus_err])
 
-    processed.associate_x(x_vals, scatter=x_err, comoving=0, description=labels[i])
+    processed.associate_x(x_vals, scatter=None, comoving=False, description=labels[i])
     processed.associate_y(
         fhi,
         scatter=fhi_err,
-        comoving=0,
+        comoving=False,
         description="Average Galaxy HI to stellar fraction",
     )
     processed.associate_citation(citation, bibcode)
