@@ -1,5 +1,4 @@
 from velociraptor.observations.objects import ObservationalData
-from velociraptor.observations.objects import ObservationalData
 
 import unyt
 import numpy as np
