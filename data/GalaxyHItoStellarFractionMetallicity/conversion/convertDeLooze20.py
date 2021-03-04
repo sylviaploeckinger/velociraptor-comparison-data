@@ -21,7 +21,6 @@ if not os.path.exists(output_directory):
 
 lines = []
 labels = []
-inc = 0
 
 # find all the sub headers in the file (they contain a ':')
 for inc, line in enumerate(open(input_filename)):
