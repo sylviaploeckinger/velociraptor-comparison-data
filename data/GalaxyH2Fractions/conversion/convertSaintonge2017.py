@@ -76,18 +76,15 @@ for i in range(len(tables)):
     else:
         x_vals = tables[i][:, 0] * units[i]
 
-    # no x err
-    x_err = x_vals * 0.0
-
     fh2 = 10 ** tables[i][:, 2] * unitless
 
     fh2_plus_err = (10 ** (tables[i][:, 2] + tables[i][:, 3]) * unitless) - fh2
     fh2_minus_err = fh2 - (10 ** (tables[i][:, 2] - tables[i][:, 3]) * unitless)
     fh2_err = np.row_stack([fh2_minus_err, fh2_plus_err])
 
-    processed.associate_x(x_vals, scatter=x_err, comoving=0, description=labels[i])
+    processed.associate_x(x_vals, scatter=None, comoving=False, description=labels[i])
     processed.associate_y(
-        fh2, scatter=fh2_err, comoving=0, description="Average Galaxy H2 fraction"
+        fh2, scatter=fh2_err, comoving=False, description="Average Galaxy H2 fraction"
     )
     processed.associate_citation(citation, bibcode)
     processed.associate_name(name)

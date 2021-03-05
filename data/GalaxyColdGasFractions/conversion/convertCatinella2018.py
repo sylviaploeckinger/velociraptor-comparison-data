@@ -3,10 +3,9 @@ from velociraptor.observations.objects import ObservationalData
 import unyt
 import numpy as np
 import os
-import re
 import sys
-import itertools as it
 
+# From cosmology assumed by Catinella+18
 ORIGINAL_H = 0.7
 
 unitless = unyt.dimensionless
@@ -40,10 +39,10 @@ for i in range(len(table_index)):
         np.loadtxt(input_filename, skiprows=table_index[i], max_rows=readrows[i])
     )
 
-citation = "Catinella et al. (2018), z = 0"
-comment = "HI to stellar fractions a z=0, h-corrected for SWIFT using Cosmology: {cosmology.name}."
+citation = "Catinella et al. (2018)"
+comment = "HI+H2 vs stellar fractions at z=0, h-corrected for SWIFT using Cosmology: {cosmology.name}."
 bibcode = "2018MNRAS.476..875C"
-name = "HI gas fractions from ALFALFA"
+name = "HI gas fractions from XGAS"
 plot_as = "points"
 redshift = 0
 h = cosmology.h
@@ -52,39 +51,29 @@ units = [
     pow(h / ORIGINAL_H, -2) * unyt.Solar_Mass,
     unyt.Solar_Mass * pow(unyt.kpc, -2),
     pow(unyt.yr, -1),
-    unitless,
 ]
 
 labels = [
     "Galaxy Stellar Mass",
     "Galaxy Central Stellar Surface density",
     "Galaxy Specific Star Formation Rate",
-    "Galaxy NUV-r colour",
 ]
 
-filetag = ["abcissa_M_star", "abcissa_mu_star", "abcissa_sSFR", "abcissa_NUV_minus_r"]
-
+filetag = ["abcissa_M_star", "abcissa_mu_star", "abcissa_sSFR"]
 
 for i in range(len(tables)):
     processed = ObservationalData()
 
-    if i < 3:
-        x_vals = 10 ** tables[i][:, 0] * units[i]
-    else:
-        x_vals = tables[i][:, 0] * units[i]
+    x_vals = 10 ** tables[i][:, 0] * units[i]
 
-    fhi = 10 ** tables[i][:, 1] * unitless
-
-    fhi_plus_err = (10 ** (tables[i][:, 1] + tables[i][:, 2]) * unitless) - fhi
-    fhi_minus_err = fhi - (10 ** (tables[i][:, 1] - tables[i][:, 2]) * unitless)
-    fhi_err = np.row_stack([fhi_minus_err, fhi_plus_err])
+    fgas = 10 ** tables[i][:, 1] * unitless
 
     processed.associate_x(x_vals, scatter=None, comoving=False, description=labels[i])
     processed.associate_y(
-        fhi,
-        scatter=fhi_err,
+        fgas,
+        scatter=None,
         comoving=False,
-        description="Average Galaxy HI to stellar fraction",
+        description="Average galaxy cold gas to stellar fraction",
     )
     processed.associate_citation(citation, bibcode)
     processed.associate_name(name)

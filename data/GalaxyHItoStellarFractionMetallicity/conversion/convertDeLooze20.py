@@ -3,9 +3,8 @@ from velociraptor.observations.objects import ObservationalData
 import unyt
 import numpy as np
 import os
-import sys
-import copy
 import re
+import sys
 from velociraptor.tools.lines import binned_median_line
 
 # Exec the master cosmology file passed as first argument
@@ -22,26 +21,25 @@ if not os.path.exists(output_directory):
 
 lines = []
 labels = []
-inc = 0
 
-# find all the sub headers in the file (tthey contain a ':')
-for line in open(input_filename):
+# find all the sub headers in the file (they contain a ':')
+for inc, line in enumerate(open(input_filename)):
     if re.findall(r"\:", line):
         # store sub-head lines and survey names
         lines.append(inc)
         labels.append(line.split(":")[0])
-    inc += 1
 lines.append(inc)
 
 x_all = []
 y_all = []
 
+# Loop over different survey data sets
 for i in range(len(labels)):
     # read each surveys data and write separate files
     raw = np.genfromtxt(
         input_filename,
         skip_header=lines[i] + 1,
-        skip_footer=inc - lines[i + 1],
+        skip_footer=inc - lines[i + 1] + 1,
         dtype=float,
         usecols=[1, 2, 3, 4, 5, 6],
     )
