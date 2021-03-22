@@ -1,0 +1,9 @@
+# Walter et al. (2020), Table 1.
+# -----------------------------------------
+# Eq. 2 :: rho_HI [Msun/Mpc^3] = A tanh(1 + z - B) + C
+# -----------------------------------------
+# coefficients:
+# rho_H2 type | A | B | C 
+average	 4.50e7	2.80e0	1.01e8
+lower	 4.00e7	2.40e0	9.40e7
+upper	 5.00e7	3.20e0	1.08e8

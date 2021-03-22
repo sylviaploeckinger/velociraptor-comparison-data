@@ -1,0 +1,5 @@
+# VCC 2062
+# M* :: Table 4, Lisenfeld et al. (2016)
+# MH2, MHI :: Tables 2,6 Lisenfeld et al. (2016)
+# M* [Msun] | p/m M* [Msun] |
+7.10e6 2.00e6 4.60e7 5.00e6 1.4e7 6.00e6 

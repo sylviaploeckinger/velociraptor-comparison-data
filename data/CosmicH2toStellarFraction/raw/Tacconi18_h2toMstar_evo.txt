@@ -1,0 +1,8 @@
+# Tacconi+18 MH2/Mstar fraction evolution for MS galaxies
+# log10(1+z) | log10(MH2/Mstar) [MS galaxies]
+0.01165 -1.38179
+0.09744 -0.86880
+0.22125 -0.55531
+0.34585 -0.16509
+0.50502 0.11551
+0.58999 0.26897
