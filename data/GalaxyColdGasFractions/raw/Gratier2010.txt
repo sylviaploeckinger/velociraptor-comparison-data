@@ -1,0 +1,5 @@
+# NGC 6822
+# M*, MHI :: Table 4, McConnachie (2012)
+# MH2  :: Table 4, Gratier et al. (2010) 
+# M* [Msun] | +/- M* [Msun] | MHI [Msun] | +/- MHI [Msun] | MH2 [Msun] | +/- MH2 [Msun] 
+1.00e8 0.00e0 1.30e8 0.00e0 6.90e6 2.30e6
