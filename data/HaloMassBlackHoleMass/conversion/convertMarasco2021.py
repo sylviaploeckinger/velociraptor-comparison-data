@@ -22,11 +22,9 @@ if not os.path.exists(output_directory):
 
 processed = ObservationalData()
 
-# Read the data
+# Read the data (only those columns we need here)
 raw = np.loadtxt(input_filename, delimiter=delimiter,
-                 usecols=(1, 2, 3, 4, 5, 6))
-raw_str = np.loadtxt(input_filename, delimiter=delimiter, usecols=(0),
-                     dtype=str)
+                 usecols=(2, 3, 4, 5))
 
 M_BH = 10 ** raw[:, 0] * unyt.Solar_Mass
 M_BH_low = M_BH - 10 ** raw[:, 1] * unyt.Solar_Mass
