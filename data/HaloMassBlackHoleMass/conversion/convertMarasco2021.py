@@ -27,12 +27,12 @@ raw = np.loadtxt(input_filename, delimiter=delimiter,
                  usecols=(2, 3, 4, 5))
 
 M_BH = 10 ** raw[:, 0] * unyt.Solar_Mass
-M_BH_low = M_BH - 10 ** raw[:, 1] * unyt.Solar_Mass
-M_BH_high = M_BH + 10 ** raw[:, 1] * unyt.Solar_Mass
+M_BH_low = 10 ** (raw[:, 0] - raw[:, 1]) * unyt.Solar_Mass
+M_BH_high = 10 ** (raw[:, 0] + raw[:, 1]) * unyt.Solar_Mass
 
 M_halo = 10 ** raw[:, 2] * unyt.Solar_Mass
-M_halo_low = M_halo - 10 ** raw[:, 3] * unyt.Solar_Mass
-M_halo_high = M_halo + 10 ** raw[:, 3] * unyt.Solar_Mass
+M_halo_low = 10 ** (raw[:, 2] - raw[:, 3]) * unyt.Solar_Mass
+M_halo_high = 10 ** (raw[:, 2] + raw[:, 3]) * unyt.Solar_Mass
 
 # Define the scatter as offset from the mean value
 x_scatter = unyt.unyt_array((M_halo - M_halo_low, M_halo_high - M_halo))
@@ -40,7 +40,10 @@ y_scatter = unyt.unyt_array((M_BH - M_BH_low, M_BH_high - M_BH))
 
 comment = (
     "Masses are provided h-free and cosmology-independent, so no "
-    "h-correction made."
+    "h-correction made. "
+    "Masses are (mostly) determined dynamically, with some stallar "
+    "masses obtained from K-band luminosities with a fixed conversion "
+    "factor. Halo masses are defined as M200_crit."
 )
 citation = "Marasco et al. (2021)"
 bibcode = "2021arXiv210510508M"

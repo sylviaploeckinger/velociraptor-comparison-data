@@ -1,7 +1,7 @@
 # Halo mass -- black hole mass data from Marasco et al. 2021
 # Masses are (mostly) determined dynamically, with some stallar
 # masses obtained from K-band luminosities with a fixed conversion
-# factor.
+# factor. Halo masses are defined as M200_crit.
 #
 # Galaxy Ttype	log10(MBH/Msun)  logerr_MBH  log10(Mhalo/Msun) logerr_Mhalo log10(fstar) logerr_fstar
 MilkyWay 	 4.0	6.63  0.04  12.11  0.10  -0.68   0.18
