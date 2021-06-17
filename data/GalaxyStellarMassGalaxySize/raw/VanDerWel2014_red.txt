@@ -1,0 +1,8 @@
+# van der Wel et al. (2014) - Table 2.
+# Red galaxies
+# log10(M_star) [Msun]  log10(R_eff_red_16) [kpc]  log10(R_eff_red_50) [kpc]  log10(R_eff_red_84) [kpc]
+9.25    0.03 0.27 0.46    
+9.75    0.04 0.28 0.46    
+10.25   0.13 0.38 0.58    
+10.75   0.42 0.67 0.92    
+11.25   0.65 0.76 1.08    
