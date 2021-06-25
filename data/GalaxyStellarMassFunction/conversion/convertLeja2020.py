@@ -2,17 +2,22 @@ from velociraptor.observations.objects import (
    ObservationalData,
    MultiRedshiftObservationalData,
 )
-from astropy.cosmology import WMAP9 as cosmology
+from astropy.cosmology import WMAP9 as cosmology_paper
 import unyt
 import numpy as np
 import os
+import sys
+
+# Exec the master cosmology file passed as first argument
+with open(sys.argv[1], "r") as handle:
+    exec(handle.read())
 
 input_redshifts = [[0.0, 0.2], [0.5, 0.5], [1, 1], [1.5, 1.5], [2, 2], [3, 3]]
 z_list = [0.2, 0.5, 1, 1.5, 2, 3]
 
 output_filename = "Leja_2020.hdf5"
 output_directory = "../"
-comment = f"Uses panchromatic SED models that infer systematically higher masses and lower star formation rates than standard approaches. h-corrected for SWIFT using cosmology: {cosmology.name}. It suses Chabrier (2003) initial mass function"
+comment = f"Uses panchromatic SED models that infer systematically higher masses and lower star formation rates than standard approaches. h-corrected for SWIFT using cosmology: {cosmology_paper.name}. It suses Chabrier (2003) initial mass function"
 citation = "Leja et al. (2020)"
 bibcode = "2020ApJ...893..111L"
 name = "Continuity GSMF from Leja (2020)"
@@ -98,13 +103,16 @@ for z, redshifts in zip(z_list, input_redshifts):
    plot_as = "line"
    redshift = z
    redshift_lower, redshift_upper = redshifts
+   h_paper = 0.697
    h = cosmology.h
+   print('h_paper', h_paper)
+   print('h', h)
 
    m, phi, err_p, err_m = phi_z(z)
 
-   log_M = m
+   log_M = m + 2 * np.log10(h_paper / h)
    M = 10 ** (log_M) * unyt.Solar_Mass
-   Phi = phi * unyt.Mpc ** (-3)
+   Phi = phi * (h / h_paper) ** 3 * unyt.Mpc ** (-3)
 
    processed.associate_x(M, scatter=None, comoving=True, description="Galaxy Stellar Mass")
    processed.associate_y(Phi, scatter=None, comoving=True, description="Phi (GSMF)")
