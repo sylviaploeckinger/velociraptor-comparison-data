@@ -120,8 +120,6 @@ for z, redshifts in zip(z_list, input_redshifts):
     redshift_lower, redshift_upper = redshifts
     h_paper = 0.697
     h = cosmology.h
-    print("h_paper", h_paper)
-    print("h", h)
 
     m, phi, err_p, err_m = phi_z(z)
 
