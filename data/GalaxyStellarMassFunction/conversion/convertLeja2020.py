@@ -12,8 +12,8 @@ z_list = [0.2, 0.5, 1, 1.5, 2, 3]
 
 output_filename = "Leja_2020.hdf5"
 output_directory = "../"
-comment = f"Uses panchromatic SED models that infer systematically higher masses and lower star formation rates than standard approaches. h-corrected for SWIFT using cosmology: {cosmology.name}."
-citation = "Leja et al. 2020"
+comment = f"Uses panchromatic SED models that infer systematically higher masses and lower star formation rates than standard approaches. h-corrected for SWIFT using cosmology: {cosmology.name}. It suses Chabrier (2003) initial mass function"
+citation = "Leja et al. (2020)"
 bibcode = "2020ApJ...893..111L"
 name = "Continuity GSMF from Leja (2020)"
 
