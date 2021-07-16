@@ -157,4 +157,9 @@ for i, z in enumerate(z_bins):
     )
     multi_z.associate_dataset(process_for_redshift(z, gsmf_and_Mstar_at_z))
 
-multi_z.write(f"{output_directory}/{output_filename}")
+output_path = f"{output_directory}/{output_filename}"
+
+if os.path.exists(output_path):
+    os.remove(output_path)
+
+multi_z.write(output_path)

@@ -145,4 +145,9 @@ z_bins, gsmf_and_Mstar = load_file_and_split_by_z(input_filename)
 for z, gsmf_and_Mstar_at_z in zip(z_bins, gsmf_and_Mstar):
     multi_z.associate_dataset(process_for_redshift(z, gsmf_and_Mstar_at_z))
 
-multi_z.write(f"{output_directory}/{output_filename}")
+output_path = f"{output_directory}/{output_filename}"
+
+if os.path.exists(output_path):
+    os.remove(output_path)
+
+multi_z.write(output_path)
