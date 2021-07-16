@@ -128,83 +128,107 @@ redshifts_upper = np.append(Delta_z, 2.0)
 redshift_header_info = ", ".join([f"{z:.1f}" for z in redshifts])
 
 # The range of halo masses used in Moster +2018 (Msun)
-M_BN98 = np.logspace(10.5, 15.0, 30)
+M_BN98 = np.logspace(10.5, 15.0, 35)
 
 # Cosmology
 h_sim = cosmology.h
 
-# Meta-data
-name = f"Fit to the stellar mass / halo mass - halo mass relation at z=[{redshift_header_info:s}]"
-comment = (
-    "The data is taken from MNRAS, Volume 477, Issue 2, p.1822-1852, "
-    "Moster, Benjamin P. ; Naab, Thorsten ; White, Simon D. M, table 8, all centrals "
-    "Median fit to the data for centrals (i.e. excluding satellites). "
-    "The halo mass is the peak halo mass that follows the Bryan & Norman (1998) "
-    "spherical overdensity definition. "
-    "The fitting function does not include intra-cluster mass contribution to the "
-    "stellar mass. "
-    "Cosmology: Omega_m=0.308, Omega_lambda=0.692, h=0.6781, sigma_8=0.8149, "
-    "n_s=0.9677, Omega_b=0.0484. "
-    "Shows the ratio between stellar mass and halo mass as a function of halo mass."
-)
+for x_axis_variable in ["halo mass", "stellar mass"]:
 
-citation = "Moster et al. (2018)"
-bibcode = "2018MNRAS.477.1822M"
-plot_as = "line"
-h = h_sim
-
-# Store metadata at the top level
-multi_z = MultiRedshiftObservationalData()
-multi_z.associate_citation(citation, bibcode)
-multi_z.associate_name(name)
-multi_z.associate_comment(comment)
-multi_z.associate_cosmology(cosmology)
-multi_z.associate_maximum_number_of_returns(1)
-
-output_filename = "Moster2018Ratio.hdf5"
-output_directory = "../"
-
-if not os.path.exists(output_directory):
-    os.mkdir(output_directory)
-
-for z, dz_lower, dz_upper in zip(redshifts, redshifts_lower, redshifts_upper):
-    # Create a single observational-data instance at redshift z
-    processed = ObservationalData()
-
-    # Stellar-to-halo mass ratios (for the given halo masses, at redshift z)
-    MstarMhalo, MstarMhalo_84, MstarMhalo_16 = moster_2018_ratios(
-        z, M_BN98, "../raw/Moster2018.txt"
+    # Meta-data
+    name = f"Fit to the stellar mass / halo mass - {x_axis_variable:s} relation at z=[{redshift_header_info:s}]"
+    comment = (
+        "The data is taken from MNRAS, Volume 477, Issue 2, p.1822-1852, "
+        "Moster, Benjamin P. ; Naab, Thorsten ; White, Simon D. M, table 8, all centrals "
+        "Median fit to the data for centrals (i.e. excluding satellites). "
+        "The halo mass is the peak halo mass that follows the Bryan & Norman (1998) "
+        "spherical overdensity definition. "
+        "The fitting function does not include intra-cluster mass contribution to the "
+        "stellar mass. "
+        "Cosmology: Omega_m=0.308, Omega_lambda=0.692, h=0.6781, sigma_8=0.8149, "
+        "n_s=0.9677, Omega_b=0.0484. "
+        f"Shows the ratio between stellar mass and halo mass as a function of {x_axis_variable:s}."
     )
 
-    # Compute \Delta z
-    redshift_lower, redshift_upper = [z - dz_lower, z + dz_upper]
+    citation = "Moster et al. (2018)"
+    bibcode = "2018MNRAS.477.1822M"
+    plot_as = "line"
+    h = h_sim
 
-    # Define scatter
-    y_scatter = unyt.unyt_array(
-        (MstarMhalo - MstarMhalo_16, MstarMhalo_84 - MstarMhalo)
-    )
+    # Store metadata at the top level
+    multi_z = MultiRedshiftObservationalData()
+    multi_z.associate_citation(citation, bibcode)
+    multi_z.associate_name(name)
+    multi_z.associate_comment(comment)
+    multi_z.associate_cosmology(cosmology)
+    multi_z.associate_maximum_number_of_returns(1)
 
-    processed.associate_x(
-        M_BN98 * unyt.Solar_Mass,
-        scatter=None,
-        comoving=True,
-        description="Halo Mass ($M_{\\rm BN98}$)",
-    )
-    processed.associate_y(
-        MstarMhalo,
-        scatter=y_scatter,
-        comoving=True,
-        description="Galaxy Stellar Mass / Halo Mass ($M_* / M_{\\rm BN98}$)",
-    )
+    if x_axis_variable == "halo mass":
+        output_filename = "Moster2018Ratio.hdf5"
+    elif x_axis_variable == "stellar mass":
+        output_filename = "Moster2018RatioStellar.hdf5"
+    else:
+        raise ValueError(f"x_axis_variable has incorrect value ({x_axis_variable:s})")
 
-    processed.associate_redshift(z, redshift_lower, redshift_upper)
-    processed.associate_plot_as(plot_as)
+    output_directory = "../"
 
-    multi_z.associate_dataset(processed)
+    if not os.path.exists(output_directory):
+        os.mkdir(output_directory)
 
-output_path = f"{output_directory}/{output_filename}"
+    for z, dz_lower, dz_upper in zip(redshifts, redshifts_lower, redshifts_upper):
+        # Create a single observational-data instance at redshift z
+        processed = ObservationalData()
 
-if os.path.exists(output_path):
-    os.remove(output_path)
+        # Stellar-to-halo mass ratios (for the given halo masses, at redshift z)
+        MstarMhalo, MstarMhalo_84, MstarMhalo_16 = moster_2018_ratios(
+            z, M_BN98, "../raw/Moster2018.txt"
+        )
 
-multi_z.write(filename=output_path)
+        # Compute \Delta z
+        redshift_lower, redshift_upper = [z - dz_lower, z + dz_upper]
+
+        # Define scatter
+        y_scatter = unyt.unyt_array(
+            (MstarMhalo - MstarMhalo_16, MstarMhalo_84 - MstarMhalo)
+        )
+
+        if x_axis_variable == "halo mass":
+            print("process halo mass")
+            processed.associate_x(
+                M_BN98 * unyt.Solar_Mass,
+                scatter=None,
+                comoving=True,
+                description="Halo Mass ($M_{\\rm BN98}$)",
+            )
+        elif x_axis_variable == "stellar mass":
+            print("process stellar mass")
+            M_star = MstarMhalo * (M_BN98 * unyt.Solar_Mass)
+            processed.associate_x(
+                M_star,
+                scatter=None,
+                comoving=True,
+                description="Galaxy Stellar Mass",
+            )
+        else:
+            raise ValueError(
+                f"x_axis_variable has incorrect value ({x_axis_variable:s})"
+            )
+
+        processed.associate_y(
+            MstarMhalo,
+            scatter=y_scatter,
+            comoving=True,
+            description="Galaxy Stellar Mass / Halo Mass ($M_* / M_{\\rm BN98}$)",
+        )
+
+        processed.associate_redshift(z, redshift_lower, redshift_upper)
+        processed.associate_plot_as(plot_as)
+
+        multi_z.associate_dataset(processed)
+
+    output_path = f"{output_directory}/{output_filename}"
+
+    if os.path.exists(output_path):
+        os.remove(output_path)
+
+    multi_z.write(filename=output_path)
