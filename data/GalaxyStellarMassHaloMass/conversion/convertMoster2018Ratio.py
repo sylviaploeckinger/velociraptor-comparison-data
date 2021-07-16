@@ -128,7 +128,7 @@ redshifts_upper = np.append(Delta_z, 2.0)
 redshift_header_info = ", ".join([f"{z:.1f}" for z in redshifts])
 
 # The range of halo masses used in Moster +2018 (Msun)
-M_BN98 = np.logspace(10.5, 15.0, 50)
+M_BN98 = np.logspace(10.5, 15.0, 30)
 
 # Cosmology
 h_sim = cosmology.h
