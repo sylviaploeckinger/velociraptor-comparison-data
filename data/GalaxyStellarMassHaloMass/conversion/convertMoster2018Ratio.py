@@ -193,7 +193,6 @@ for x_axis_variable in ["halo mass", "stellar mass"]:
         )
 
         if x_axis_variable == "halo mass":
-            print("process halo mass")
             processed.associate_x(
                 M_BN98 * unyt.Solar_Mass,
                 scatter=None,
@@ -201,7 +200,6 @@ for x_axis_variable in ["halo mass", "stellar mass"]:
                 description="Halo Mass ($M_{\\rm BN98}$)",
             )
         elif x_axis_variable == "stellar mass":
-            print("process stellar mass")
             M_star = MstarMhalo * (M_BN98 * unyt.Solar_Mass)
             processed.associate_x(
                 M_star,
