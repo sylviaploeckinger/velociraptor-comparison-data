@@ -52,7 +52,7 @@ h = h_sim
 
 # Write everything
 processed = ObservationalData()
-print(M_star, M_HI_frac)
+
 processed.associate_x(
     M_star, scatter=None, comoving=True, description="Galaxy Stellar Mass"
 )

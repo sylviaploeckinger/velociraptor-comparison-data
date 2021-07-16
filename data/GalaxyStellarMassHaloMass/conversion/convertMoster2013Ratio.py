@@ -1,5 +1,5 @@
 from velociraptor.observations.objects import ObservationalData
-from velociraptor.fitting_formulae.smhmr import moster_raw, behroozi_raw
+from velociraptor.fitting_formulae.smhmr import moster_raw
 
 import unyt
 import numpy as np
