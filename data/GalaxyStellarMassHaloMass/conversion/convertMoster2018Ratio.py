@@ -180,7 +180,9 @@ for z, dz_lower, dz_upper in zip(redshifts, redshifts_lower, redshifts_upper):
     redshift_lower, redshift_upper = [z - dz_lower, z + dz_upper]
 
     # Define scatter
-    y_scatter = unyt.unyt_array(MstarMhalo - MstarMhalo_16, MstarMhalo_84 - MstarMhalo)
+    y_scatter = unyt.unyt_array(
+        (MstarMhalo - MstarMhalo_16, MstarMhalo_84 - MstarMhalo)
+    )
 
     processed.associate_x(
         M_BN98 * unyt.Solar_Mass,
