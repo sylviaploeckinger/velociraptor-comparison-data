@@ -1,0 +1,12 @@
+# From Monthly Notices of the Royal Astronomical Society, Volume 477, Issue 2, p.1822-1852
+# https://ui.adsabs.harvard.edu/abs/2018MNRAS.477.1822M%2F
+# Moster, Benjamin P. ; Naab, Thorsten ; White, Simon D. M
+# Table 8, all centrals
+# Masses are in log10 [Msun]
+# z M1 \epsilon_N \beta \gamma M_\sigma \sigma_0 \alpha
+0.1 11.80 0.14 1.75 0.57 10.80 0.16 1.00
+0.5 11.85 0.16 1.70 0.58 10.70 0.14 0.90
+1.0 11.95 0.18 1.60 0.60 10.60 0.12 0.75
+2.0 12.00 0.18 1.55 0.62 10.50 0.10 0.50
+4.0 12.05 0.19 1.50 0.64 10.40 0.08 0.40
+8.0 12.10 0.24 1.30 0.64 10.30 0.02 0.10
