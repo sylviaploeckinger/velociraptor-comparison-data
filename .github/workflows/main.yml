@@ -31,8 +31,8 @@ jobs:
 
       # Runs the conversion script for the first time
       - name: First conversion
-        run: ./convert.sh
+        run: bash convert.sh
         
       # Runs the conversion script again to check proper output file cleanup
       - name: Second conversion
-        run: ./convert.sh
+        run: bash convert.sh
