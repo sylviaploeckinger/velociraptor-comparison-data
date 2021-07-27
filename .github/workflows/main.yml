@@ -15,8 +15,8 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
+  # Conversion check
+  conversion:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -36,3 +36,21 @@ jobs:
       # Runs the conversion script again to check proper output file cleanup
       - name: Second conversion
         run: bash convert.sh
+
+  # Formatting check
+  formatting:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      # Installs required Python modules
+      - name: Install Python modules
+        run: python3 -m pip install black
+
+      # Runs the formatting script
+      - name: Formatting
+        run: bash format.sh
