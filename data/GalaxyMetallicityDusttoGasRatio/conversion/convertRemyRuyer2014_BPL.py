@@ -91,10 +91,7 @@ outobj_comw.associate_cosmology(cosmology)
 
 outobj_coz = copy.deepcopy(outobj_comw)
 outobj_coz.associate_y(
-    d2g_coz,
-    scatter=None,
-    comoving=True,
-    description="Dust-to-gas ratio (using X_CO,Z)",
+    d2g_coz, scatter=None, comoving=True, description="Dust-to-gas ratio (using X_CO,Z)"
 )
 outobj_comw.associate_citation(citation_coz, bibcode)
 outobj_coz.associate_name(name_coz)
