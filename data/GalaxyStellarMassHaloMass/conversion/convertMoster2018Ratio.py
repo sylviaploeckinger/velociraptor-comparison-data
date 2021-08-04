@@ -202,10 +202,7 @@ for x_axis_variable in ["halo mass", "stellar mass"]:
         elif x_axis_variable == "stellar mass":
             M_star = MstarMhalo * (M_BN98 * unyt.Solar_Mass)
             processed.associate_x(
-                M_star,
-                scatter=None,
-                comoving=True,
-                description="Galaxy Stellar Mass",
+                M_star, scatter=None, comoving=True, description="Galaxy Stellar Mass"
             )
         else:
             raise ValueError(

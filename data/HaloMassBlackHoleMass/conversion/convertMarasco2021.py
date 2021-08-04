@@ -23,8 +23,7 @@ if not os.path.exists(output_directory):
 processed = ObservationalData()
 
 # Read the data (only those columns we need here)
-raw = np.loadtxt(input_filename, delimiter=delimiter,
-                 usecols=(2, 3, 4, 5))
+raw = np.loadtxt(input_filename, delimiter=delimiter, usecols=(2, 3, 4, 5))
 
 M_BH = 10 ** raw[:, 0] * unyt.Solar_Mass
 M_BH_low = 10 ** (raw[:, 0] - raw[:, 1]) * unyt.Solar_Mass
@@ -53,14 +52,10 @@ redshift = 0.0
 h = cosmology.h
 
 processed.associate_x(
-    M_halo, scatter=x_scatter, comoving=False,
-    description="Halo mass"
+    M_halo, scatter=x_scatter, comoving=False, description="Halo mass"
 )
 processed.associate_y(
-    M_BH,
-    scatter=y_scatter,
-    comoving=False,
-    description="Black hole mass",
+    M_BH, scatter=y_scatter, comoving=False, description="Black hole mass"
 )
 processed.associate_citation(citation, bibcode)
 processed.associate_name(name)

@@ -53,7 +53,7 @@ for i in range(len(bands)):
         * np.log(10)
         * phi_star[i]
         * ((10.0 ** arg) ** (1.0 + alpha[i]))
-        * np.exp(-10.0 ** arg)
+        * np.exp(-(10.0 ** arg))
     )
     M = unyt.unyt_array(M, "dimensionless")
 

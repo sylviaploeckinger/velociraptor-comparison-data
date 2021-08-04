@@ -31,7 +31,7 @@ def schechter(logm, logphi, logmstar, alpha, m_lower=None):
         (10 ** logphi)
         * np.log(10)
         * 10 ** ((logm - logmstar) * (alpha + 1))
-        * np.exp(-10 ** (logm - logmstar))
+        * np.exp(-(10 ** (logm - logmstar)))
     )
     return phi
 

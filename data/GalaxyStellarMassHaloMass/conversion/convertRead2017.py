@@ -103,10 +103,7 @@ processed.associate_x(
     description="Halo Mass ($M_{200, {\rm crit}}$)",
 )
 processed.associate_y(
-    M_star,
-    scatter=M_star_scatter,
-    comoving=False,
-    description="Galaxy Stellar Mass",
+    M_star, scatter=M_star_scatter, comoving=False, description="Galaxy Stellar Mass"
 )
 processed.associate_citation(citation, bibcode)
 processed.associate_name(name)
@@ -185,10 +182,7 @@ output_filename = "Read2017_RatioStellar.hdf5"
 # Write everything
 processed = ObservationalData()
 processed.associate_x(
-    M_star,
-    scatter=M_star_scatter,
-    comoving=False,
-    description="Galaxy Stellar Mass",
+    M_star, scatter=M_star_scatter, comoving=False, description="Galaxy Stellar Mass"
 )
 processed.associate_y(
     MRatio,
