@@ -38,7 +38,7 @@ comment = (
     "Solar abundances are taken from Asplund et al. (2009), "
     "[Fe/H]Sun = 7.5 and [Mg/H]Sun = 7.6"
 )
-citation = "Sbordone et al. (2007)"
+citation = "Sbordone et al. (2007), Sagittarius"
 bibcode = "2007A&A...465..815S"
 name = "[O/Fe] as a function of [Fe/H] for Sagittarius"
 plot_as = "points"

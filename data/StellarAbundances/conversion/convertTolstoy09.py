@@ -39,7 +39,7 @@ for galaxy in ["Carina", "MW", "Fornax", "Sculptor", "Sagittarius"]:
         "Solar abundances are taken from Asplund et al. (2009), "
         "[Fe/H]Sun = 7.5 and [Mg/H]Sun = 7.6"
     )
-    citation = "Tolstoy et al. (2009)"
+    citation = "Tolstoy et al. (2009), {0}".format(galaxy)
     bibcode = "2009ARA&A..47..371T"
     name = "[Mg/Fe] as a function of [Fe/H] for {0}".format(galaxy)
     plot_as = "points"

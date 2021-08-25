@@ -38,7 +38,7 @@ comment = (
     "Solar abundances are taken from Asplund et al. (2009), "
     "[Fe/H]Sun = 7.5 and [Mg/H]Sun = 7.6"
 )
-citation = "Letarte (2007)"
+citation = "Letarte (2007), Fornax"
 bibcode = "2007PhDT.......302L"
 name = "[O/Fe] as a function of [Fe/H] for Fornax"
 plot_as = "points"

@@ -39,7 +39,7 @@ comment = (
     "Solar abundances are taken from Asplund et al. (2009), "
     "[Fe/H]Sun = 7.5 and [Mg/H]Sun = 7.6"
 )
-citation = "Koch et al. (2008)"
+citation = "Koch et al. (2008), Carina"
 bibcode = "2008AJ....135.1580K"
 name = "[O/Fe] as a function of [Fe/H] for Carina"
 plot_as = "points"

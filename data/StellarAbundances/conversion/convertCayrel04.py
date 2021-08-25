@@ -38,7 +38,7 @@ comment = (
     "Solar abundances are taken from Asplund et al. (2009), "
     "[Fe/H]Sun = 7.5 and [Mg/H]Sun = 7.6"
 )
-citation = "Cayrel et al. (2004)"
+citation = "Cayrel et al. (2004), MW"
 bibcode = "2004A&A...416.1117C"
 name = "[O/Fe] as a function of [Fe/H]"
 plot_as = "points"
