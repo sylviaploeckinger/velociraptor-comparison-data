@@ -17,8 +17,8 @@ output_directory = "../"
 if not os.path.exists(output_directory):
     os.mkdir(output_directory)
 
-# Correction due to the difference in (X_Fe/X_O)_Sun
-# From Anders and Grevesse (1989) to Asplund+ (2009)
+# Correction factor due to the difference in (X_O/X_Fe)_Sun
+# from Anders and Grevesse (1989) to Asplund+ (2009)
 O_over_Fe_solar_Andres89 = 0.717  # in log10
 O_over_Fe_solar_Asplung09 = 0.64  # in log10
 correction_Sun_O_over_Fe = O_over_Fe_solar_Andres89 - O_over_Fe_solar_Asplung09
@@ -33,10 +33,10 @@ func_alpha_over_Fe = (
 # Thomas et al. 2005, https://arxiv.org/pdf/astro-ph/0410209)
 func_log_sigma = lambda log_Mstar: (log_Mstar - 0.63) / 4.52
 
-# X values of the data
+# X values of the final data
 M_star = np.logspace(np.log10(3e10), np.log10(3e11), 30)
 
-# IMF correction (from M* Kroupa to M* Chabrier)
+# IMF correction factor (from M* with Kroupa IMF to M* with Chabrier IMF)
 # (Lacey+ 2016, https://arxiv.org/pdf/1509.08473, table B2)
 correction_IMF = 0.74 / 0.81
 
@@ -44,7 +44,7 @@ correction_IMF = 0.74 / 0.81
 M_star_Kroupa_log = np.log10(M_star / correction_IMF)
 sigma_log = func_log_sigma(log_Mstar=M_star_Kroupa_log)
 
-# Y values of the data
+# Y values of the final data
 alpha_over_Fe = func_alpha_over_Fe(log_sigma=sigma_log)
 
 # Meta-data
