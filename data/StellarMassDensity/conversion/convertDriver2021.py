@@ -19,7 +19,7 @@ output_directory = "../"
 if not os.path.exists(output_directory):
     os.mkdir(output_directory)
 
-# Value taken from page 16 of the paper
+# Value taken from page 25 of the paper
 Omega_star = 2.17 * 10 ** -3 / (h_obs / h_sim)
 Omega_star_p = 0.03 * 10 ** -3 / (h_obs / h_sim)
 Omega_star_m = 0.03 * 10 ** -3 / (h_obs / h_sim)
