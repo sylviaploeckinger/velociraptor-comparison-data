@@ -44,7 +44,7 @@ comment = (
 )
 citation = "Driver et al. (2021) (GAMA-DR4)"
 bibcode = ""
-name = "Stellar mass density obtained intagrating the GSMF from GAMA-DR4."
+name = "Stellar mass density obtained intagrating the GSMF from GAMA-DR4. Errorbar includes statistical, systematic and cosmic variance error."
 redshift = z
 plot_as = "points"
 h = h_sim
