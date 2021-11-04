@@ -34,7 +34,7 @@ stellar_mass_density_m = unyt.unyt_array([Omega_star_m * rho_crit])
 y_scatter = unyt.unyt_array((stellar_mass_density_m, stellar_mass_density_p))
 
 # Redshift of the data point
-z = 0.
+z = 0.0
 a = unyt.unyt_array([1 / (1 + z)], "dimensionless")
 
 # Meta-data
