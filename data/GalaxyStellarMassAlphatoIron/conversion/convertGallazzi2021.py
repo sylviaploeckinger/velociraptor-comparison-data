@@ -14,7 +14,7 @@ h_sim = cosmology.h
 h_obs = 0.704  # WMAP7
 Z_solar_obs = 0.02
 
-input_filename = "../raw/Gallazzi_2021_ascii.txt"
+input_filename = "../raw/gallazzi_2021_ascii.txt"
 delimiter = "\t"
 
 output_filename = "Gallazzi2021_Data.hdf5"
@@ -56,7 +56,7 @@ y_scatter = unyt.unyt_array((Z_median - Z_lo, Z_hi - Z_median))
 comment = (
     "Data obtained assuming a Chabrier IMF and h=0.7. "
     f"h-corrected for SWIFT using cosmology: {cosmology.name}. "
-    "The metallicity is expressed as [alpha/Fe], using [alpha/Fe]solar =. "
+    "The metallicity is expressed as [alpha/Fe]. "
     "The error bars given the 16th and 84th percentile of the distribution. "
     f"This has been corrected to use Z_solar={solar_metallicity} (Asplund+ 2009)"
 )
