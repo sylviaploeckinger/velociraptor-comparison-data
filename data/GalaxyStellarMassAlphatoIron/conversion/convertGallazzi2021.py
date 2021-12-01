@@ -25,7 +25,7 @@ if not os.path.exists(output_directory):
 
 # Read the data
 raw = np.loadtxt(input_filename, delimiter=delimiter)
-M_star = 10 ** raw[:, 0] * unyt.Solar_Mass * (h_sim / h_obs) ** -2
+M_star = 10 ** raw[:, 0] * unyt.Solar_Mass * (h_obs / 0.7) ** 2
 
 # Correction factor due to the difference in (X_O/X_Fe)_Sun
 # from Grevesse & Sauval (1993) to Asplund+ (2009)
@@ -56,7 +56,9 @@ y_scatter = unyt.unyt_array((Z_median - Z_lo, Z_hi - Z_median))
 comment = (
     "Data obtained assuming a Chabrier IMF and h=0.7. "
     f"h-corrected for SWIFT using cosmology: {cosmology.name}. "
-    "The metallicity is expressed as [alpha/Fe]. "
+    "The metallicity is expressed as [alpha/Fe]. Note that alpha does not stand for Oxygen. "
+    "Gallazi et al. adopt a semi-empirical estimate of [alpha/Fe] building on the work of Gallazzi et al. (2006). "
+    "For each galaxy they measure the index ratio Mgb/Fe. "
     "The error bars given the 16th and 84th percentile of the distribution. "
     f"This has been corrected to use Z_solar={solar_metallicity} (Asplund+ 2009)"
 )
