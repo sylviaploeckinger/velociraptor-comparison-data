@@ -75,7 +75,7 @@ processed.associate_x(
     M_star, scatter=None, comoving=True, description="Galaxy Stellar Mass"
 )
 processed.associate_y(
-    Z_median, scatter=y_scatter, comoving=True, description="Stellar metallicity"
+    Z_median, scatter=y_scatter, comoving=True, description="Stellar [alpha/Fe]"
 )
 processed.associate_citation(citation, bibcode)
 processed.associate_name(name)
