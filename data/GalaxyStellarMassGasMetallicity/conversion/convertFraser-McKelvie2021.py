@@ -24,7 +24,7 @@ with open(input_filename, "r") as file:
         if c > 0:
 
             # The raw stellar mass is given in log10
-            Mstar = 10.0 ** float(row[4]),
+            Mstar = (10.0 ** float(row[4]),)
 
             # The raw Zgas is 12 + log10 (O/H)
             Zgas = float(row[6])

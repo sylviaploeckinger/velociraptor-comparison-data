@@ -25,7 +25,7 @@ with open(input_filename, "r") as file:
         if c > 0:
 
             # The raw stellar mass is given in log10
-            Mstar = 10.0 ** float(row[4]),
+            Mstar = (10.0 ** float(row[4]),)
 
             # The raw Zstar is mass-weighted log10( (Z/H) / (Z/H)_Sun )
             Zstar = 10.0 ** float(row[-2])
