@@ -19,6 +19,16 @@ output_directory = "../"
 Mstar_arr, Zstar_arr = [], []
 Zstar_min = -10
 
+# Used in colibre
+Zsun_Asplund09 = 0.0134
+Xsun_Asplund09 = 0.7381
+Z_over_X_Asplund09 = Zsun_Asplund09 / Xsun_Asplund09
+
+# Used in Fraser-McKelvie's work
+Zsun_Vazdekis15 = 0.0198
+Xsun_Vazdekis15 = 0.7068
+Z_over_X_Vazdekis15 = Zsun_Vazdekis15 / Xsun_Vazdekis15
+
 with open(input_filename, "r") as file:
     data = csv.reader(file, delimiter=",")
     for c, row in enumerate(data):
@@ -28,7 +38,7 @@ with open(input_filename, "r") as file:
             Mstar = (10.0 ** float(row[4]),)
 
             # The raw Zstar is mass-weighted log10( (Z/H) / (Z/H)_Sun )
-            Zstar = 10.0 ** float(row[-2])
+            Zstar = 10.0 ** float(row[-2]) * Z_over_X_Vazdekis15 / Z_over_X_Asplund09
 
             # Some galaxies in the sample do not have Zstar (set to A very negative value)
             # We thus do not include them
