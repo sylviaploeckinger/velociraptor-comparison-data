@@ -71,15 +71,16 @@ filetag = ["abcissa_M_star", "abcissa_mu_star", "abcissa_NUV_minus_r", "abcissa_
 for i in range(len(tables)):
     processed = ObservationalData()
 
+    # Take values from the 'Binning' method in Table 5 from Saintonge et al. (2017)
     if i != 2:
-        x_vals = 10 ** tables[i][:, 0] * units[i]
+        x_vals = 10 ** tables[i][:, 4] * units[i]
     else:
-        x_vals = tables[i][:, 0] * units[i]
+        x_vals = tables[i][:, 4] * units[i]
 
-    fh2 = 10 ** tables[i][:, 2] * unitless
+    fh2 = 10 ** tables[i][:, 6] * unitless
 
-    fh2_plus_err = (10 ** (tables[i][:, 2] + tables[i][:, 3]) * unitless) - fh2
-    fh2_minus_err = fh2 - (10 ** (tables[i][:, 2] - tables[i][:, 3]) * unitless)
+    fh2_plus_err = (10 ** (tables[i][:, 6] + tables[i][:, 7]) * unitless) - fh2
+    fh2_minus_err = fh2 - (10 ** (tables[i][:, 6] - tables[i][:, 7]) * unitless)
     fh2_err = np.row_stack([fh2_minus_err, fh2_plus_err])
 
     processed.associate_x(x_vals, scatter=None, comoving=False, description=labels[i])
