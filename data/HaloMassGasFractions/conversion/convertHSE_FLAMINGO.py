@@ -22,21 +22,48 @@ output_directory = "../"
 if not os.path.exists(output_directory):
     os.mkdir(output_directory)
 
-#The Data
-log10_M_500 = [13.6, 13.88571429, 14.05714286, 14.22857143, 14.4, 14.57142857, 14.74285714, 14.91428571]
-fb_500 = [0.07378083, 0.08326182, 0.09391293, 0.10494623, 0.11478259, 0.12976777, 0.12958898, 0.13943764]
-error_fb_500_p = [0.00371715, 0.00200495, 0.00314589, 0.00490072, 0.00817478, 0.00258178, 0.0021621,  0.00347187]
+# The Data
+log10_M_500 = [
+    13.6,
+    13.88571429,
+    14.05714286,
+    14.22857143,
+    14.4,
+    14.57142857,
+    14.74285714,
+    14.91428571,
+]
+fb_500 = [
+    0.07378083,
+    0.08326182,
+    0.09391293,
+    0.10494623,
+    0.11478259,
+    0.12976777,
+    0.12958898,
+    0.13943764,
+]
+error_fb_500_p = [
+    0.00371715,
+    0.00200495,
+    0.00314589,
+    0.00490072,
+    0.00817478,
+    0.00258178,
+    0.0021621,
+    0.00347187,
+]
 
-#Apply Hydrostatic bias
-log10_M_500 -=  np.log10(0.74530875)
+# Apply Hydrostatic bias
+log10_M_500 -= np.log10(0.74530875)
 
 # Read the data
-M_500  = 10**log10_M_500
+M_500 = 10 ** log10_M_500
 
-#Convert to proper units
-M_500 = unyt.unyt_array(M_500,units="Msun")
-fb_500 = unyt.unyt_array(fb_500,units="dimensionless")
-error_fb_500_p = unyt.unyt_array(error_fb_500_p,units="dimensionless")
+# Convert to proper units
+M_500 = unyt.unyt_array(M_500, units="Msun")
+fb_500 = unyt.unyt_array(fb_500, units="dimensionless")
+error_fb_500_p = unyt.unyt_array(error_fb_500_p, units="dimensionless")
 error_fb_500_m = error_fb_500_p
 
 # Normalise by the cosmic mean

@@ -98,7 +98,7 @@ log10_Phi_delta = np.array(
 # Add correction to z=0 and SDSS
 log10_Phi += 0.0769
 
-#Add corrections for the FLAMINGO Biases
+# Add corrections for the FLAMINGO Biases
 log10_Mstar += 0.03189831
 log10_Phi += np.log10(0.99693299)
 
