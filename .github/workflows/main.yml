@@ -49,7 +49,7 @@ jobs:
 
       # Installs required Python modules
       - name: Install Python modules
-        run: python3 -m pip install black
+        run: python3 -m pip install black==21.12b0
 
       # Runs the formatting script
       - name: Formatting
