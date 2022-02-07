@@ -1,0 +1,13 @@
+# cosmic star formation rate density from Enia et al. (2022)
+#   based on JVLA radio observations from a subsample of the GOODS-N survey
+#   cosmology is H0=67.8, OmegaM=0.308 (Planck 2016)
+#   Uses a Chabrier IMF
+#   The last bin is labeled z>3 in the paper, but spans z=3-4 in their figure 10.
+#   We use the z>3 bin based on galaxies with a measured photo-z
+#   zmin   zmax   log10 sfrd (Msol/yr/Mpc^3)   sfrderror
+0.1	0.4	-1.78	0.24
+0.4	0.7	-1.38	0.14
+0.7	1.0	-1.16	0.16
+1.0	2.0	-0.96	0.17
+2.0	3.0	-0.99	0.22
+3.0	4.0	-1.09	0.25
