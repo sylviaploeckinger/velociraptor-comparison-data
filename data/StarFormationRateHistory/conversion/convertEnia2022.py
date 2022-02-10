@@ -44,10 +44,14 @@ def cosmic_star_formation_history_enia():
     # Enia (2022) fig. 10 uses specific values for z in each bin, but does not
     # explicitly list those in their table 4. We simply use the middle of each
     # bin.
-    z_bin = unyt.unyt_array(0.5 * (z_minus + z_plus), units="dimensionless")
-    z_scatter = unyt.unyt_array(
-        (z_bin - z_minus, z_plus - z_bin), units="dimensionless"
-    )
+    z = 0.5 * (z_minus + z_plus)
+
+    a = 1.0 / (1.0 + z)
+    a_minus = 1.0 / (1.0 + z_plus)
+    a_plus = 1.0 / (1.0 + z_minus)
+
+    a_bin = unyt.unyt_array(a, units="dimensionless")
+    a_scatter = unyt.unyt_array((a - a_minus, a_plus - a), units="dimensionless")
     # convert from log10(SFRD) to SFRD and carry the uncertainties
     SFR_minus = 10.0 ** (SFR - SFR_stderr)
     SFR_plus = 10.0 ** (SFR + SFR_stderr)
@@ -58,10 +62,10 @@ def cosmic_star_formation_history_enia():
     SFR = unyt.unyt_array(SFR, units="Msun/yr/Mpc**3")
 
     processed.associate_x(
-        z_bin,
-        scatter=z_scatter,
+        a_bin,
+        scatter=a_scatter,
         comoving=False,
-        description="Cosmic redshift",
+        description="Cosmic scale factor",
     )
     processed.associate_y(
         SFR,

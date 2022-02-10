@@ -39,14 +39,22 @@ def cosmic_star_formation_history_novak():
     data = np.loadtxt(f"../raw/sfr_novak2017.dat")
 
     # Fetch the fields we need
-    z, z_minus, z_plus = data[:, 0], data[:, 1], data[:, 2]
-    SFR, SFR_minus, SFR_plus = data[:, 3], data[:, 4], data[:, 5]
+    z, delta_z_minus, delta_z_plus = data[:, 0], data[:, 1], data[:, 2]
+    SFR, delta_SFR_minus, delta_SFR_plus = data[:, 3], data[:, 4], data[:, 5]
 
-    z_bin = unyt.unyt_array(z, units="dimensionless")
-    z_scatter = unyt.unyt_array((-z_minus, z_plus), units="dimensionless")
+    a = 1.0 / (1.0 + z)
+    # division turns large into small, so minus <-> plus
+    a_minus = 1.0 / (1.0 + z + delta_z_plus)
+    a_plus = 1.0 / (1.0 + z + delta_z_minus)
+    delta_a_minus = a - a_minus
+    delta_a_plus = a_plus - a
+    print(delta_a_minus, delta_a_plus)
+
+    a_bin = unyt.unyt_array(a, units="dimensionless")
+    a_scatter = unyt.unyt_array((delta_a_minus, delta_a_plus), units="dimensionless")
     # convert from log10(SFRD) to SFRD and carry the uncertainties
-    SFR_minus = 10.0 ** (SFR + SFR_minus)
-    SFR_plus = 10.0 ** (SFR + SFR_plus)
+    SFR_minus = 10.0 ** (SFR + delta_SFR_minus)
+    SFR_plus = 10.0 ** (SFR + delta_SFR_plus)
     SFR = 10.0 ** SFR
     SFR_scatter = unyt.unyt_array(
         (SFR - SFR_minus, SFR_plus - SFR), units="Msun/yr/Mpc**3"
@@ -54,10 +62,10 @@ def cosmic_star_formation_history_novak():
     SFR = unyt.unyt_array(SFR, units="Msun/yr/Mpc**3")
 
     processed.associate_x(
-        z_bin,
-        scatter=z_scatter,
+        a_bin,
+        scatter=a_scatter,
         comoving=False,
-        description="Cosmic redshift",
+        description="Cosmic scale factor",
     )
     processed.associate_y(
         SFR,
@@ -66,8 +74,8 @@ def cosmic_star_formation_history_novak():
         description="Cosmic average star formation rate density",
     )
 
-    z_minus = (z + z_minus).min()
-    z_plus = (z + z_plus).max()
+    z_minus = (z + delta_z_minus).min()
+    z_plus = (z + delta_z_plus).max()
     processed.associate_redshift(0.5 * (z_minus + z_plus), z_minus, z_plus)
     processed.associate_plot_as(plot_as)
 

@@ -41,20 +41,24 @@ def cosmic_star_formation_history_gruppioni():
     z_minus, z_plus = data[:, 0], data[:, 1]
     SFR, SFR_min, SFR_max = data[:, 2], data[:, 3], data[:, 4]
 
-    z_bin = unyt.unyt_array(0.5 * (z_minus + z_plus), units="dimensionless")
-    z_scatter = unyt.unyt_array(
-        (z_bin - z_minus, z_plus - z_bin), units="dimensionless"
-    )
+    z = 0.5 * (z_minus + z_plus)
+
+    a = 1.0 / (1.0 + z)
+    a_minus = 1.0 / (1.0 + z_plus)
+    a_plus = 1.0 / (1.0 + z_minus)
+
+    a_bin = unyt.unyt_array(a, units="dimensionless")
+    a_scatter = unyt.unyt_array((a - a_minus, a_plus - a), units="dimensionless")
     SFR_scatter = unyt.unyt_array(
         (SFR - SFR_min, SFR_max - SFR), units="Msun/yr/Mpc**3"
     )
     SFR = unyt.unyt_array(SFR, units="Msun/yr/Mpc**3")
 
     processed.associate_x(
-        z_bin,
-        scatter=z_scatter,
+        a_bin,
+        scatter=a_scatter,
         comoving=False,
-        description="Cosmic redshift",
+        description="Cosmic scale factor",
     )
     processed.associate_y(
         SFR,
