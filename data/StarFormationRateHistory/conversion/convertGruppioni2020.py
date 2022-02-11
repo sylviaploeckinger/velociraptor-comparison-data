@@ -34,7 +34,7 @@ def cosmic_star_formation_history_gruppioni():
     if not os.path.exists(output_directory):
         os.mkdir(output_directory)
 
-    # Load raw Enia2022 data
+    # Load raw Gruppioni2020 data
     data = np.loadtxt(f"../raw/sfr_gruppioni2020.dat")
 
     # Fetch the fields we need
@@ -84,5 +84,5 @@ def cosmic_star_formation_history_gruppioni():
 with open(sys.argv[1], "r") as handle:
     exec(handle.read())
 
-# Generate, format and save the Enia2022 data
+# Generate, format and save the Gruppioni2020 data
 cosmic_star_formation_history_gruppioni()
