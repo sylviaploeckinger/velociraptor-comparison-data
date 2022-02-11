@@ -48,7 +48,6 @@ def cosmic_star_formation_history_novak():
     a_plus = 1.0 / (1.0 + z + delta_z_minus)
     delta_a_minus = a - a_minus
     delta_a_plus = a_plus - a
-    print(delta_a_minus, delta_a_plus)
 
     a_bin = unyt.unyt_array(a, units="dimensionless")
     a_scatter = unyt.unyt_array((delta_a_minus, delta_a_plus), units="dimensionless")
