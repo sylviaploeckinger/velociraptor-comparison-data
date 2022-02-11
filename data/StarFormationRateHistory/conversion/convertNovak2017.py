@@ -35,7 +35,7 @@ def cosmic_star_formation_history_novak():
     if not os.path.exists(output_directory):
         os.mkdir(output_directory)
 
-    # Load raw Enia2022 data
+    # Load raw Novak2017 data
     data = np.loadtxt(f"../raw/sfr_novak2017.dat")
 
     # Fetch the fields we need
@@ -90,5 +90,5 @@ def cosmic_star_formation_history_novak():
 with open(sys.argv[1], "r") as handle:
     exec(handle.read())
 
-# Generate, format and save the Enia2022 data
+# Generate, format and save the Novak2017 data
 cosmic_star_formation_history_novak()
