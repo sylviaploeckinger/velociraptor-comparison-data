@@ -11,6 +11,8 @@ black cosmology.py $extra_arg
 return_code=$(( $return_code > $? ? $return_code : $? ))
 black plot_individual_dataset.py $extra_arg
 return_code=$(( $return_code > $? ? $return_code : $? ))
+black convert.py $extra_arg
+return_code=$(( $return_code > $? ? $return_code : $? ))
 
 black data/*/conversion/*.py $extra_arg
 return_code=$(( $return_code > $? ? $return_code : $? ))

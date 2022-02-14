@@ -31,11 +31,11 @@ jobs:
 
       # Runs the conversion script for the first time
       - name: First conversion
-        run: bash convert.sh
+        run: python3 convert.py --nproc 2
         
       # Runs the conversion script again to check proper output file cleanup
       - name: Second conversion
-        run: bash convert.sh
+        run: python3 convert.py --nproc 2
 
   # Formatting check
   formatting:
