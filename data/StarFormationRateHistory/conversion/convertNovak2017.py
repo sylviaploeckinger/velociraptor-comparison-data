@@ -61,10 +61,7 @@ def cosmic_star_formation_history_novak():
     SFR = unyt.unyt_array(SFR, units="Msun/yr/Mpc**3")
 
     processed.associate_x(
-        a_bin,
-        scatter=a_scatter,
-        comoving=False,
-        description="Cosmic scale factor",
+        a_bin, scatter=a_scatter, comoving=False, description="Cosmic scale factor"
     )
     processed.associate_y(
         SFR,

@@ -58,10 +58,7 @@ def cosmic_star_formation_history_observed():
     redshift, redshift_lower, redshift_upper = 5.0, 0.0, 10.0
 
     processed.associate_x(
-        scale_factor,
-        scatter=None,
-        comoving=False,
-        description="Cosmic scale factor",
+        scale_factor, scatter=None, comoving=False, description="Cosmic scale factor"
     )
     processed.associate_y(
         SFR * SFR_scatter.units,
@@ -126,10 +123,7 @@ def cosmic_star_formation_history_true():
     redshift, redshift_lower, redshift_upper = 5.0, 0.0, 10.0
 
     processed.associate_x(
-        scale_factor,
-        scatter=None,
-        comoving=False,
-        description="Cosmic scale factor",
+        scale_factor, scatter=None, comoving=False, description="Cosmic scale factor"
     )
     processed.associate_y(
         SFR * SFR_scatter.units,
