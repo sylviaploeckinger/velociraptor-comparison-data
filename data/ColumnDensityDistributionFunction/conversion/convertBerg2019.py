@@ -10,7 +10,6 @@ def cddf_berg():
     # Meta-data
     comment = ""
 
-    citation = "Berg et al. (2019)"
     bibcode = "2019MNRAS.488.4356B"
     plot_as = "points"
     output_directory = "../"
@@ -18,6 +17,7 @@ def cddf_berg():
     for dataset in ["subDLA", "DLA"]:
 
         output_filename = f"Berg2019_{dataset}.hdf5"
+        citation = f"Berg et al. (2019) - {dataset}s"
         name = f"CDDF from Berg et al. (2019) - {dataset}s"
 
         # Create observational data instance
