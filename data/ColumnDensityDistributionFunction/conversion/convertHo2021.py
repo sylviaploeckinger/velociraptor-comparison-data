@@ -1,8 +1,4 @@
-from velociraptor.observations.objects import (
-    ObservationalData,
-    MultiRedshiftObservationalData,
-)
-
+from velociraptor.observations.objects import ObservationalData
 import unyt
 import numpy as np
 import os
@@ -31,7 +27,7 @@ def cddf_ho():
     if not os.path.exists(output_directory):
         os.mkdir(output_directory)
 
-    # Load raw Enia2022 data
+    # Load raw data
     data = np.loadtxt(f"../raw/cddf_Ho2021.dat")
 
     # Fetch the fields we need
