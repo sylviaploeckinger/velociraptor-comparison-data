@@ -62,8 +62,8 @@ def cddf_zwaan():
         description="Column density distribution function",
     )
 
-    z_minus = 2.0
-    z_plus = 5.0
+    z_minus = 0.0
+    z_plus = 0.0
     processed.associate_redshift(0.5 * (z_minus + z_plus), z_minus, z_plus)
     processed.associate_plot_as(plot_as)
 
