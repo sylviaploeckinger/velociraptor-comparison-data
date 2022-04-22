@@ -27,7 +27,7 @@ def cddf_zwaan():
     if not os.path.exists(output_directory):
         os.mkdir(output_directory)
 
-    # Fit parameters
+    # Fit parameters (equation 3 in the paper)
     NHI_star = 10.0 ** 21.2
     f_star = 0.0193
     beta = 1.24
