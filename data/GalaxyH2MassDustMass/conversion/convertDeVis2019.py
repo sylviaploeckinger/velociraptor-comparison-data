@@ -15,7 +15,7 @@ with open(sys.argv[1], "r") as handle:
 # Cosmologies
 h_obs = 0.7324
 h_sim = cosmology.h
-    
+
 input_filename_cigale = "../raw/dustpedia_cigale_results_final_version.csv"
 input_filename_h2 = "../raw/dustpedia_H2.csv"
 delimiter = ","
@@ -29,12 +29,16 @@ if not os.path.exists(output_directory):
     os.mkdir(output_directory)
 
 # Read the data (and convert ids to 0s for now)
-converters = {0: lambda s: int.from_bytes(str(s).encode(), 'little')}
-raw_cigale = np.loadtxt(input_filename_cigale, delimiter=delimiter, converters=converters)
-raw_h2 = np.loadtxt(input_filename_h2, delimiter=delimiter, converters=converters, usecols=range(3))
+converters = {0: lambda s: int.from_bytes(str(s).encode(), "little")}
+raw_cigale = np.loadtxt(
+    input_filename_cigale, delimiter=delimiter, converters=converters
+)
+raw_h2 = np.loadtxt(
+    input_filename_h2, delimiter=delimiter, converters=converters, usecols=range(3)
+)
 
 # x-match catalogues
-_, sort1, sort2 = np.intersect1d(raw_cigale[:,0], raw_h2[:,0], return_indices=True)
+_, sort1, sort2 = np.intersect1d(raw_cigale[:, 0], raw_h2[:, 0], return_indices=True)
 raw_cigale = raw_cigale[sort1]
 raw_h2 = raw_h2[sort2]
 
@@ -54,7 +58,7 @@ comment = (
     "from Salpeter to Chabrier IMF and using  h=0.7324 (Clark+18). "
     f"h-corrected for SWIFT using cosmology: {cosmology.name}. "
     "M_dust obtained using the CIGALE code (see Bianchi+18), with"
-    " HI+H2 values obtained from (De Vis + 2019)"
+    " HI+H2 values obtained from (De Vis + 2019)",
 )
 citation = "Dustpedia + CIGALE (Bianchi et. al 2018, De Vis et. al 2019)"
 bibcode = "2018A&A...609A..37C"

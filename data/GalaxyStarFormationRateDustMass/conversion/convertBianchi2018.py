@@ -16,7 +16,7 @@ with open(sys.argv[1], "r") as handle:
 h_obs = 0.7324
 h_sim = cosmology.h
 imfcorr = 0.64
-    
+
 input_filename = "../raw/dustpedia_cigale_results_final_version.csv"
 delimiter = ","
 
@@ -31,8 +31,8 @@ if not os.path.exists(output_directory):
 # Read the data (and convert ids to 0s for now)
 converters = {0: lambda s: 0}
 raw = np.loadtxt(input_filename, delimiter=delimiter, converters=converters)
-SFR = raw[:, 1] * (unyt.Solar_Mass/unyt.year) * imfcorr * (h_sim / h_obs) ** -2
-SFR_err = raw[:, 2] * (unyt.Solar_Mass/unyt.year) * imfcorr *(h_sim / h_obs) ** -2
+SFR = raw[:, 1] * (unyt.Solar_Mass / unyt.year) * imfcorr * (h_sim / h_obs) ** -2
+SFR_err = raw[:, 2] * (unyt.Solar_Mass / unyt.year) * imfcorr * (h_sim / h_obs) ** -2
 M_dust = raw[:, 17] * unyt.Solar_Mass * (h_sim / h_obs) ** -2
 M_derr = raw[:, 18] * unyt.Solar_Mass * (h_sim / h_obs) ** -2
 
@@ -46,7 +46,7 @@ comment = (
     "Data obtained directly from Dustpedia archive, converting",
     "from Salpeter to Chabrier IMF and using  h=0.7324 (Clark+18). "
     f"h-corrected for SWIFT using cosmology: {cosmology.name}. "
-    "Values obtained using the CIGALE code (see Bianchi+18)"
+    "Values obtained using the CIGALE code (see Bianchi+18)",
 )
 citation = "Dustpedia + CIGALE (Bianchi et. al 2018)"
 bibcode = "2018A&A...609A..37C"

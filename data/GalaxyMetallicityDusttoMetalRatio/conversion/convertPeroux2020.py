@@ -46,7 +46,7 @@ h = 0.7
 
 z_hi = raw.T[3]
 z_lo = raw.T[2]
-z    = 0.5 * (z_lo + z_hi)
+z = 0.5 * (z_lo + z_hi)
 
 oabundance = unyt.unyt_array(raw.T[0], units=unyt.Dimensionless)
 
@@ -61,16 +61,10 @@ for i in range(zs.size):
     print(output_path)
 
     processed.associate_x(
-        oabundance[bdx],
-        scatter=None,
-        comoving=False,
-        description="[O/H]",
+        oabundance[bdx], scatter=None, comoving=False, description="[O/H]",
     )
     processed.associate_y(
-        d2m[bdx],
-        scatter=None,
-        comoving=False,
-        description="D2M",
+        d2m[bdx], scatter=None, comoving=False, description="D2M",
     )
     processed.associate_citation(citation, bibcode)
     processed.associate_name(name)

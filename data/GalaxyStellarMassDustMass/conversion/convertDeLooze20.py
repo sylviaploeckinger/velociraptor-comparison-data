@@ -15,8 +15,8 @@ with open(sys.argv[1], "r") as handle:
 # Cosmologies
 h_obs = 0.7324
 h_sim = cosmology.h
-imfcorr = 0.58 
-    
+imfcorr = 0.58
+
 input_filename_dust = "../raw/dustpedia_cigale_results_final_version.csv"
 delimiter = ","
 
@@ -30,7 +30,7 @@ if not os.path.exists(output_directory):
 # Read the data
 raw = np.loadtxt(input_filename, delimiter=delimiter)
 M_star = raw[:, 3] * unyt.Solar_Mass * imfcorr * (h_sim / h_obs) ** -2
-M_serr = raw[:, 4] * unyt.Solar_Mass * imfcorr *(h_sim / h_obs) ** -2
+M_serr = raw[:, 4] * unyt.Solar_Mass * imfcorr * (h_sim / h_obs) ** -2
 M_dust = raw[:, 17] * unyt.Solar_Mass * (h_sim / h_obs) ** -2
 M_derr = raw[:, 18] * unyt.Solar_Mass * (h_sim / h_obs) ** -2
 
@@ -44,7 +44,7 @@ comment = (
     "Data obtained directly from Dustpedia archive, converting",
     "from Salpeter to Chabrier IMF and using  h=0.7324 (Clark+18). "
     f"h-corrected for SWIFT using cosmology: {cosmology.name}. "
-    "Values obtained using the CIGALE code (see Bianchi+18)"
+    "Values obtained using the CIGALE code (see Bianchi+18)",
 )
 citation = "Dustpedia + CIGALE (Bianchi et. al 2018)"
 bibcode = "2018A&A...609A..37C"

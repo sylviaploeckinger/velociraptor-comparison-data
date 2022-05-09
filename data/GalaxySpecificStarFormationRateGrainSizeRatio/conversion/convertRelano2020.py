@@ -33,15 +33,14 @@ for surv in surveys:
     M_star = pow(10, raw[:, 0]) * unyt.Solar_Mass
     S2L = pow(10, raw[:, 1]) / unyt.year
 
-
     lines = []
     labels = []
     inc = 0
-    
+
     # Meta-data
     comment = (
         "Data obtained directly from Relano et al 2020, which uses",
-        "A Chabrier et al (2003) IMF intrinsically."
+        "A Chabrier et al (2003) IMF intrinsically.",
     )
     citation = f"{surv} (Relano et. al 2020)"
     bibcode = "10.1051/0004-6361/201937087"
@@ -50,11 +49,13 @@ for surv in surveys:
     redshift = 0.02
     h = h_sim
 
-
     # Write everything
     processed = ObservationalData()
     processed.associate_x(
-        M_star, scatter=None, comoving=True, description="Galaxy Specific Star Formation Rate"
+        M_star,
+        scatter=None,
+        comoving=True,
+        description="Galaxy Specific Star Formation Rate",
     )
     processed.associate_y(
         S2L, scatter=None, comoving=True, description="Galaxy Dust Grain Size Ratio"
@@ -67,7 +68,7 @@ for surv in surveys:
     processed.associate_cosmology(cosmology)
 
     output_path = f"{output_directory}/{output_filename}"
-    
+
     if os.path.exists(output_path):
         os.remove(output_path)
 
