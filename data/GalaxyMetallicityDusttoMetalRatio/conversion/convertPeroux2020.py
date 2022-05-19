@@ -61,10 +61,16 @@ for i in range(zs.size):
     print(output_path)
 
     processed.associate_x(
-        oabundance[bdx], scatter=None, comoving=False, description="[O/H]",
+        oabundance[bdx],
+        scatter=None,
+        comoving=False,
+        description="[O/H]",
     )
     processed.associate_y(
-        d2m[bdx], scatter=None, comoving=False, description="D2M",
+        d2m[bdx],
+        scatter=None,
+        comoving=False,
+        description="D2M",
     )
     processed.associate_citation(citation, bibcode)
     processed.associate_name(name)
