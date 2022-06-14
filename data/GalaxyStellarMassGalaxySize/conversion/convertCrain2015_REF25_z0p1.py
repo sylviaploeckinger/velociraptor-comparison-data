@@ -28,7 +28,7 @@ comment = (
 )
 citation = "Crain et al. (2015) (EAGLE REF 25 Mpc)"
 bibcode = "2015MNRAS.450.1937C"
-name = "Galaxy Stellar Mass-Galaxy Size EAGLE NoAGN (25 Mpc)"
+name = "Galaxy Stellar Mass-Galaxy Size EAGLE REF (25 Mpc)"
 plot_as = "line"
 redshift = 0.100_639
 h_obs = 0.7
@@ -49,7 +49,7 @@ processed.associate_y(
     median,
     scatter=deviation,
     comoving=False,
-    description="Galaxy Half-Mass Radius (30kpc 3D)",
+    description="Galaxy Half-Mass Radius (whole subhalo, 3D)",
 )
 processed.associate_citation(citation, bibcode)
 processed.associate_name(name)
