@@ -20,13 +20,15 @@ if not os.path.exists(output_directory):
 
 # Data taken from table 4 of the paper
 bands = ["u", "g", "r", "i", "z", "Y", "J", "H", "K"]
-min_M = np.ones(len(bands)) * (-24.0)
-max_M = np.ones(len(bands)) * (-12.0)
 alpha = np.array([-1.03, -1.10, -1.12, -1.17, -1.14, -1.12, -1.10, -1.07, -1.03])
 M_star = np.array(
     [-18.60, -20.09, -20.86, -21.30, -21.52, -21.63, -21.74, -21.99, -21.63]
 )
 phi_star = np.array([2.03, 1.47, 1.24, 1.00, 1.02, 0.98, 0.97, 1.03, 1.10]) / 100.0
+
+# The faint-end fit limits are eye-balled from figure 5,6 & 7
+min_M = np.ones(len(bands)) * (-24.0)
+max_M = [-13.5, -14.0, -14.0, -15.0, -15.5, -15.7, -15.8, -16.0, -16.2]
 
 # Convert to our cosmology
 min_M += 5 * np.log10(h_sim)
