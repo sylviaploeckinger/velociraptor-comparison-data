@@ -14,11 +14,11 @@ input_filename = f"../raw/FIREbox_z0.txt"
 processed = ObservationalData()
 raw = np.loadtxt(input_filename)
 
-comment = "Showing all galaxies, using a 3 kpc aperture."
-citation = f"FIREbox"
+comment = "Showing all galaxies, using a 3 kpc aperture. The gas metallicity is shown as 12 + log10(O/H)."
+citation = f"Feldmann et al. (2022, FIREbox)"
 bibcode = "2022arXiv220515325F"
 name = f"Galaxy Stellar Mass - Gas Metallicity (FIREbox)"
-plot_as = "points"
+plot_as = "line"
 redshift = 0.0
 
 Mstar = 10.0 ** raw[:, 0]
@@ -42,7 +42,7 @@ processed.associate_redshift(redshift)
 processed.associate_plot_as(plot_as)
 processed.associate_cosmology(cosmology)
 
-output_path = f"../FIREbox_z0.hdf5"
+output_path = f"../FIREbox.hdf5"
 
 if os.path.exists(output_path):
     os.remove(output_path)

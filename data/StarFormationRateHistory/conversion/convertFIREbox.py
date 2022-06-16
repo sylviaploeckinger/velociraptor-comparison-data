@@ -15,9 +15,9 @@ processed = ObservationalData()
 raw = np.loadtxt(input_filename)
 
 comment = "Includes all galaxies in the simulation."
-citation = "Feldmann et al., 2022 (FIREbox)"
+citation = "Feldmann et al. (2022, FIREbox)"
 bibcode = "2022arXiv220515325F"
-name = "Star Formation History"
+name = "Cosmic Average Star Formation Rate Density"
 plot_as = "line"
 
 a = raw[:, 0]

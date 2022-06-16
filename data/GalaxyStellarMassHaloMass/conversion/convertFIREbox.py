@@ -11,7 +11,7 @@ with open(sys.argv[1], "r") as handle:
 
 variations = {
     "Rvir": "Includes all stars within the virial radius.",
-    "Rg": "Includes all stars within three times the half-light radius.",
+    "Rg": "Includes all stars within three times the stellar half-mass radius.",
 }
 
 for var in variations:
@@ -20,12 +20,10 @@ for var in variations:
     processed = ObservationalData()
     raw = np.loadtxt(input_filename)
 
-    comment = (
-        f"Halos are identified using the BN98 virial overdensity. {variations[var]}"
-    )
-    citation = f"FIREbox ({var})"
+    comment = f"Halos are identified using the BN98 virial overdensity. {variations[var]}. The halo mass follow the Bryan & Norman (1998) spherical overdensity definition."
+    citation = f"Feldmann et al. (2022, FIREbox, {var})"
     bibcode = "2022arXiv220515325F"
-    name = f"Galaxy Stellar Mass Halo Mass relation ({var})"
+    name = f"Galaxy Stellar Mass Halo Mass relation (FIREbox, {var})"
     plot_as = "line"
     redshift = 0.0
 

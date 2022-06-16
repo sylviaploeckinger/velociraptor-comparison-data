@@ -10,10 +10,9 @@ with open(sys.argv[1], "r") as handle:
     exec(handle.read())
 
 # Meta-data
-name = f"CDDF from Ho et al. (2021)"
+name = f"Column Density Distribution Function (FIREbox)"
 comment = "Curves for all redshift bins [0,6] have been fitted by eye."
-
-citation = "Feldmann et al., 2022 (FIREbox)"
+citation = "Feldmann et al. (2022, FIREbox)"
 bibcode = "2022arXiv220515325F"
 plot_as = "line"
 output_filename = "FIREbox.hdf5"

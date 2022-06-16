@@ -15,9 +15,9 @@ processed = ObservationalData()
 raw = np.loadtxt(input_filename)
 
 comment = "Includes all galaxies in the simulation."
-citation = "Feldmann et al., 2022 (FIREbox)"
+citation = "Feldmann et al. (2022, FIREbox)"
 bibcode = "2022arXiv220515325F"
-name = "Star Formation History"
+name = "Cosmic Average Stellar Mass Density (FIREbox)"
 plot_as = "line"
 
 a = raw[:, 0]
@@ -33,7 +33,7 @@ processed.associate_y(
     rhostar,
     scatter=None,
     comoving=False,
-    description="Cosmic Stellar Density",
+    description="Cosmic Stellar Mass Density",
 )
 processed.associate_citation(citation, bibcode)
 processed.associate_name(name)

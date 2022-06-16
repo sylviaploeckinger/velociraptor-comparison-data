@@ -15,9 +15,9 @@ processed = ObservationalData()
 raw = np.loadtxt(input_filename)
 
 comment = "Includes all gas in the simulation."
-citation = "Feldmann et al., 2022 (FIREbox)"
+citation = "Feldmann et al. (2022, FIREbox)"
 bibcode = "2022arXiv220515325F"
-name = "H2 History"
+name = "H2 Mass Cosmic History (FIREbox)"
 plot_as = "line"
 
 a = raw[:, 0]
@@ -33,7 +33,7 @@ processed.associate_y(
     rhoH2,
     scatter=None,
     comoving=False,
-    description="Cosmic H2 Density",
+    description="Cosmic Average H2 Mass Density",
 )
 processed.associate_citation(citation, bibcode)
 processed.associate_name(name)

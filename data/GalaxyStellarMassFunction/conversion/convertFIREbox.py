@@ -1,4 +1,7 @@
-from velociraptor.observations.objects import ObservationalData
+from velociraptor.observations.objects import (
+    ObservationalData,
+    MultiRedshiftObservationalData,
+)
 
 import unyt
 import numpy as np
@@ -11,18 +14,22 @@ with open(sys.argv[1], "r") as handle:
 
 redshift = [0, 2, 4, 6, 8, 10]
 
+comment = "Reweighted to account for cosmic variance in the halo mass function."
+citation = f"Feldmann et al. (2022, FIREbox)"
+bibcode = "2022arXiv220515325F"
+name = f"Galaxy Stellar Mass Function (FIREbox)"
+plot_as = "line"
+multi_z = MultiRedshiftObservationalData()
+multi_z.associate_citation(citation, bibcode)
+multi_z.associate_name(name)
+multi_z.associate_comment(comment)
+multi_z.associate_cosmology(cosmology)
+
 for z in redshift:
     input_filename = f"../raw/FIREbox_z{z:.0f}.txt"
 
     processed = ObservationalData()
     raw = np.loadtxt(input_filename)
-
-    comment = "Reweighted to account for cosmic variance in the halo mass function."
-    citation = f"Feldmann et al., 2022 (FIREbox)"
-    bibcode = "2022arXiv220515325F"
-    name = f"Galaxy Stellar Mass Function (FIREbox)"
-    plot_as = "line"
-    redshift = z
 
     Mstar = 10.0 ** raw[:, 0]
     SMF = 10.0 ** raw[:, 1]
@@ -38,16 +45,14 @@ for z in redshift:
         comoving=False,
         description="Galaxy Stellar Mass Function",
     )
-    processed.associate_citation(citation, bibcode)
-    processed.associate_name(name)
-    processed.associate_comment(comment)
-    processed.associate_redshift(redshift)
+    processed.associate_redshift(z)
     processed.associate_plot_as(plot_as)
-    processed.associate_cosmology(cosmology)
 
-    output_path = f"../FIREbox_z{z}.hdf5"
+    multi_z.associate_dataset(processed)
 
-    if os.path.exists(output_path):
-        os.remove(output_path)
+output_path = f"../FIREbox.hdf5"
 
-    processed.write(filename=output_path)
+if os.path.exists(output_path):
+    os.remove(output_path)
+
+multi_z.write(filename=output_path)
