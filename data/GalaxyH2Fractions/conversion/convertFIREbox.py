@@ -23,6 +23,8 @@ redshift = 0.0
 
 Mstar = 10.0 ** raw[:, 0]
 MH2 = 10.0 ** raw[:, 1]
+# add Helium correction
+MH2 *= 1.36
 H2frac = MH2 / Mstar
 Mstar = unyt.unyt_array(Mstar, units=unyt.Msun)
 H2frac = unyt.unyt_array(H2frac, units=unyt.dimensionless)
@@ -34,7 +36,7 @@ processed.associate_y(
     H2frac,
     scatter=None,
     comoving=False,
-    description="Galaxy H2 mass fraction (10 kpc aperture)",
+    description="Galaxy H2 mass fraction, corrected for Helium (10 kpc aperture)",
 )
 processed.associate_citation(citation, bibcode)
 processed.associate_name(name)
