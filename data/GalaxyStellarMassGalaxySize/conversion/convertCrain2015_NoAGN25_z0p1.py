@@ -49,7 +49,7 @@ processed.associate_y(
     median,
     scatter=deviation,
     comoving=False,
-    description="Galaxy Half-Mass Radius (30kpc 3D)",
+    description="Galaxy Half-Mass Radius (whole subhalo, 3D)",
 )
 processed.associate_citation(citation, bibcode)
 processed.associate_name(name)

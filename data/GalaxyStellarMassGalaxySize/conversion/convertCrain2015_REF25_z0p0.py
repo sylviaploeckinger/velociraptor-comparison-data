@@ -10,10 +10,10 @@ import sys
 with open(sys.argv[1], "r") as handle:
     exec(handle.read())
 
-input_filename = "../raw/Crain2015_REF25_z0p1.txt"
+input_filename = "../raw/Crain2015_REF25_z0p0.txt"
 delimiter = " "
 
-output_filename = "Crain2015_REF25_z0p1.hdf5"
+output_filename = "Crain2015_REF25_z0p0.hdf5"
 output_directory = "../"
 
 if not os.path.exists(output_directory):
@@ -30,7 +30,7 @@ citation = "Crain et al. (2015) (EAGLE REF 25 Mpc)"
 bibcode = "2015MNRAS.450.1937C"
 name = "Galaxy Stellar Mass-Galaxy Size EAGLE REF (25 Mpc)"
 plot_as = "line"
-redshift = 0.100_639
+redshift = 0.0
 h_obs = 0.7
 h = cosmology.h
 

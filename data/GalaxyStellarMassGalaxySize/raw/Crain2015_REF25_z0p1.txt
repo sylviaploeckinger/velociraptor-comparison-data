@@ -1,5 +1,5 @@
 # Stellar mass 30kpc 3D aperture - Half-mass radius (R_50) relation 
-# BoxSize= 16 Mpc z= 0.100639
+# BoxSize= 25 Mpc z= 0.100639
 # M_* [Msun] R_50 [pkpc]
 9.472987e+10 1.503754e+01
 2.097253e+10 3.130052e+00
