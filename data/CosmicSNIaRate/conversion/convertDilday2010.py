@@ -9,36 +9,37 @@ import sys
 with open(sys.argv[1], "r") as handle:
     exec(handle.read())
 
-input_filename = "../raw/Frohmaier2019.dat"
+input_filename = "../raw/Dilday2010.dat"
 
 processed = ObservationalData()
 raw = np.loadtxt(input_filename)
 
-comment = "Based on the Palomar Transient Factory survey."
-citation = "Frohmaier et al. (2019)"
-bibcode = "2019MNRAS.486.2308F"
+comment = "Based on the SDSS-II Supernova Survey."
+citation = "Dilday et al. (2010)"
+bibcode = "2010ApJ...713.1026D"
 name = "Cosmic SNIa rate"
 plot_as = "points"
 
-z = raw[0]
-ratenu = raw[1]
-sys_err_p = raw[2]
-sys_err_m = raw[3]
-stat = raw[4]
+z = raw[:, 0]
+ratenu = raw[:, 1]
+sys_err_p = raw[:, 2]
+sys_err_m = raw[:, 3]
+stat_p = raw[:, 4]
+stat_m = raw[:, 5]
 
 h = cosmology.h
 
 a = 1.0 / (1.0 + z)
-err_p = np.sqrt(sys_err_p ** 2 + stat ** 2) * (h / 0.7) ** 3
-err_m = np.sqrt(sys_err_m ** 2 + stat ** 2) * (h / 0.7) ** 3
+err_p = np.sqrt(sys_err_p ** 2 + stat_p ** 2) * (h / 0.7) ** 3
+err_m = np.sqrt(sys_err_m ** 2 + stat_m ** 2) * (h / 0.7) ** 3
 SNIa_rate = ratenu * 1.0e-5 * (h / 0.7) ** 3
 SNIa_err_m = err_m * 1.0e-5
 SNIa_err_p = err_p * 1.0e-5
 
-a = unyt.unyt_array([a], units=unyt.dimensionless)
-SNIa_rate = unyt.unyt_array([SNIa_rate], units=1.0 / (unyt.yr * unyt.Mpc ** 3))
+a = unyt.unyt_array(a, units=unyt.dimensionless)
+SNIa_rate = unyt.unyt_array(SNIa_rate, units=1.0 / (unyt.yr * unyt.Mpc ** 3))
 SNIa_scatter = unyt.unyt_array(
-    ([SNIa_err_m], [SNIa_err_p]), units=1.0 / (unyt.yr * unyt.Mpc ** 3)
+    (SNIa_err_m, SNIa_err_p), units=1.0 / (unyt.yr * unyt.Mpc ** 3)
 )
 
 processed.associate_x(
@@ -53,13 +54,13 @@ processed.associate_y(
 processed.associate_citation(citation, bibcode)
 processed.associate_name(name)
 processed.associate_comment(comment)
-zmin = 0.0
-zmax = 1000.0
-processed.associate_redshift(z, zmin, zmax)
+zmin = z.min()
+zmax = z.max()
+processed.associate_redshift(0.5 * (zmin + zmax), zmin, zmax)
 processed.associate_plot_as(plot_as)
 processed.associate_cosmology(cosmology)
 
-output_path = f"../Frohmaier2019.hdf5"
+output_path = f"../Dilday2010.hdf5"
 
 if os.path.exists(output_path):
     os.remove(output_path)
