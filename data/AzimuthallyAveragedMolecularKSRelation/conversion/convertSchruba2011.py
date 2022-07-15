@@ -77,11 +77,8 @@ processed.associate_cosmology(cosmology)
 
 output_path = f"../Schruba2011.hdf5"
 
-if os.path.exist(output_path):
+if os.path.exists(output_path):
     os.remove(output_path)
 
 processed.write(filename=output_path)
-
-
-
 
