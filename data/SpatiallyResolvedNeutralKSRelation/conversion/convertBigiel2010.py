@@ -36,59 +36,51 @@ def bin_data_general(array_x, array_y, array_x_bin, x_limit, print_stuff=False):
 with open(sys.argv[1], "r") as handle:
     exec(handle.read())
 
-input_filename = f"../raw/Bigiel2008.txt"
+input_filename = f"../raw/Bigiel2010.txt"
 
 processed = ObservationalData()
 
-comment = "Inner regions of galaxies"
-citation = "Bigiel et al. (2008)"
-bibcode = "2008AJ....136.2846B"
+comment = "Outer regions of galaxies"
+citation = "Bigiel et al. (2010)"
+bibcode = "2010AJ....140.1194B"
 name = "Spatially-resolved H2 + HI Gas Surface Density vs Star Formation Rate Surface Density"
 plot_as = "points"
 
-# Reading the bigiel 2008 data
+# Reading the bigiel 2010 data
 
 with open(input_filename) as f:
     lines = f.readlines()
 
-size_array = len(lines) - 49
+size_array = len(lines) - 46
 
-sigma_HI = -5*np.ones(size_array)
-sigma_HI_err = -5*np.ones(size_array)
-sigma_H2 = -5*np.ones(size_array)
-sigma_H2_err = -5*np.ones(size_array)
-sigma_SFR = -5*np.ones(size_array)
-sigma_SFR_err = -5*np.ones(size_array)
+sigma_HI = -5.2*np.ones(size_array)
+sigma_HI_err = -5.2*np.ones(size_array)
+sigma_SFR = 10**-0.2*np.ones(size_array)
+sigma_SFR_err = 10**-0.2*np.ones(size_array)
 
 for i in range(49, len(lines)):
     k = i - 49
-    word1 = lines[i][25:29]
-    word2 = lines[i][30:34]
-    word3 = lines[i][35:39]
-    word4 = lines[i][40:44]
-    word5 = lines[i][45:50]
-    word6 = lines[i][52:56]
-    if word1 != "    ":
+    word1 = lines[i][20:25]
+    word2 = lines[i][26:30]
+    word3 = lines[i][31:37]
+    word4 = lines[i][38:42]
+    if word1 != "     ":
         sigma_HI[k] = float(word1)
     if word2 != "    ":
         sigma_HI_err[k] = float(word2)
-    if word3 != "    ":
-        sigma_H2[k] = float(word3)
+    if word3 != "      ":
+        sigma_SFR[k] = float(word3)
     if word4 != "    ":
-        sigma_H2_err[k] = float(word4)
-    if word5 != "     ":
-        sigma_SFR[k] = float(word5)
-    if word6 != "    ":
-        sigma_SFR_err[k] = float(word6)
+        sigma_SFR_err[k] = float(word4)
 
-sigma_gas = (10**sigma_H2 + 10**sigma_HI)/1.36
+sigma_gas = 10**sigma_HI/1.36
 
 array_of_interest = np.arange(-1,3,0.25)
 minimum_surface_density = 0.4
 
 Obs_Hneutral = sigma_gas 
 
-Obs_SFR = 10**sigma_SFR
+Obs_SFR = sigma_SFR*1e-5
 
 binned_data = bin_data_general(np.log10(Obs_Hneutral), np.log10(Obs_SFR), array_of_interest, minimum_surface_density)
 
@@ -109,7 +101,7 @@ processed.associate_redshift(0.0, 0.0, 0.0)
 processed.associate_plot_as(plot_as)
 processed.associate_cosmology(cosmology)
 
-output_path = f"../Bigiel2008.hdf5"
+output_path = f"../Bigiel2010.hdf5"
 
 if os.path.exists(output_path):
     os.remove(output_path)
