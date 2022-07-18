@@ -53,7 +53,7 @@ minimum_surface_density = 0.4
 
 Sigma_H2, Sigma_H2_err, Sigma_SFR, Sigma_SFR_err = np.genfromtxt(input_filename, unpack=True)
 
-Sigma_H2 = 10**(Sigma_H2-6.)/1.36 # 1.36 is for the Helium correction
+Sigma_H2 = 10**(Sigma_H2-6.)/1.36 # a factor of 1.36 to account for heavy elements
 Sigma_SFR = 10**(Sigma_SFR) # 1.6 is for IMF correction
 
 binned_data = bin_data_general(np.log10(Sigma_H2), np.log10(Sigma_SFR), array_of_interest, minimum_surface_density)

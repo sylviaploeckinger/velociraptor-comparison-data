@@ -80,7 +80,7 @@ sigma_SFR_total[sigma_SFR_total<=0] = 1e-20
 sigma_H2_total[~np.isfinite(sigma_H2_total)] = 1e-20
 sigma_H2_total[sigma_H2_total <=0] = 1e-20
 
-Sigma_H2 = sigma_H2_total/1.36 # 1.36 is for the Helium correction
+Sigma_H2 = sigma_H2_total/1.36 # a factor of 1.36 to account for heavy elements
 Sigma_SFR = sigma_SFR_total 
 
 binned_data = bin_data_general(np.log10(Sigma_H2), np.log10(Sigma_SFR), array_of_interest, minimum_surface_density)

@@ -81,7 +81,7 @@ for i in range(49, len(lines)):
     if word6 != "    ":
         sigma_SFR_err[k] = float(word6)
 
-sigma_gas = (10**sigma_H2 + 10**sigma_HI)/1.36
+sigma_gas = (10**sigma_H2 + 10**sigma_HI)/1.36 # a factor of 1.36 to account for heavy elements
 
 array_of_interest = np.arange(-1,3,0.25)
 minimum_surface_density = 0.4

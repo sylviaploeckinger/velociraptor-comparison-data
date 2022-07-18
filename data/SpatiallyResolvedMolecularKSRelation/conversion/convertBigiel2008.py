@@ -84,7 +84,7 @@ for i in range(49, len(lines)):
 array_of_interest = np.arange(-1,3,0.25)
 minimum_surface_density = 0.4
 
-Obs_H2 = 10**sigma_H2/1.36 
+Obs_H2 = 10**sigma_H2/1.36 # a factor of 1.36 to account for heavy elements
 
 Obs_SFR = 10**sigma_SFR
 

@@ -51,8 +51,8 @@ sigma_SFR, sigma_SFR_err, sigma_HI, sigma_HI_err, sigma_H2, sigma_H2_err, qualit
 array_of_interest = np.arange(-1,3,0.25)
 minimum_surface_density = 0.0
 
-Obs_HI = (sigma_HI)/1.36
-Obs_H2 = (sigma_H2)/1.36
+Obs_HI = (sigma_HI)/1.36 # a factor of 1.36 to account for heavy elements
+Obs_H2 = (sigma_H2)/1.36 # a factor of 1.36 to account for heavy elements
 
 Obs_SFR = sigma_SFR
 
