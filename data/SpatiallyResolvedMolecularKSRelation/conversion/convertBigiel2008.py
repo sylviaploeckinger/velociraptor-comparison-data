@@ -82,7 +82,7 @@ for i in range(49, len(lines)):
         sigma_SFR_err[k] = float(word6)
 
 array_of_interest = np.arange(-1,3,0.25)
-minimum_surface_density = 0.4
+minimum_surface_density = 0.4 # This is slightly lower than their quoted senstivity but they seem to overestimate the error, this is around the limit of noise for Sigma_SFR
 
 Obs_H2 = 10**sigma_H2/1.36 # a factor of 1.36 to account for heavy elements
 

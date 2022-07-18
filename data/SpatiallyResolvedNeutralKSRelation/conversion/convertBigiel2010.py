@@ -76,7 +76,7 @@ for i in range(49, len(lines)):
 sigma_gas = 10**sigma_HI/1.36 # a factor of 1.36 to account for heavy elements
 
 array_of_interest = np.arange(-1,3,0.25)
-minimum_surface_density = 0.4
+minimum_surface_density = 0.4 #the paper quotes 0.5 Msun/pc^2, but this seems to be much more than that is possible given the Sigma_SFR cut, so the value it reaches this is around 0.4 
 
 Obs_Hneutral = sigma_gas 
 

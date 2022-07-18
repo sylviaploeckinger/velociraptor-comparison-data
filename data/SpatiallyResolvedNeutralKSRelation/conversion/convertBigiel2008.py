@@ -43,7 +43,7 @@ processed = ObservationalData()
 comment = "Inner regions of galaxies"
 citation = "Bigiel et al. (2008)"
 bibcode = "2008AJ....136.2846B"
-name = "Spatially-resolved H2 + HI Gas Surface Density vs Star Formation Rate Surface Density"
+name = "Spatially-resolved HI Gas Surface Density vs Star Formation Rate Surface Density"
 plot_as = "points"
 
 # Reading the bigiel 2008 data
@@ -84,7 +84,7 @@ for i in range(49, len(lines)):
 sigma_gas = (10**sigma_H2 + 10**sigma_HI)/1.36 # a factor of 1.36 to account for heavy elements
 
 array_of_interest = np.arange(-1,3,0.25)
-minimum_surface_density = 0.4
+minimum_surface_density = 0.2 # the paper quotes 0.5 Msun/pc^2, but this seems to be quite extreme given that the Sigma_SFR goes below the limit before that, best is to use 10^0.2 Msun/pc^2. 
 
 Obs_Hneutral = sigma_gas 
 

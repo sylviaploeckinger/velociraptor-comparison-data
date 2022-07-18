@@ -49,7 +49,7 @@ plot_as = "points"
 # Reading the Ellison 2020 data
 
 array_of_interest = np.arange(-1,3,0.25)
-minimum_surface_density = 0.4
+minimum_surface_density = 0.5 # in their paper this seems to be the limit they can observe, however they do not say anything about this
 
 Sigma_H2, Sigma_SFR = np.genfromtxt(input_filename, unpack=True)
 

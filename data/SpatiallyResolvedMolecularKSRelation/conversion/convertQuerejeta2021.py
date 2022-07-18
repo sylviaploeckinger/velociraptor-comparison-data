@@ -53,7 +53,7 @@ plot_as = "points"
 # Reading the Ellison 2020 data
 
 array_of_interest = np.arange(-1,3,0.25)
-minimum_surface_density = 0.0
+minimum_surface_density = 0.0 # This seems to be the limit in the paper, however, nothing is said about it
 
 sigma_SFR_bar, sigma_H2_bar, sigma_H2_4p3_bar, sigma_H2_N12_bar, sigma_H2_B13_bar = np.genfromtxt(input_filename1, unpack=True, usecols=(7, 9, 10, 11,12), comments="#")
 
