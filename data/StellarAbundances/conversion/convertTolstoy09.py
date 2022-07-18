@@ -31,8 +31,8 @@ for galaxy in ["Carina", "MW", "Fornax", "Sculptor", "Sagittarius"]:
     output_filename = "Tolstoy09_{0}.hdf5".format(galaxy)
 
     data = np.loadtxt(input_filename)
-    FeH = data[:, 0] # + Fe_over_H_AG89 - Fe_over_H
-    MgFe = data[:, 1] # + Mg_over_Fe_AG89 - Mg_over_Fe
+    FeH = data[:, 0]  # + Fe_over_H_AG89 - Fe_over_H
+    MgFe = data[:, 1]  # + Mg_over_Fe_AG89 - Mg_over_Fe
     x = unyt.unyt_array(FeH * unyt.dimensionless)
     y = unyt.unyt_array(MgFe * unyt.dimensionless)
 

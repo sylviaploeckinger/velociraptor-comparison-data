@@ -41,15 +41,15 @@ Mg_over_Fe_solar_Gr91 = Mg_over_H_Gr91 - Fe_over_H_Gr91
 O_over_Fe_solar_Asplund09 = O_over_H_Asplund09 - Fe_over_H_Asplund09
 Mg_over_Fe_solar_Asplund09 = Mg_over_H_Asplund09 - Fe_over_H_Asplund09
 
-element_list = np.array(['MgFe', 'OFe'])
+element_list = np.array(["MgFe", "OFe"])
 
 for element in element_list:
 
-    output_filename = "Gallazzi2021_Data_"+element+".hdf5"
-    if element == 'OFe':
+    output_filename = "Gallazzi2021_Data_" + element + ".hdf5"
+    if element == "OFe":
         correction = O_over_Fe_solar_Gr91 - O_over_Fe_solar_Asplund09
 
-    if element == 'MgFe':
+    if element == "MgFe":
         correction = Mg_over_Fe_solar_Gr91 - Mg_over_Fe_solar_Asplund09
 
     Z_median = (raw[:, 1] + correction) * unyt.dimensionless

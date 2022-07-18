@@ -16,25 +16,25 @@ output_directory = "../"
 if not os.path.exists(output_directory):
     os.mkdir(output_directory)
 
-APOGEE_data = h5py.File(input_filename, 'r')
+APOGEE_data = h5py.File(input_filename, "r")
 
-element_list = np.array(['C', 'MG', 'O', 'N', 'OH', 'OHMGFE'])
+element_list = np.array(["C", "MG", "O", "N", "OH", "OHMGFE"])
 
 for element in element_list:
 
     output_filename = "APOGEE_data_{0}.hdf5".format(element)
 
-    if element == 'OH':
-        FE_H = APOGEE_data['FE_H'][:]
-        O_FE = APOGEE_data['O_FE'][:]
+    if element == "OH":
+        FE_H = APOGEE_data["FE_H"][:]
+        O_FE = APOGEE_data["O_FE"][:]
         O_H = O_FE + FE_H
-    elif element == 'OHMGFE':
-        MG_FE = APOGEE_data['MG_FE'][:]
-        FE_H = APOGEE_data['FE_H'][:]
-        O_FE = APOGEE_data['O_FE'][:]
+    elif element == "OHMGFE":
+        MG_FE = APOGEE_data["MG_FE"][:]
+        FE_H = APOGEE_data["FE_H"][:]
+        O_FE = APOGEE_data["O_FE"][:]
         O_H = O_FE + FE_H
     else:
-        FE_H = APOGEE_data['FE_H'][:]
+        FE_H = APOGEE_data["FE_H"][:]
         el_FE = APOGEE_data[f"{element}_FE"][:]
 
     # compute COLIBRE assumed abundances ( Asplund et al. 2009 )
@@ -64,21 +64,25 @@ for element in element_list:
     N_over_Fe_GA07 = N_over_H_GA07 - Fe_over_H_GA07
 
     FE_H += Fe_over_H_GA07 - Fe_over_H
-    if element == 'O': el_FE += O_over_Fe_GA07 - O_over_Fe_AS09
-    if element == 'MG': el_FE += Mg_over_Fe_GA07 - Mg_over_Fe_AS09
-    if element == 'N': el_FE += N_over_Fe_GA07 - N_over_Fe_AS09
-    if element == 'C': el_FE += C_over_Fe_GA07 - C_over_Fe_AS09
-    if element == 'OH':
+    if element == "O":
+        el_FE += O_over_Fe_GA07 - O_over_Fe_AS09
+    if element == "MG":
+        el_FE += Mg_over_Fe_GA07 - Mg_over_Fe_AS09
+    if element == "N":
+        el_FE += N_over_Fe_GA07 - N_over_Fe_AS09
+    if element == "C":
+        el_FE += C_over_Fe_GA07 - C_over_Fe_AS09
+    if element == "OH":
         O_H += O_over_H_GA07 - O_over_H_AS09
         O_FE += O_over_Fe_GA07 - O_over_Fe_AS09
-    if element == 'OHMGFE':
+    if element == "OHMGFE":
         O_H += O_over_H_GA07 - O_over_H_AS09
         MG_FE += Mg_over_Fe_GA07 - Mg_over_Fe_AS09
 
-    if element == 'OH':
+    if element == "OH":
         x = O_H
         y = O_FE
-    elif element == 'OHMGFE':
+    elif element == "OHMGFE":
         x = O_H
         y = MG_FE
     else:
@@ -89,16 +93,14 @@ for element in element_list:
     y = unyt.unyt_array(y * unyt.dimensionless)
 
     # Meta-data
-    comment = (
-        "Solar abundances converted to Asplund et al. (2009)"
-    )
+    comment = "Solar abundances converted to Asplund et al. (2009)"
     citation = "Holtzman, J. A. et al. (2018), {0}".format(element)
     bibcode = "2018AJ....156..125H"
-    if element == 'OH':
+    if element == "OH":
         name = "[O/Fe] as a function of [O/H]".format(element)
         ylabel = "[O/Fe]"
         xlabel = "[O/H]"
-    elif element == 'OHMGFE':
+    elif element == "OHMGFE":
         name = "[Mg/Fe] as a function of [O/H]".format(element)
         ylabel = "[Mg/Fe]"
         xlabel = "[O/H]"
