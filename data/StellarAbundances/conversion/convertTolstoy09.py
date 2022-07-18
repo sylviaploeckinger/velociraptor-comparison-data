@@ -13,15 +13,17 @@ output_directory = "../"
 if not os.path.exists(output_directory):
     os.mkdir(output_directory)
 
-Fe_over_H = 12.0 - 4.5
-Mg_over_H = 12.0 - 4.4
-Mg_over_Fe = Mg_over_H - Fe_over_H
+# CC. No need to convert Tolstoy+ data to Asplund+, this has already been done when
+# preparing the raw data.
+# Fe_over_H = 12.0 - 4.5
+# Mg_over_H = 12.0 - 4.4
+# Mg_over_Fe = Mg_over_H - Fe_over_H
 
 # tabulate/compute the same ratios from Anders & Grevesse (1989)
-Fe_over_H_AG89 = 7.67
-Mg_over_H_AG89 = 7.58
+# Fe_over_H_AG89 = 7.67
+# Mg_over_H_AG89 = 7.58
 
-Mg_over_Fe_AG89 = Mg_over_H_AG89 - Fe_over_H_AG89
+# Mg_over_Fe_AG89 = Mg_over_H_AG89 - Fe_over_H_AG89
 
 for galaxy in ["Carina", "MW", "Fornax", "Sculptor", "Sagittarius"]:
     input_filename = "../raw/{0}.txt".format(galaxy)
@@ -29,8 +31,8 @@ for galaxy in ["Carina", "MW", "Fornax", "Sculptor", "Sagittarius"]:
     output_filename = "Tolstoy09_{0}.hdf5".format(galaxy)
 
     data = np.loadtxt(input_filename)
-    FeH = data[:, 0] + Fe_over_H_AG89 - Fe_over_H
-    MgFe = data[:, 1] + Mg_over_Fe_AG89 - Mg_over_Fe
+    FeH = data[:, 0] # + Fe_over_H_AG89 - Fe_over_H
+    MgFe = data[:, 1] # + Mg_over_Fe_AG89 - Mg_over_Fe
     x = unyt.unyt_array(FeH * unyt.dimensionless)
     y = unyt.unyt_array(MgFe * unyt.dimensionless)
 
