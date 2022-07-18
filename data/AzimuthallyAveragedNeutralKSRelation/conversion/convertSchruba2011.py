@@ -64,7 +64,7 @@ SigmaHneutral = unyt.unyt_array(10**binned_data[0], units="Msun/pc**2")
 
 SigmaSFR = unyt.unyt_array(10**binned_data[1], units="Msun/yr/kpc**2")
 
-SigmaSFR_err = unyt.unyt_array([10**(binned_data[1]) - 10**(binned_data[1]-binned_data[3]), 10**(binned_data[1]+binned_data[2]) -10**(binned_data[1])], units="Msun/yr/kpc**2")
+SigmaSFR_err = unyt.unyt_array([np.abs(10**(binned_data[1]) - 10**(binned_data[1]+binned_data[2])), np.abs(10**(binned_data[1]-binned_data[3]) -10**(binned_data[1]))], units="Msun/yr/kpc**2")
 
 processed.associate_x(SigmaHneutral, scatter=None, comoving=False, description="H2 + HI Surface density")
 
