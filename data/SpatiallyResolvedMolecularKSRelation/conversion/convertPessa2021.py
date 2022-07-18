@@ -46,7 +46,7 @@ bibcode = "2021A&A...650A.134P"
 name = "Spatially-resolved H2 Gas Surface Density vs Star Formation Rate Surface Density"
 plot_as = "points"
 
-# Reading the Ellison 2020 data
+# Reading the Pessa 2021 data
 
 array_of_interest = np.arange(-1,3,0.25)
 minimum_surface_density = 0.8 # This seems to be the limit of the data, nothing said in the paper

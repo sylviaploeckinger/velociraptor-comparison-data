@@ -43,7 +43,7 @@ processed = ObservationalData()
 comment = "Inner regions of galaxies"
 citation = "Bigiel et al. (2008)"
 bibcode = "2008AJ....136.2846B"
-name = "Spatially-resolved HI Gas Surface Density vs Star Formation Rate Surface Density"
+name = "Spatially-resolved HI+H2 Gas Surface Density vs Star Formation Rate Surface Density"
 plot_as = "points"
 
 # Reading the bigiel 2008 data

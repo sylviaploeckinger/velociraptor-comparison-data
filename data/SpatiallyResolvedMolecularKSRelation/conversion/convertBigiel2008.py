@@ -53,8 +53,6 @@ with open(input_filename) as f:
 
 size_array = len(lines) - 49
 
-sigma_HI = -5*np.ones(size_array)
-sigma_HI_err = -5*np.ones(size_array)
 sigma_H2 = -5*np.ones(size_array)
 sigma_H2_err = -5*np.ones(size_array)
 sigma_SFR = -5*np.ones(size_array)
@@ -68,10 +66,6 @@ for i in range(49, len(lines)):
     word4 = lines[i][40:44]
     word5 = lines[i][45:50]
     word6 = lines[i][52:56]
-    if word1 != "    ":
-        sigma_HI[k] = float(word1)
-    if word2 != "    ":
-        sigma_HI_err[k] = float(word2)
     if word3 != "    ":
         sigma_H2[k] = float(word3)
     if word4 != "    ":
@@ -90,13 +84,13 @@ Obs_SFR = 10**sigma_SFR
 
 binned_data = bin_data_general(np.log10(Obs_H2), np.log10(Obs_SFR), array_of_interest, minimum_surface_density)
 
-SigmaHneutral = unyt.unyt_array(10**binned_data[0], units="Msun/pc**2")
+SigmaH2 = unyt.unyt_array(10**binned_data[0], units="Msun/pc**2")
 
 SigmaSFR = unyt.unyt_array(10**binned_data[1], units="Msun/yr/kpc**2")
 
 SigmaSFR_err = unyt.unyt_array([np.abs(10**(binned_data[1]) - 10**(binned_data[1]-binned_data[2])), np.abs(10**(binned_data[1]+binned_data[3]) -10**(binned_data[1]))], units="Msun/yr/kpc**2")
 
-processed.associate_x(SigmaHneutral, scatter=None, comoving=False, description="H2 Surface density")
+processed.associate_x(SigmaH2, scatter=None, comoving=False, description="H2 Surface density")
 
 processed.associate_y(SigmaSFR, scatter=SigmaSFR_err, comoving=False, description="Star Formation Rate Surface Density")
 

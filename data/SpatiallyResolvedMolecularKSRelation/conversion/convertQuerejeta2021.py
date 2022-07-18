@@ -55,15 +55,15 @@ plot_as = "points"
 array_of_interest = np.arange(-1,3,0.25)
 minimum_surface_density = 0.0 # This seems to be the limit in the paper, however, nothing is said about it
 
-sigma_SFR_bar, sigma_H2_bar, sigma_H2_4p3_bar, sigma_H2_N12_bar, sigma_H2_B13_bar = np.genfromtxt(input_filename1, unpack=True, usecols=(7, 9, 10, 11,12), comments="#")
+sigma_SFR_bar, sigma_H2_bar = np.genfromtxt(input_filename1, unpack=True, usecols=(7, 9), comments="#")
 
-sigma_SFR_center, sigma_H2_center, sigma_H2_4p3_center, sigma_H2_N12_center, sigma_H2_B13_center = np.genfromtxt(input_filename2, unpack=True, usecols=(7, 9, 10, 11,12), comments="#")
+sigma_SFR_center, sigma_H2_center= np.genfromtxt(input_filename2, unpack=True, usecols=(7, 9), comments="#")
 
-sigma_SFR_disk, sigma_H2_disk, sigma_H2_4p3_disk, sigma_H2_N12_disk, sigma_H2_B13_disk = np.genfromtxt(input_filename3, unpack=True, usecols=(7, 9, 10, 11,12), comments="#")
+sigma_SFR_disk, sigma_H2_disk = np.genfromtxt(input_filename3, unpack=True, usecols=(7, 9), comments="#")
 
-sigma_SFR_interarm, sigma_H2_interarm, sigma_H2_4p3_interarm, sigma_H2_N12_interarm, sigma_H2_B13_interarm = np.genfromtxt(input_filename4, unpack=True, usecols=(7, 9, 10, 11,12), comments="#")
+sigma_SFR_interarm, sigma_H2_interarm = np.genfromtxt(input_filename4, unpack=True, usecols=(7, 9), comments="#")
 
-sigma_SFR_spiral_arms, sigma_H2_spiral_arms, sigma_H2_4p3_spiral_arms, sigma_H2_N12_spiral_arms, sigma_H2_B13_spiral_arms = np.genfromtxt(input_filename5, unpack=True, usecols=(7, 9, 10, 11,12), comments="#")
+sigma_SFR_spiral_arms, sigma_H2_spiral_arms = np.genfromtxt(input_filename5, unpack=True, usecols=(7, 9), comments="#")
 
 sigma_SFR_total = np.append(sigma_SFR_bar, sigma_SFR_center)
 sigma_SFR_total = np.append(sigma_SFR_total, sigma_SFR_disk)

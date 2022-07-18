@@ -46,12 +46,11 @@ bibcode = "2011AJ....142...37S"
 name = "azimuthally-averaged H2 Gas Surface Density vs Star Formation Rate Surface Density"
 plot_as = "points"
 
-sigma_SFR, sigma_SFR_err, sigma_HI, sigma_HI_err, sigma_H2, sigma_H2_err, quality = np.genfromtxt(input_filename, unpack=True, usecols=(3,4,5,6,7,8,10))
+sigma_SFR, sigma_SFR_err, sigma_HI, sigma_HI_err = np.genfromtxt(input_filename, unpack=True, usecols=(3,4,5,6))
 
 array_of_interest = np.arange(-1,3,0.25)
 minimum_surface_density = 0.0 # According to the paper the limit is 1 Msun/pc^2, this is still fine with the limit in Sigma_SFR.
 
-Obs_HI = (sigma_HI)/1.36 # a factor of 1.36 to account for heavy elements
 Obs_H2 = (sigma_H2)/1.36 # a factor of 1.36 to account for heavy elements
 
 Obs_SFR = sigma_SFR
