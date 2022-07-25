@@ -1,7 +1,5 @@
 # Output files, these are cosmology specific.
 data/*/*.hdf5
-# CC. One exception
-!data/*/Buder21_data.hdf5
 
 # MacOS
 .DS_Store
