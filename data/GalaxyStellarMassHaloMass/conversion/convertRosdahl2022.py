@@ -65,7 +65,7 @@ MRatio = M_star / M_halo
 citation = "Rosdahl et al. (2022)"
 bibcode = "2022arXiv220703232R"
 name = "The stellar mass-halo mass relation in SPHINX at z=6"
-plot_as = "points"
+plot_as = "line"
 redshift = 6.0
 
 # We purposely make this data show up not only a z=0 but also at higher z
