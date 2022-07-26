@@ -2,3 +2,5 @@ black
 astropy
 velociraptor
 matplotlib
+numpy
+scipy

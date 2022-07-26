@@ -27,7 +27,7 @@ jobs:
 
       # Installs required Python modules
       - name: Install Python modules
-        run: python3 -m pip install velociraptor matplotlib
+        run: python3 -m pip install -r requirements.txt
 
       # Runs the conversion script for the first time
       - name: First conversion
