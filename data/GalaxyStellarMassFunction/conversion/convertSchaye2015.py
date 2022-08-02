@@ -20,7 +20,7 @@ if not os.path.exists(output_directory):
     os.mkdir(output_directory)
 
 
-apertures = [30, 100]
+apertures = [30, 50, 100]
 box_sizes = [25, 100]
 redshifts = [0.0, 0.1, 0.3, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0]
 redshift_tags = ["0p0", "0p1", "0p3", "0p5", "1p0", "1p5", "2p0", "2p5", "3p0"]
