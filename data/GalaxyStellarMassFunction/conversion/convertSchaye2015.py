@@ -49,9 +49,9 @@ for aperture in apertures:
             M, N, sigma = np.loadtxt(raw_filename, skiprows=3, delimiter=" ").T
 
             mass = unyt.unyt_array(M, units=unyt.Solar_Mass)
-            smf = unyt.unyt_array(N, units=1 / unyt.Mpc**3)
+            smf = unyt.unyt_array(N, units=1 / unyt.Mpc ** 3)
 
-            smf_scatter = unyt.unyt_array(sigma, units=1 / unyt.Mpc**3)
+            smf_scatter = unyt.unyt_array(sigma, units=1 / unyt.Mpc ** 3)
 
             processed.associate_x(
                 mass,
