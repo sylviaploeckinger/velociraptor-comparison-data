@@ -51,9 +51,9 @@ raw_cigale = raw_cigale[sort1]
 raw_hi = raw_hi[sort1]
 raw_h2 = raw_h2[sort2]
 
-M_neut = (raw_h2[:, 1] + raw_hi[:, 9]) * (unyt.Solar_Mass) * (h_sim / h_obs) ** -2
+M_neut = (raw_h2[:, 1] + raw_hi[:, 7]) * (unyt.Solar_Mass) * (h_sim / h_obs) ** -2
 M_nerr = (
-    np.sqrt(raw_h2[:, 2] ** 2 + raw_hi[:, 10] ** 2)
+    np.sqrt(raw_h2[:, 2] ** 2 + raw_hi[:, 8] ** 2)
     * (unyt.Solar_Mass)
     * (h_sim / h_obs) ** -2
 )
