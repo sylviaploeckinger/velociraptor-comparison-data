@@ -22,28 +22,29 @@ if not os.path.exists(output_directory):
 
 # Fit directly from paper (Fig. 10).
 alpha = 1.65
-beta = -11.4
+beta = -11.81
 
-log_sigma_H2 = np.linspace(np.log10(3.0e6), 8.5)
-log_sigma_sfr = alpha * log_sigma_H2 + beta
+log_sigma_gas = np.linspace(6.5, 8.5)
+log_sigma_H2_over_sigma_HI = alpha * log_sigma_gas + beta
 
-sigma_H2 = unyt.unyt_array(
-    10 ** log_sigma_H2, units=unyt.Solar_Mass / (unyt.kpc * unyt.kpc)
+sigma_gas = unyt.unyt_array(
+    10 ** log_sigma_gas, units=unyt.Solar_Mass / (unyt.kpc * unyt.kpc)
 )
 
-sigma_sfr = unyt.unyt_array(
-    10 ** log_sigma_sfr, units=unyt.Solar_Mass / unyt.yr / (unyt.kpc * unyt.kpc)
+sigma_H2_over_sigma_HI = unyt.unyt_array(
+    10 ** log_sigma_H2_over_sigma_HI, units=unyt.dimensionless
 )
 
 # Meta-data
 comment = (
-    "Fit obtained from the paper, Equation 1 and Table 2 (see also Fig.1 )."
+    "Fit obtained from the paper, Equation 1 and Fig.10 (middle panel)."
     "Median stellar mass of their sample is log Mstar = 10.35 and "
-    "median pixel size is 0.3 kpc."
+    "median pixel size is 0.3 kpc. The total gas surface density is "
+    "Sigma_gas = 1.36 * Sigma_HI + Sigma_H2."
 )
 citation = "Abdurro'uf et al. (2022) (Fit)"
 bibcode = "2022arXiv220708382A"
-name = "Fit to the resolved molecular Kennicutt-Schmidt relation at z=0."
+name = "Fit to the resolved HI to H2 transition at z=0."
 plot_as = "line"
 redshift = 0.0
 h = h_sim  # They assume h = 0.7
@@ -51,13 +52,16 @@ h = h_sim  # They assume h = 0.7
 # Write everything
 processed = ObservationalData()
 processed.associate_x(
-    sigma_H2,
+    sigma_gas,
     scatter=None,
     comoving=False,
-    description="$\\Sigma_{\\rm H_2}$",
+    description="$\\Sigma_{\\rm gas}$",
 )
 processed.associate_y(
-    sigma_sfr, scatter=None, comoving=False, description="$\\Sigma_{\\rm SFR}$"
+    sigma_H2_over_sigma_HI,
+    scatter=None,
+    comoving=False,
+    description="$\\Sigma_{\\rm H2} / \\Sigma_{\\rm HI}$",
 )
 processed.associate_citation(citation, bibcode)
 processed.associate_name(name)
