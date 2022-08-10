@@ -20,9 +20,9 @@ if not os.path.exists(output_directory):
     os.mkdir(output_directory)
 
 
-# Fit directly from paper (Fig. 1).
-alpha = 1.28
-beta = -11.40
+# Fit directly from paper (Fig. 10).
+alpha = 1.65
+beta = -11.4
 
 log_sigma_H2 = np.linspace(np.log10(3.0e6), 8.5)
 log_sigma_sfr = alpha * log_sigma_H2 + beta
